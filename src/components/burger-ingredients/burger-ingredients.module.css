@@ -1,0 +1,32 @@
+.block {
+    padding-top: 40px;
+    width: 600px;
+    
+}
+
+.lists {
+    height: 600px;
+    overflow-y: scroll;
+}
+.lists::-webkit-scrollbar {
+    width: 8px;             
+  }
+.lists::-webkit-scrollbar-track {
+    background: #2F2F37;        
+  }
+.lists::-webkit-scrollbar-thumb {
+    background-color: #8585AD; 
+  }
+
+.nav {
+    padding: 20px 0 40px 0;
+}
+
+.list {
+    list-style-type: none;
+    margin: 0;
+    padding: 24px 0 40px 16px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 24px;
+}
