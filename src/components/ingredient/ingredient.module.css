@@ -4,6 +4,9 @@
     flex-direction: column;
     align-items: center;
     width: 272px;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
 }
 
 .price {
@@ -11,4 +14,6 @@
     align-items: center;
     gap: 8px;
     margin: 8px auto;
+    box-sizing: border-box;
 }
+  

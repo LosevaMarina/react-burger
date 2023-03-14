@@ -1,13 +1,14 @@
 import React from 'react';
-import { ConstructorElement, CurrencyIcon, Button } from '@ya.praktikum/react-developer-burger-ui-components';
+import { ConstructorElement, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import data from '../utils/data';
 import styles from './burger-constructor.module.css';
 
 function BurgerConstructor () {
   console.log(data.length);
         return (
-          <div className={styles.block}>
-            <div className={styles.element}>
+          <section className={styles.block}>
+            <ul className = {styles.listElements}>
+            <li className={styles.element}>
                 <ConstructorElement
                   type="top"
                   isLocked={true}
@@ -15,9 +16,9 @@ function BurgerConstructor () {
                   price={data[0].price}
                   thumbnail={data[0].image}
                 />            
-            </div>
-            <ul className={styles.list}>
-              {data.map((obj) => (
+            </li>
+            <div className={styles.list}>
+              {data.map((obj) => (                   
                 <li key={obj._id} className={styles.listItem}>
                   <div className={styles.points}></div>
                   <ConstructorElement
@@ -25,10 +26,10 @@ function BurgerConstructor () {
                     price={obj.price}
                     thumbnail={obj.image}
                   />     
-                </li>         
-              ))}
-            </ul>
-            <div className={styles.element}>
+                </li>   
+            ))}
+            </div>       
+            <li className={styles.element}>
             <ConstructorElement
                   type="bottom"
                   isLocked={true}
@@ -36,22 +37,21 @@ function BurgerConstructor () {
                   price={data[0].price}
                   thumbnail={data[0].image}
                 /> 
-            </div>
-            <div className={styles.sum}>
-              <p className="text text_type_digits-medium">610</p>
-              <CurrencyIcon type="primary" />
+            </li>
+           </ul>
+
+            <div className={styles.order}>
+              <div className={styles.sum}>
+                <p className="text text_type_digits-medium">610</p>
+                <div className={styles.subtract}></div>
+              </div>
               <Button htmlType="button" type="primary" size="large">
                 Оформить заказ
               </Button>
             </div>
-          </div>
+          </section>
         )
       }
-
-
-
-
-
 export default BurgerConstructor;
 
 

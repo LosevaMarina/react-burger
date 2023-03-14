@@ -11,7 +11,7 @@ function BurgerIngredients () {
     const [current, setCurrent] = React.useState('one');
 
     return (
-        <div className={styles.block}>
+        <section className={styles.block}>
             <h1 className='text text_type_main-large'>Соберите бургер</h1>
             <div style={{ display: 'flex' }} className={styles.nav}>
                 <Tab value="bun" active={current === 'bun'} onClick={setCurrent}>
@@ -51,7 +51,7 @@ function BurgerIngredients () {
                 })}
             </ul>    
             </div>
-      </div>
+      </section>
 
     )
 }

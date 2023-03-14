@@ -1,14 +1,28 @@
 .block {
-    margin-top: 100px;
+    padding-top: 100px;
+    padding-left: 16px;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    margin: 0;
 }
+
+.listElements {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
 .element {
-    padding: 0 0 16px 32px;
+    padding: 0 16px 0 32px;
 }
 
 .list {
-    margin: 0 0 16px 0;
+    margin: 0;
     padding: 0 8px 0 5.5px;
-    list-style-type: none;
     display: flex;
     flex-direction: column;
     gap: 16px;
@@ -40,7 +54,24 @@
     height: 18.31px;
 }
 
-.sum {
+.order {
+    margin-top: 40px;
     display: flex;
     align-items: center;
+    justify-content: flex-end;
+    gap: 40px;
+}
+
+.sum {
+    display: flex;
+    gap: 9.5px;
+    align-items: center;
+}
+
+.subtract {
+    background-image: url('../../images/Subtract.svg');
+    background-repeat: no-repeat;
+    background-position: center;  
+    width: 33px;
+    height: 33px;
 }
