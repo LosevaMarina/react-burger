@@ -1,3 +1,46 @@
 .block {
     margin-top: 100px;
 }
+.element {
+    padding: 0 0 16px 32px;
+}
+
+.list {
+    margin: 0 0 16px 0;
+    padding: 0 8px 0 5.5px;
+    list-style-type: none;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    height: 464px;
+    overflow-y: scroll;
+}
+.list::-webkit-scrollbar {
+    width: 8px;             
+  }
+.list::-webkit-scrollbar-track {
+    background: #2F2F37;        
+  }
+.list::-webkit-scrollbar-thumb {
+    background-color: #8585AD; 
+  }
+
+.listItem {
+    display: flex;
+    align-items: center;
+    gap: 13.5px;
+
+}
+
+.points {
+    background-image: url('../../images/Vector.svg');
+    background-repeat: no-repeat;
+    background-position: center;  
+    width: 13px;
+    height: 18.31px;
+}
+
+.sum {
+    display: flex;
+    align-items: center;
+}
