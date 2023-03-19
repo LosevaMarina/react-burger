@@ -4,7 +4,6 @@ import data from '../utils/data';
 import styles from './burger-constructor.module.css';
 
 function BurgerConstructor () {
-  console.log(data.length);
         return (
           <section className={styles.block}>
             <ul className = {styles.listElements}>
@@ -12,7 +11,7 @@ function BurgerConstructor () {
                 <ConstructorElement
                   type="top"
                   isLocked={true}
-                  text={data[0].name}
+                  text="Краторная булка N-200i (верх)"
                   price={data[0].price}
                   thumbnail={data[0].image}
                 />            
@@ -33,7 +32,7 @@ function BurgerConstructor () {
             <ConstructorElement
                   type="bottom"
                   isLocked={true}
-                  text={data[0].name}
+                  text="Краторная булка N-200i (низ)"
                   price={data[0].price}
                   thumbnail={data[0].image}
                 /> 

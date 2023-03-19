@@ -8,7 +8,7 @@ import styles from './burger-ingredients.module.css';
 
 function BurgerIngredients () {
 
-    const [current, setCurrent] = React.useState('one');
+    const [current, setCurrent] = React.useState('');
 
     return (
         <section className={styles.block}>
