@@ -1,9 +1,8 @@
 import React from 'react';
 import AppHeader from '../app-header/app-header';
-import Main from '../main/main';
-import BurgerIngredients from '../burger-ingredients/burger-ingredients.js';
+import styles from '../app/app.module.css';
+import BurgerIngredients from '../burger-ingredients/burger-ingredients';
 import BurgerConstructor from '../burger-constructor/burger-constructor';
-
 
 
 function App() {
@@ -23,13 +22,15 @@ function App() {
     }
     fetchArr();
   }, []);
-  console.log (state);
 
 
   return (
     <>
       <AppHeader />
-      <Main />
+      <main className={ styles.main }>
+      <BurgerIngredients state={state}/>
+      <BurgerConstructor state={state}/>
+    </main>
     </>
   );
 }

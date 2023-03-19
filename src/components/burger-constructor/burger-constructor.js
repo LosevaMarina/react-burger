@@ -3,7 +3,7 @@ import { ConstructorElement, Button } from '@ya.praktikum/react-developer-burger
 import data from '../utils/data';
 import styles from './burger-constructor.module.css';
 
-function BurgerConstructor () {
+function BurgerConstructor ({state}) {
         return (
           <section className={styles.block}>
             <ul className = {styles.listElements}>
@@ -12,12 +12,12 @@ function BurgerConstructor () {
                   type="top"
                   isLocked={true}
                   text="Краторная булка N-200i (верх)"
-                  price={data[0].price}
-                  thumbnail={data[0].image}
+                  price={state[0].price}
+                  thumbnail={state[0].image}
                 />            
             </li>
             <div className={styles.list}>
-              {data.map((obj) => (                   
+              {state.map((obj) => (                   
                 <li key={obj._id} className={styles.listItem}>
                   <div className={styles.points}></div>
                   <ConstructorElement
@@ -33,8 +33,8 @@ function BurgerConstructor () {
                   type="bottom"
                   isLocked={true}
                   text="Краторная булка N-200i (низ)"
-                  price={data[0].price}
-                  thumbnail={data[0].image}
+                  price={state[0].price}
+                  thumbnail={state[0].image}
                 /> 
             </li>
            </ul>
