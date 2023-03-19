@@ -12,8 +12,7 @@ function BurgerConstructor ({state}) {
                   type="top"
                   isLocked={true}
                   text="Краторная булка N-200i (верх)"
-                  price={state[0].price}
-                  thumbnail={state[0].image}
+                  price="12220"
                 />            
             </li>
             <div className={styles.list}>
@@ -33,8 +32,7 @@ function BurgerConstructor ({state}) {
                   type="bottom"
                   isLocked={true}
                   text="Краторная булка N-200i (низ)"
-                  price={state[0].price}
-                  thumbnail={state[0].image}
+                  price="15421"
                 /> 
             </li>
            </ul>
