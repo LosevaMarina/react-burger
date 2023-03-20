@@ -1,0 +1,10 @@
+  .modalOverlay {
+
+    position: fixed;
+    width: 720px;
+    background: red;
+    border-radius: 40px;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 40px;
+  }
