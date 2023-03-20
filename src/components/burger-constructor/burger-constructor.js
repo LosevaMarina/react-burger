@@ -1,6 +1,5 @@
 import React, { useEffect  } from "react";
 import { ConstructorElement, Button } from '@ya.praktikum/react-developer-burger-ui-components';
-import ModalOverlay from '../modal-overlay/modal-overlay';
 import data from '../utils/data';
 import styles from './burger-constructor.module.css';
 import OrderDetails from "../order-details/order-details";
@@ -9,11 +8,11 @@ import Modal from '../modal/modal';
 
 const BurgerConstructor = ({state}) => {
   
-  const [modalActive, setModalActive] = React.useState (true);
+  const [modalActive, setModalActive] = React.useState (false);
 
-  const openModal = () => {
+ {/*} const openModal = () => {
     setModalActive(true);
-  }
+  }*/}
 
   const closeModal = () => {
     setModalActive(false);
@@ -32,16 +31,35 @@ const BurgerConstructor = ({state}) => {
     }
   }, [])
 
+  const topBun = state.map((obj) => { 
+    return (
+      <ConstructorElement
+        type="top"
+        isLocked={true}
+        text={`${obj.name} (верх)`}
+        price={obj.price}
+        thumbnail={obj.image}
+        />    
+    )}
+  )
+
+  const bottomBun = state.map((obj) => { 
+    return (
+      <ConstructorElement
+        type="bottom"
+        isLocked={true}
+        text={`${obj.name} (низ)`}
+        price={obj.price}
+        thumbnail={obj.image}
+        />    
+    )}
+  )
+  
         return (
           <section className={styles.block}>
             <ul className = {styles.listElements}>
             <li className={styles.element}>
-                <ConstructorElement
-                  type="top"
-                  isLocked={true}
-                  text="Краторная булка N-200i (верх)"
-                  price="12220"
-                />            
+               {topBun[0]}        
             </li>
             <div className={styles.list}>
               {state.map((obj) => (                   
@@ -56,12 +74,7 @@ const BurgerConstructor = ({state}) => {
             ))}
             </div>       
             <li className={styles.element}>
-            <ConstructorElement
-                  type="bottom"
-                  isLocked={true}
-                  text="Краторная булка N-200i (низ)"
-                  price="15421"
-                /> 
+                {bottomBun[0]}
             </li>
            </ul>
 

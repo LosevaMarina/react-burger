@@ -8,15 +8,15 @@
   
   function Modal(props) {
     const { openModal, onClose } = props;  
-    const containerRef = useRef(document.createElement('div'));
-    const container = containerRef.current;
+    const element = React.useMemo(() => document.createElement("div"), []);
+
 
 
     useEffect(() => {
       if (openModal) {
-        document.body.appendChild(container);
+        document.body.appendChild(element);
         return () => {
-            document.body.removeChild(container);
+            document.body.removeChild(element);
         };
       }
     });
@@ -28,14 +28,17 @@
           onClick={onClose}
           style={{ overflow: "hidden" }}
         >
+          
           <ModalOverlay>
-            <button className={styles.buttonClose} type="button" onClick={onClose}>
+          <div className={styles.content}>
+          <button className={styles.buttonClose} type="button" onClick={onClose}>
               <CloseIcon type="primary" />
             </button>
             {props.children}
+            </div>
           </ModalOverlay>      
         </div>,
-        container
+        element
       );
     }
     return null;
