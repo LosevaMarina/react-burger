@@ -1,9 +1,7 @@
-  .modalOverlay {
-  
-    position: relative;
-    width: 100%;
-    position: relative;
-    box-sizing: border-box;
-    margin: 0;
+.modalOverlay {
+  position: relative;
+  width: 100%;
+  box-sizing: border-box;
+  margin: 0;
   height: fit-content;
-  }
+}
