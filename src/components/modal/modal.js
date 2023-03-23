@@ -23,7 +23,7 @@ const Modal = (props) => {
     }
   }, [])
 
-  return createPortal(
+ return createPortal(
     <>
       <div className={styles.content}>
         <button className={styles.buttonClose} onClick={props.closeModal}>
@@ -34,7 +34,10 @@ const Modal = (props) => {
       <ModalOverlay closeModal={props.closeModal} />
     </>, document.getElementById("modals")
   );
+
 }
+
+
 
 
 Modal.propTypes = {

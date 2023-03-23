@@ -5,7 +5,7 @@ import styles from "../modal-overlay/modal-overlay";
 const ModalOverlay = (props) => {
 
   return (
-    <div className={styles.overlay} onClick={props.closeModal} >
+    <div className={styles.modalOverlay} onClick={props.closeModal} >
     </div>
   )
 }

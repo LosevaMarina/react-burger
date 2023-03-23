@@ -3,10 +3,10 @@
   border-radius: 40px;
   background-color: #1C1C21;
   position: absolute;
-  z-index: 2;
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);

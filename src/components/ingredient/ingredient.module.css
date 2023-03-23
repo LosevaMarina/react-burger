@@ -16,3 +16,7 @@
   margin: 8px auto;
   box-sizing: border-box;
 }
+
+.ingredientTitle {
+  text-align: center;
+}

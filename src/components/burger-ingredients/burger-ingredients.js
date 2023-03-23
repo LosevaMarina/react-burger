@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState, useMemo } from "react";
 import PropTypes from "prop-types";
 import {PropTypeingredients} from '../utils/data';
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
@@ -11,7 +11,7 @@ import styles from "./burger-ingredients.module.css";
 const BurgerIngredients = (props) => {
   const [current, setCurrent] = useState("");
   const [modalActive, setModalActive] = useState(false);
-  const [element, setElement] = useState([]);
+  const [element, setElement] = useState('');
 
   const openModal = (obj) => {
     setModalActive(true);
@@ -22,9 +22,29 @@ const BurgerIngredients = (props) => {
   const closeModal = () => {
     setModalActive(false);
   };
+  const buns = useMemo(
+    () => props.ingredients.filter((item) => item.type === "bun").map((item) => item),
+    [props.ingredients]
+  );
+  const sauces = useMemo(
+    () => props.ingredients.filter((item) => item.type === "sauce").map((item) => item),
+    [props.ingredients]
+  );
+
+  const mains = useMemo(
+    () => props.ingredients.filter((item) => item.type === "main").map((item) => item),
+    [props.ingredients]
+  );
+
+
 
   return (
     <section className={styles.block}>
+      {modalActive &&
+        <Modal closeModal={closeModal}>
+          <IngredientDetails ingredient={element} />
+        </Modal>
+      }
       <h1 className="text text_type_main-large">Соберите бургер</h1>
       <div style={{ display: "flex" }} className={styles.nav}>
         <Tab value="bun" active={current === "bun"} onClick={setCurrent}>
@@ -41,45 +61,39 @@ const BurgerIngredients = (props) => {
       <div className={styles.lists}>
         <h2 className="text text_type_main-medium">Булки</h2>
         <ul className={styles.list}>
-          {props.ingredients.map((obj) => {
-            if (obj.type === "bun") {
-              return (
-                <Ingredient
-                  key={obj._id}
-                  {...obj}
-                  onClick={() => openModal(obj)}
-                />
-              );
-            }
-          })}
+        {buns.map((obj) => (
+            <Ingredient
+              key={obj._id}
+              name={obj.name}
+              image={obj.image}
+              price={obj.price}
+              openModal={() => openModal(obj)} 
+            />
+          ))}
         </ul>
         <h2 className="text text_type_main-medium">Соусы</h2>
         <ul className={styles.list}>
-          {props.ingredients.map((obj) => {
-            if (obj.type === "sauce") {
-              return (
-                <Ingredient
-                  key={obj._id}
-                  {...obj}
-                  onClick={() => openModal(obj)}
-                />
-              );
-            }
-          })}
+        {sauces.map((obj) => (
+            <Ingredient
+              key={obj._id}
+              name={obj.name}
+              image={obj.image}
+              price={obj.price}
+              openModal={() => openModal(obj)} 
+            />
+          ))}
         </ul>
         <h2 className="text text_type_main-medium">Начинки</h2>
         <ul className={styles.list}>
-          {props.ingredients.map((obj) => {
-            if (obj.type === "main") {
-              return (
-                <Ingredient
-                  key={obj._id}
-                  {...obj}
-                  onClick={() => openModal(obj)}
-                />
-              );
-            }
-          })}
+        {mains.map((obj) => (
+            <Ingredient
+              key={obj._id}
+              name={obj.name}
+              image={obj.image}
+              price={obj.price}
+              openModal={() => openModal(obj)} 
+            />
+          ))}
         </ul>
       </div>
     </section>
