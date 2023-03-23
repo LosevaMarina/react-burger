@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useState } from "react";
 import {
   ConstructorElement,
   Button,
@@ -10,7 +10,7 @@ import {PropTypeingredients} from '../utils/data';
 import Modal from "../modal/modal";
 
 const BurgerConstructor = (props) => {
-  const [modalActive, setModalActive] = React.useState(false);
+ const [modalActive, setModalActive] = useState(false);
 
   const openModal = () => {
     setModalActive(true);
@@ -18,7 +18,9 @@ const BurgerConstructor = (props) => {
 
   const closeModal = () => {
     setModalActive(false);
-  };
+  }
+
+
 
   const topBun = props.ingredients.map((obj) => {
     return (
@@ -46,6 +48,12 @@ const BurgerConstructor = (props) => {
 
   return (
     <section className={styles.block}>
+      
+      {modalActive &&
+        <Modal closeModal={closeModal}>
+          <OrderDetails />
+        </Modal>
+      }
       <ul className={styles.listElements}>
         <li className={styles.element}>{topBun[0]}</li>
         <div className={styles.list}>
@@ -68,14 +76,7 @@ const BurgerConstructor = (props) => {
           <p className="text text_type_digits-medium">610</p>
           <div className={styles.subtract}></div>
         </div>
-        {/* <Button htmlType="button" type="primary" size="large" onClick={openModal}>*/}
-
-        <Button
-          htmlType="button"
-          type="primary"
-          size="large"
-          onClick={() => setModalActive(true)}
-        >
+        <Button htmlType="button" type="primary" size="large" onClick={openModal}>
           Оформить заказ
         </Button>
       </div>
