@@ -10,6 +10,7 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  z-index: 2;
 }
 
 .buttonClose {
@@ -20,4 +21,18 @@
   position: absolute;
   top: 60px;
   right: 40px;
+}
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.6);
+  overflow: hidden;
+  transition: .5s;
+  height: fit-content;
 }
