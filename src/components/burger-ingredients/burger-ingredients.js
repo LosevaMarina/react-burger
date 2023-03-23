@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import PropTypes from "prop-types";
+import {PropTypeingredients} from '../utils/data';
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 
 import Ingredient from "../ingredient/ingredient";
@@ -7,7 +8,7 @@ import IngredientDetails from "../ingredient-details/ingredient-details";
 import Modal from "../modal/modal";
 import styles from "./burger-ingredients.module.css";
 
-const BurgerIngredients = ({ state }) => {
+const BurgerIngredients = (props) => {
   const [current, setCurrent] = useState("");
   const [modalActive, setModalActive] = useState(false);
   const [element, setElement] = useState([]);
@@ -21,19 +22,6 @@ const BurgerIngredients = ({ state }) => {
   const closeModal = () => {
     setModalActive(false);
   };
-
-  const closeModalESC = (e) => {
-    if (e.key === "Escape") {
-      setModalActive(false);
-    }
-  };
-
-  useEffect(() => {
-    document.body.addEventListener("keydown", closeModalESC);
-    return () => {
-      document.body.removeEventListener("keydown", closeModalESC);
-    };
-  }, []);
 
   return (
     <section className={styles.block}>
@@ -53,7 +41,7 @@ const BurgerIngredients = ({ state }) => {
       <div className={styles.lists}>
         <h2 className="text text_type_main-medium">Булки</h2>
         <ul className={styles.list}>
-          {state.map((obj) => {
+          {props.ingredients.map((obj) => {
             if (obj.type === "bun") {
               return (
                 <Ingredient
@@ -67,7 +55,7 @@ const BurgerIngredients = ({ state }) => {
         </ul>
         <h2 className="text text_type_main-medium">Соусы</h2>
         <ul className={styles.list}>
-          {state.map((obj) => {
+          {props.ingredients.map((obj) => {
             if (obj.type === "sauce") {
               return (
                 <Ingredient
@@ -81,7 +69,7 @@ const BurgerIngredients = ({ state }) => {
         </ul>
         <h2 className="text text_type_main-medium">Начинки</h2>
         <ul className={styles.list}>
-          {state.map((obj) => {
+          {props.ingredients.map((obj) => {
             if (obj.type === "main") {
               return (
                 <Ingredient
@@ -94,15 +82,12 @@ const BurgerIngredients = ({ state }) => {
           })}
         </ul>
       </div>
-      <Modal openModal={modalActive} onClose={closeModal}>
-        <IngredientDetails state={element} />
-      </Modal>
     </section>
   );
 };
 
 BurgerIngredients.propTypes = {
-  state: PropTypes.array.isRequired,
+  ingredients: PropTypes.arrayOf(PropTypeingredients).isRequired,
 };
 
 export default BurgerIngredients;

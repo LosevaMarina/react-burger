@@ -6,7 +6,7 @@ import BurgerConstructor from '../burger-constructor/burger-constructor';
 
 
 function App() {
-  const [state, setState] = React.useState([]);
+  const [ingredients, setIngredients] = React.useState([]);
 
   React.useEffect(() => {
     async function fetchArr() {
@@ -15,9 +15,9 @@ function App() {
           if (res.ok) {
             return res.json();
           }
-          return Promise.reject(`ВНИМАНИЕ, ТЫ ОШИБЛАСЬ ${res.status}`);
+          return Promise.reject(`Ошибка ${res.status}`);
         })
-        .then((data) => setState(data.data))
+        .then((data) => setIngredients(data.data))
         .catch((err) => console.log(err));
     }
     fetchArr();
@@ -28,8 +28,8 @@ function App() {
     <>
       <AppHeader />
       <main className={ styles.main }>
-      <BurgerIngredients state={state}/>
-      <BurgerConstructor state={state}/>
+      <BurgerIngredients ingredients={ingredients}/>
+      <BurgerConstructor ingredients={ingredients}/>
     </main>
     </>
   );

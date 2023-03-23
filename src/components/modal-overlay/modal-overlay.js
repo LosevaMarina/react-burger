@@ -1,11 +1,11 @@
 import styles from "../modal-overlay/modal-overlay";
 
-const ModalOverlay = (props) => {
+function ModalOverlay({ onClick, children }) {
   return (
-    <div className={styles.modalOverlay} onClick={(e) => e.stopPropagation()}>
-      {props.children}
+    <div className={styles.overlay} onClick={onClick}>
+      {children}
     </div>
   );
-};
+}
 
 export default ModalOverlay;

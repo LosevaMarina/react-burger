@@ -6,35 +6,21 @@ import {
 import styles from "./burger-constructor.module.css";
 import OrderDetails from "../order-details/order-details";
 import PropTypes from "prop-types";
+import {PropTypeingredients} from '../utils/data';
 import Modal from "../modal/modal";
 
-const BurgerConstructor = ({ state }) => {
+const BurgerConstructor = (props) => {
   const [modalActive, setModalActive] = React.useState(false);
 
-  {
-    /*} const openModal = () => {
+  const openModal = () => {
     setModalActive(true);
-  }*/
   }
 
   const closeModal = () => {
     setModalActive(false);
   };
 
-  const closeModalESC = (e) => {
-    if (e.key === "Escape") {
-      setModalActive(false);
-    }
-  };
-
-  useEffect(() => {
-    document.body.addEventListener("keydown", closeModalESC);
-    return () => {
-      document.body.removeEventListener("keydown", closeModalESC);
-    };
-  }, []);
-
-  const topBun = state.map((obj) => {
+  const topBun = props.ingredients.map((obj) => {
     return (
       <ConstructorElement
         type="top"
@@ -46,7 +32,7 @@ const BurgerConstructor = ({ state }) => {
     );
   });
 
-  const bottomBun = state.map((obj) => {
+  const bottomBun = props.ingredients.map((obj) => {
     return (
       <ConstructorElement
         type="bottom"
@@ -63,7 +49,7 @@ const BurgerConstructor = ({ state }) => {
       <ul className={styles.listElements}>
         <li className={styles.element}>{topBun[0]}</li>
         <div className={styles.list}>
-          {state.map((obj) => (
+          {props.ingredients.map((obj) => (
             <li key={obj._id} className={styles.listItem}>
               <div className={styles.points}></div>
               <ConstructorElement
@@ -93,15 +79,13 @@ const BurgerConstructor = ({ state }) => {
           Оформить заказ
         </Button>
       </div>
-      <Modal openModal={modalActive} onClose={closeModal}>
-        <OrderDetails />
-      </Modal>
+
     </section>
   );
 };
 
 BurgerConstructor.propTypes = {
-  state: PropTypes.array.isRequired,
+  ingredients: PropTypes.arrayOf(PropTypeingredients).isRequired,
 };
 
 export default BurgerConstructor;
