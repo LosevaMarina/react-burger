@@ -1,17 +1,20 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useContext } from "react";
 import PropTypes from "prop-types";
 import {PropTypeingredients} from '../utils/data';
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
-
+import { ingredientsContext } from '../services/ingredientsContext';
 import Ingredient from "../ingredient/ingredient";
 import IngredientDetails from "../ingredient-details/ingredient-details";
 import Modal from "../modal/modal";
 import styles from "./burger-ingredients.module.css";
 
-const BurgerIngredients = (props) => {
-  const [current, setCurrent] = useState("");
+const BurgerIngredients = () => {
+  const [current, setCurrent] = useState('');
   const [modalActive, setModalActive] = useState(false);
   const [element, setElement] = useState('');
+  const { ingredients } = useContext(ingredientsContext)
+
+
 
   const openModal = (obj) => {
     setModalActive(true);
@@ -23,17 +26,17 @@ const BurgerIngredients = (props) => {
     setModalActive(false);
   };
   const buns = useMemo(
-    () => props.ingredients.filter((item) => item.type === "bun").map((item) => item),
-    [props.ingredients]
+    () => ingredients.filter((item) => item.type === "bun").map((item) => item),
+    [ingredients]
   );
   const sauces = useMemo(
-    () => props.ingredients.filter((item) => item.type === "sauce").map((item) => item),
-    [props.ingredients]
+    () => ingredients.filter((item) => item.type === "sauce").map((item) => item),
+    [ingredients]
   );
 
   const mains = useMemo(
-    () => props.ingredients.filter((item) => item.type === "main").map((item) => item),
-    [props.ingredients]
+    () => ingredients.filter((item) => item.type === "main").map((item) => item),
+    [ingredients]
   );
 
 

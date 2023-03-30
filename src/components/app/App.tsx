@@ -1,16 +1,17 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import AppHeader from '../app-header/app-header';
 import styles from '../app/app.module.css';
-import BurgerIngredients from '../burger-ingredients/burger-ingredients';
+//import BurgerIngredients from '../burger-ingredients/burger-ingredients';
 import BurgerConstructor from '../burger-constructor/burger-constructor';
-
+import {IngredientsContext} from '../services/ingredientsContext';
+import {API_URL} from '../utils/config';
 
 function App() {
-  const [ingredients, setIngredients] = React.useState([]);
+  const [ingredients, setIngredients] = useState([]);
 
-  React.useEffect(() => {
+  useEffect(() => {
     async function fetchArr() {
-      return await fetch('https://norma.nomoreparties.space/api/ingredients')
+      return await fetch(`${API_URL}/ingredients`)
         .then((res) => {
           if (res.ok) {
             return res.json();
@@ -27,14 +28,18 @@ function App() {
   return (
     <>
       <AppHeader />
+      <IngredientsContext.Provider value={{ ingredients }}>
       <main className={ styles.main }>
-      <BurgerIngredients ingredients={ingredients}/>
-      <BurgerConstructor ingredients={ingredients}/>
+        {(ingredients.length>0 && (
+          <>
+      <BurgerIngredients />
+      <BurgerConstructor />
+      </>
+      )) || <h1>Нет данных</h1>}
     </main>
+    </IngredientsContext.Provider>
     </>
-  );
-
-  
+  );  
 }
 
 
