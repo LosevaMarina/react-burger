@@ -11,9 +11,9 @@ import {
 import styles from "./burger-constructor.module.css";
 import OrderDetails from "../order-details/order-details";
 import Modal from "../modal/modal";
-import { IngredientsContext } from "../services/ingredientsContext";
-import { API_URL } from "../utils/config";
-import { request } from "../utils/utils";
+import { IngredientsContext } from "../../services/ingredientsContext";
+import { API_URL } from "../../utils/config";
+import { request } from "../../utils/utils";
 
 const BurgerConstructor = () => {
   const [modalActive, setModalActive] = useState(false);

@@ -1,6 +1,6 @@
 import { useState, useMemo, useContext } from "react";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
-import { IngredientsContext } from '../services/ingredientsContext';
+import { IngredientsContext } from '../../services/ingredientsContext';
 import Ingredient from "../ingredient/ingredient";
 import IngredientDetails from "../ingredient-details/ingredient-details";
 import Modal from "../modal/modal";
