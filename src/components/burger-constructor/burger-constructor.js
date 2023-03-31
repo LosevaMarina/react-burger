@@ -54,9 +54,34 @@ const otherIngredients = ingredients.filter((item) => {
     })
   }
 
+// начальное значение стейта
+  const initialState = { count: 0 };
 
+  // функция-редьюсер
+// изменяет состояния в зависимости от типа переданного action
+  function reducer(state, action) {
+    switch (action.type) {
+      case 'calculate':
+        return {
+          count:
+            otherIngredients.reduce((accumulator, currentValue) => 
+              accumulator + currentValue.price, 0) + bunIngredients.reduce((accumulator, currentValue) => 
+              accumulator + currentValue.price, 0),
+        }
+      default:
+        throw new Error(`Wrong type of action: ${action.type}`)
+    }
+  }
 
   
+  const [state, dispatch] = useReducer(reducer, initialState);
+
+  useEffect(() => {
+  // при вызове dispatch достаточно указать тип действия
+  dispatch({ type: 'calculate' })
+}, [ingredients])
+
+
   return (
     <section className={styles.block}>
       
@@ -102,7 +127,7 @@ const otherIngredients = ingredients.filter((item) => {
       </ul>
       <div className={styles.order}>
         <div className={styles.sum}>
-          <p className="text text_type_digits-medium">610</p>
+          <p className="text text_type_digits-medium">{state.count}</p>
           <div className={styles.subtract}></div>
         </div>
         <Button htmlType="button" type="primary" size="large" onClick={onClick}>
@@ -113,7 +138,5 @@ const otherIngredients = ingredients.filter((item) => {
     </section>
   );
 };
-
-
 
 export default BurgerConstructor;
