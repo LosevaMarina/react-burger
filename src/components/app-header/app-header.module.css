@@ -1,33 +1,33 @@
 .header {
-    background-color: #1C1C21;
-    width: 100%;
-    margin: 0 auto;
-    padding: 16px 0;
-    box-sizing: border-box;
+  background-color: #1c1c21;
+  width: 100%;
+  margin: 0 auto;
+  padding: 16px 0;
+  box-sizing: border-box;
 }
 
 .content {
-    margin: 0 auto;
-    max-width: 1280px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+  margin: 0 auto;
+  max-width: 1280px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .navigator {
-    margin: 0;
-    display: flex;
-    gap: 8px;
+  margin: 0;
+  display: flex;
+  gap: 8px;
 }
 
 .link {
-    margin: 16px 20px;
-    display: flex;
-    gap: 8px;
-    align-items: center;
-    box-sizing: border-box;
+  margin: 16px 20px;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  box-sizing: border-box;
 }
 
 .logo {
-    margin-right: 112px;
-} 
+  margin-right: 112px;
+}

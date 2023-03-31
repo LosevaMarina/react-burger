@@ -1,9 +1,4 @@
-import React, {
-  useState,
-  useContext,
-  useReducer,
-  useEffect,
-} from "react";
+import React, { useState, useContext, useReducer, useEffect } from "react";
 import {
   ConstructorElement,
   Button,
