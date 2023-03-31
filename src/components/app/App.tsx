@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import AppHeader from '../app-header/app-header';
 import styles from '../app/app.module.css';
-//import BurgerIngredients from '../burger-ingredients/burger-ingredients';
+import BurgerIngredients from '../burger-ingredients/burger-ingredients';
 import BurgerConstructor from '../burger-constructor/burger-constructor';
 import {IngredientsContext} from '../services/ingredientsContext';
 import {API_URL} from '../utils/config';

@@ -2,6 +2,7 @@ import React, { useState, useContext, useMemo, useReducer, useEffect } from "rea
 import {
   ConstructorElement,
   Button,
+  DragIcon
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./burger-constructor.module.css";
 import OrderDetails from "../order-details/order-details";
@@ -17,17 +18,12 @@ const BurgerConstructor = () => {
  const { ingredients } = useContext(IngredientsContext);
  const [orderDetails, setOrderDetails] = useState({})
 
-
- {/*const bunIngredients = useMemo(() => {
-  return ingredients.find((ingredient) => ingredient.type === 'bun')
-}, [ingredients]);
-
-const otherIngredients = useMemo(() => {
-  return ingredients.find((ingredient) => ingredient.type !== 'bun')
-}, [ingredients]);
-*/}
-
-
+const bunIngredients = ingredients.filter((item) => {
+  return item.type === "bun";
+});
+const otherIngredients = ingredients.filter((item) => {
+  return item.type !== "bun";
+});
 
   const openModal = () => {
     setModalActive(true);
@@ -60,30 +56,7 @@ const otherIngredients = useMemo(() => {
 
 
 
-  const topBun = ingredients.map((obj) => {
-    return (
-      <ConstructorElement
-        type="top"
-        isLocked={true}
-        text={`${obj.name} (верх)`}
-        price={obj.price}
-        thumbnail={obj.image}
-      />
-    );
-  });
-
-  const bottomBun = ingredients.map((obj) => {
-    return (
-      <ConstructorElement
-        type="bottom"
-        isLocked={true}
-        text={`${obj.name} (низ)`}
-        price={obj.price}
-        thumbnail={obj.image}
-      />
-    );
-  });
-
+  
   return (
     <section className={styles.block}>
       
@@ -92,23 +65,41 @@ const otherIngredients = useMemo(() => {
           <OrderDetails />
         </Modal>
       }
-      <ul className={styles.listElements}>
-        <li className={styles.element}>{topBun[0]}</li>
+
+    <ul className={styles.listElements}>
+        <li className={styles.element}>
+        <ConstructorElement
+        type="top"
+        key={bunIngredients[0]._id}
+        isLocked={true}
+        text={`${bunIngredients[0].name} (верх)`}
+        price={bunIngredients[0].price}
+        thumbnail={bunIngredients[0].image}
+      />
+        </li>
         <div className={styles.list}>
-          {ingredients.map((obj) => (
-            <li key={obj._id} className={styles.listItem}>
+          {otherIngredients.map((ingredient) => (
+            <li key={ingredient._id} className={styles.listItem}>
               <div className={styles.points}></div>
               <ConstructorElement
-                text={obj.name}
-                price={obj.price}
-                thumbnail={obj.image}
+                text={ingredient.name}
+                price={ingredient.price}
+                thumbnail={ingredient.image}
               />
             </li>
           ))}
         </div>
-        <li className={styles.element}>{bottomBun[0]}</li>
+        <li className={styles.element}>
+        <ConstructorElement
+        type="bottom"
+        key={bunIngredients[0]._id}
+        isLocked={true}
+        text={`${bunIngredients[0].name} (низ)`}
+        price={bunIngredients[0].price}
+        thumbnail={bunIngredients[0].image}
+      />
+          </li>
       </ul>
-
       <div className={styles.order}>
         <div className={styles.sum}>
           <p className="text text_type_digits-medium">610</p>

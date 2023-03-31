@@ -1,8 +1,8 @@
 import { useState, useMemo, useContext } from "react";
-import PropTypes from "prop-types";
-import {PropTypeingredients} from '../utils/data';
+//import PropTypes from "prop-types";
+//import {PropTypeingredients} from '../utils/data';
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
-import { ingredientsContext } from '../services/ingredientsContext';
+import { IngredientsContext } from '../services/ingredientsContext';
 import Ingredient from "../ingredient/ingredient";
 import IngredientDetails from "../ingredient-details/ingredient-details";
 import Modal from "../modal/modal";
@@ -12,16 +12,19 @@ const BurgerIngredients = () => {
   const [current, setCurrent] = useState('');
   const [modalActive, setModalActive] = useState(false);
   const [element, setElement] = useState('');
-  const { ingredients } = useContext(ingredientsContext)
+  const { ingredients } = useContext(IngredientsContext)
 
 
-
+  const setTab = (tab) => {
+    setCurrent(tab)
+    const element = document.getElementById(tab)
+    if (element) element.scrollIntoView({ behavior: 'smooth' })
+  }
   const openModal = (obj) => {
     setModalActive(true);
 
     setElement(obj);
   };
-
   const closeModal = () => {
     setModalActive(false);
   };
@@ -39,8 +42,6 @@ const BurgerIngredients = () => {
     [ingredients]
   );
 
-
-
   return (
     <section className={styles.block}>
       {modalActive &&
@@ -50,13 +51,13 @@ const BurgerIngredients = () => {
       }
       <h1 className="text text_type_main-large">Соберите бургер</h1>
       <div style={{ display: "flex" }} className={styles.nav}>
-        <Tab value="bun" active={current === "bun"} onClick={setCurrent}>
+        <Tab value="bun" active={current === "bun"} onClick={setTab}>
           Булки
         </Tab>
-        <Tab value="sauce" active={current === "sauce"} onClick={setCurrent}>
+        <Tab value="sauce" active={current === "sauce"} onClick={setTab}>
           Соусы
         </Tab>
-        <Tab value="main" active={current === "main"} onClick={setCurrent}>
+        <Tab value="main" active={current === "main"} onClick={setTab}>
           Начинки
         </Tab>
       </div>
@@ -101,10 +102,6 @@ const BurgerIngredients = () => {
       </div>
     </section>
   );
-};
-
-BurgerIngredients.propTypes = {
-  ingredients: PropTypes.arrayOf(PropTypeingredients).isRequired,
 };
 
 export default BurgerIngredients;
