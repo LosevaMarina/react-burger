@@ -1,10 +1,11 @@
+import PropTypes from 'prop-types'
 import styles from "../order-details/order-details.module.css";
 
-const OrderDetails = () => {
+const OrderDetails = ({orderNumber}) => {
   return (
     <div className={styles.container}>
       <h1 className={"text text_type_digits-large" + " " + styles.numberText}>
-        034536
+      {orderNumber.order.number}
       </h1>
       <p
         className={
@@ -27,5 +28,14 @@ const OrderDetails = () => {
     </div>
   );
 };
+
+
+OrderDetails.propTypes = {
+  orderNumber: PropTypes.shape({
+    success: PropTypes.bool,
+    name: PropTypes.string,
+    order: PropTypes.object.isRequired,
+  }).isRequired,
+}
 
 export default OrderDetails;

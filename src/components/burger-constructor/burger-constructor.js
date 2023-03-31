@@ -1,8 +1,7 @@
 import React, { useState, useContext, useMemo, useReducer, useEffect } from "react";
 import {
   ConstructorElement,
-  Button,
-  DragIcon
+  Button
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./burger-constructor.module.css";
 import OrderDetails from "../order-details/order-details";
@@ -16,7 +15,7 @@ import { request } from '../utils/utils';
 const BurgerConstructor = () => {
  const [modalActive, setModalActive] = useState(false);
  const { ingredients } = useContext(IngredientsContext);
- const [orderDetails, setOrderDetails] = useState({})
+ const [orderNumber, setOrderNumber] = useState({})
 
 const bunIngredients = ingredients.filter((item) => {
   return item.type === "bun";
@@ -46,7 +45,7 @@ const otherIngredients = ingredients.filter((item) => {
     })
 
     .then((data) => {
-      setOrderDetails(data)
+      setOrderNumber(data)
       openModal(true)
     })
     .catch((err) => {
@@ -87,7 +86,7 @@ const otherIngredients = ingredients.filter((item) => {
       
       {modalActive &&
         <Modal closeModal={closeModal}>
-          <OrderDetails />
+          <OrderDetails orderNumber={orderNumber}/>
         </Modal>
       }
 
