@@ -1,6 +1,4 @@
 import { useState, useMemo, useContext } from "react";
-//import PropTypes from "prop-types";
-//import {PropTypeingredients} from '../utils/data';
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import { IngredientsContext } from '../services/ingredientsContext';
 import Ingredient from "../ingredient/ingredient";
