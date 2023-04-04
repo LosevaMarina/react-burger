@@ -5,10 +5,7 @@ import ModalOverlay from "../modal-overlay/modal-overlay";
 import PropTypes from "prop-types";
 import styles from "./modal.module.css";
 
-const el = document.getElementById("modals");
-
 const Modal = (props) => {
-
   useEffect(() => {
     const closeESC = (e) => {
       if (e.key === "Escape") {
@@ -16,14 +13,14 @@ const Modal = (props) => {
       }
     };
 
-    document.addEventListener("keydown", closeESC); 
+    document.addEventListener("keydown", closeESC);
 
     return () => {
-      document.removeEventListener("keydown", closeESC); 
-    }
-  }, [])
+      document.removeEventListener("keydown", closeESC);
+    };
+  }, []);
 
- return createPortal(
+  return createPortal(
     <>
       <div className={styles.content}>
         <button className={styles.buttonClose} onClick={props.closeModal}>
@@ -32,13 +29,10 @@ const Modal = (props) => {
         {props.children}
       </div>
       <ModalOverlay closeModal={props.closeModal} />
-    </>, document.getElementById("modals")
+    </>,
+    document.getElementById("modals")
   );
-
-}
-
-
-
+};
 
 Modal.propTypes = {
   children: PropTypes.element.isRequired,

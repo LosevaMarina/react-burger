@@ -8,7 +8,7 @@ import styles from "./app-header.module.css";
 
 const AppHeader = () => {
   return (
-    <div className={styles.header}>
+    <header className={styles.header}>
       <div className={styles.content}>
         <div className={styles.navigator}>
           <div className={styles.link}>
@@ -32,7 +32,7 @@ const AppHeader = () => {
           </p>
         </div>
       </div>
-    </div>
+    </header>
   );
 };
 export default AppHeader;

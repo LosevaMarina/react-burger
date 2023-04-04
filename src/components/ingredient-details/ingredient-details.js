@@ -8,7 +8,11 @@ const IngredientDetails = (props) => {
         <h2 className="text text_type_main-large">Детали ингредиента</h2>
       </div>
       <div className={styles.conteiner}>
-        <img src={props.ingredient.image} alt={props.ingredient.name} className={styles.image} />
+        <img
+          src={props.ingredient.image}
+          alt={props.ingredient.name}
+          className={styles.image}
+        />
         <p className="text text_type_main-medium">{props.ingredient.name}</p>
         <ul className={styles.lists}>
           <li className={styles.list}>
@@ -56,7 +60,6 @@ IngredientDetails.propTypes = {
   proteins: PropTypes.string,
   fat: PropTypes.string,
   carbohydrates: PropTypes.string,
-}
-
+};
 
 export default IngredientDetails;
