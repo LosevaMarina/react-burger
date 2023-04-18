@@ -176,6 +176,9 @@ export const BurgerIngredients = () => {
   const openModal = () => {
   };
 
+
+
+
   return (
     <section className={styles.block}>
       <h1 className="text text_type_main-large">Соберите бургер</h1>
@@ -191,7 +194,6 @@ export const BurgerIngredients = () => {
         </Tab>
       </div>
 
-
       <div className={styles.lists} onScroll={onScroll}>
       <IngredientsBlock
           ref={bunRef}
@@ -199,14 +201,12 @@ export const BurgerIngredients = () => {
           ingredients={buns}
           onClick={openModal}
         />
-
       <IngredientsBlock
           ref={sauceRef}
           title="Соусы"
           ingredients={sauces}
           onClick={openModal}
         />
-
       <IngredientsBlock
           ref={mainRef}
           title="Начинки"
@@ -216,7 +216,4 @@ export const BurgerIngredients = () => {
       </div>
     </section>
   );
-
-  
-
 }
