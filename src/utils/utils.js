@@ -5,4 +5,4 @@ export const checkResponse = (res) => {
   export function request(url, options) {
     return fetch(url, options).then(checkResponse)
   }
-  
+

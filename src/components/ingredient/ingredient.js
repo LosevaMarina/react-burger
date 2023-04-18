@@ -5,17 +5,20 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./ingredient.module.css";
 
-const Ingredient = (props) => {
+const Ingredient = ({ ingredient, onClick }) => {
+  const { _id, image, price, name } = ingredient;
   return (
-    <li className={styles.listItem} onClick={props.openModal}>
-      <Counter count={1} size="default" extraClass="m-1" />
-      <img src={props.image} alt={props.name} />
+    <li key={_id} className={styles.listItem} onClick={onClick}>
+      {0 < ingredient.counter && (
+          <Counter count={ingredient.counter} size="default" extraClass="m-1" />
+        )}
+      <img src={image} alt={name} />
       <div className={styles.price}>
-        <p className="text text_type_digits-default">{props.price}</p>
+        <p className="text text_type_digits-default">{price}</p>
         <CurrencyIcon type="primary" />
       </div>
       <p className={`${styles.ingredientTitle} text text_type_main-default`}>
-        {props.name}
+        {name}
       </p>
     </li>
   );
