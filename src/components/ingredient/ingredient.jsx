@@ -1,11 +1,11 @@
-import PropTypes from "prop-types";
+
 import {
   Counter,
   CurrencyIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./ingredient.module.css";
 
-const Ingredient = ({ ingredient, onClick }) => {
+export const Ingredient = ({ ingredient, onClick }) => {
   const { _id, image, price, name } = ingredient;
   return (
     <li key={_id} className={styles.listItem} onClick={onClick}>
@@ -24,10 +24,3 @@ const Ingredient = ({ ingredient, onClick }) => {
   );
 };
 
-Ingredient.propTypes = {
-  name: PropTypes.string.isRequired,
-  price: PropTypes.number.isRequired,
-  openModal: PropTypes.func.isRequired,
-};
-
-export default Ingredient;

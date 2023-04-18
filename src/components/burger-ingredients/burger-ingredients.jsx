@@ -1,12 +1,11 @@
-import { useState, useMemo, useContext, useRef } from "react";
+import { useState, useMemo, useRef } from "react";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
-import { IngredientsContext } from "../../services/ingredientsContext";
-import Ingredient from "../ingredient/ingredient";
-import IngredientDetails from "../ingredient-details/ingredient-details";
-import Modal from "../modal/modal";
+//import { IngredientsContext } from "../../services/ingredientsContext";
+//import Ingredient from "../ingredient/ingredient";
+//import IngredientDetails from "../ingredient-details/ingredient-details";
+//import Modal from "../modal/modal";
 import styles from "./burger-ingredients.module.css";
-
-
+import { IngredientsBlock } from "./ingredients-block";
 import { useDispatch, useSelector } from "react-redux";
 
 {/*
@@ -112,8 +111,7 @@ export default BurgerIngredients;
 export const BurgerIngredients = () => {
   const { ingredients } = useSelector((state) => state.burgerIngredients);
   //const dispatch = useDispatch();
-  const [current, setCurrent] = useState("");
-  
+  const [current, setCurrent] = useState("bun");
 
   const buns = useMemo(
     () => ingredients.filter((item) => item.type === "bun").map((item) => item),
@@ -135,86 +133,86 @@ export const BurgerIngredients = () => {
   const sauceRef = useRef(null);
   const mainRef = useRef(null);
 
-  function onTabClick(tab) {
+  function setTab (tab) {
     setCurrent(tab);
     switch (tab) {
       case "bun":
-        scrollTo(bunRef);
+        bunRef.current.scrollIntoView({
+          behavior: "smooth",
+        });
         break;
       case "sauce":
-        scrollTo(sauceRef);
+        sauceRef.current.scrollIntoView({
+          behavior: "smooth",
+        });
         break;
       case "main":
-        scrollTo(mainRef);
+          mainRef.current.scrollIntoView({
+            behavior: "smooth",
+          });
         break;
       default:
         break;
     }
   }
 
-  const scrollTo = (ref) => {
-    ref.current.scrollIntoView({
-      behavior: "smooth",
-    });
-  };
+  function onScroll (event) {
+    const scrolling = event.target.scrollTop;
+
+    const sauceScrolling = sauceRef.current.getBoundingClientRect().top - bunRef.current.getBoundingClientRect().top;
+    const mainScrolling = mainRef.current.getBoundingClientRect().top - bunRef.current.getBoundingClientRect().top;
+
+    if (scrolling > mainScrolling) {
+      setCurrent("main");
+    } else if (scrolling <= sauceScrolling) {
+      setCurrent("bun");
+    } else {
+      setCurrent("sauce");
+    }
+  }
 
 
 
   const openModal = () => {
   };
 
-
-
-
   return (
     <section className={styles.block}>
       <h1 className="text text_type_main-large">Соберите бургер</h1>
       <div className={styles.nav}>
-      <Tab value='Булки' active={current === 'Булки'} onClick={onTabClick}>
-        Булки
-      </Tab>
-      <Tab value='Соусы' active={current === 'Соусы'} onClick={onTabClick}>
-        Соусы
-      </Tab>
-      <Tab value='Начинки' active={current === 'Начинки'} onClick={onTabClick}>
-        Начинки
-      </Tab>
+        <Tab active={current === "bun"} value={"bun"} onClick={setTab}>
+          Булки
+        </Tab>
+        <Tab active={current === "sauce"} value={"sauce"} onClick={setTab}>
+          Соусы
+        </Tab>
+        <Tab active={current === "main"} value={"main"} onClick={setTab}>
+          Начинки
+        </Tab>
       </div>
 
 
-      <div className={styles.lists}>
-        <h2 className="text text_type_main-medium" ref={bunRef}>Булки</h2>
-        <ul className={styles.list}>
-          {buns.map((ingredient) => (
-            <Ingredient
-              key={ingredient._id}
-              ingredient={ingredient}
-              onClick={openModal}
-            />
-          ))}
-        </ul>
-        <h2 className="text text_type_main-medium" ref={sauceRef}>Соусы</h2>
-        <ul className={styles.list}>
-          {sauces.map((ingredient) => (
-            <Ingredient
-              key={ingredient._id}
-              ingredient={ingredient}
-              onClick={openModal}
-            />
-          ))}
-        </ul>
-        <h2 className="text text_type_main-medium" ref={mainRef}>Начинки</h2>
-        <ul className={styles.list}>
-          {mains.map((ingredient) => (
-            <Ingredient
-              key={ingredient._id}
-              ingredient={ingredient}
-              onClick={openModal}
-            />
-          ))}
+      <div className={styles.lists} onScroll={onScroll}>
+      <IngredientsBlock
+          ref={bunRef}
+          title="Булки"
+          ingredients={buns}
+          onClick={openModal}
+        />
 
+      <IngredientsBlock
+          ref={sauceRef}
+          title="Соусы"
+          ingredients={sauces}
+          onClick={openModal}
+        />
 
-        </ul>
+      <IngredientsBlock
+          ref={mainRef}
+          title="Начинки"
+          ingredients={mains}
+          onClick={openModal}
+        />
       </div>
     </section>
   );
