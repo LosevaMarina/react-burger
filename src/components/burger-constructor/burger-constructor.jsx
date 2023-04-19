@@ -10,7 +10,11 @@ import { IngredientsContext } from "../../services/ingredientsContext";
 import { API_URL } from "../../utils/config";
 import { request } from "../../utils/utils";
 
-const BurgerConstructor = () => {
+import { IngredientsCard } from '../ingredients-card/ingredients-card';
+import { BunCard } from '../bun-card/bun-card';
+import { useDispatch, useSelector } from "react-redux";
+
+{/*const BurgerConstructor = () => {
   const [modalActive, setModalActive] = useState(false);
   const { ingredients } = useContext(IngredientsContext);
   const [orderNumber, setOrderNumber] = useState({});
@@ -136,3 +140,88 @@ const BurgerConstructor = () => {
 };
 
 export default BurgerConstructor;
+*/}
+export const BurgerConstructor = () => {
+  //const dispatch = useDispatch();
+
+  const ingredients = useSelector(
+    (state) => state.burgerConstructor.ingredients
+  );
+
+
+  const { bun } = useSelector((state) => state.burgerConstructor);
+  const bunIngredients = ingredients.filter((item) => {
+    return item.type === "bun";
+  });
+
+  const otherIngredients = ingredients.filter((item) => {
+    return item.type !== "bun";
+  });  
+  
+
+
+  return (
+    <section className={styles.block}>
+      <ul className={styles.listElements}>
+        <li className={styles.element}>
+        {bun && (
+          <ConstructorElement
+            type="top"
+            isLocked={true}
+            text={`${bun.name} (верх)`}
+            price={bun.price}
+            thumbnail={bun.image}
+          />
+        )}
+        {!bun && <BunCard />}
+
+        </li>
+
+        <IngredientsCard ingredients={ingredients} />
+      {/*
+        <div className={styles.list}>
+          {otherIngredients.map((ingredient) => (
+            <li key={ingredient._id} className={styles.listItem}>
+              <div className={styles.points}></div>
+              <ConstructorElement
+                text={ingredient.name}
+                price={ingredient.price}
+                thumbnail={ingredient.image}
+              />
+            </li>
+          ))}
+          </div>*/}
+
+
+        <li className={styles.element}>
+        {bun && (
+          <ConstructorElement
+            type="bottom"
+            isLocked={true}
+            text={`${bun.name} (низ)`}
+            price={bun.price}
+            thumbnail={bun.image}
+          />
+        )}
+        {!bun && <BunCard />}
+        </li>
+      </ul>
+
+
+
+      <div className={styles.order}>
+        <div className={styles.sum}>
+          <p className="text text_type_digits-medium">5000</p>
+          <div className={styles.subtract}></div>
+        </div>
+        <Button htmlType="button" type="primary" size="large">
+          Оформить заказ
+        </Button>
+      </div>
+    </section>
+  );
+
+
+
+
+}
