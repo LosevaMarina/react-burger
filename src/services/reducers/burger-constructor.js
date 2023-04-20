@@ -1,9 +1,9 @@
-import { ADD_BUN, ADD_INGREDIENT, REMOVE_INGREDIENT } from '../actions/burger-constructor';
+import { ADD_BUN, ADD_INGREDIENT, REMOVE_INGREDIENT, INGREDIENT_MOVE } from '../actions/burger-constructor';
 import { v4 as uuid } from "uuid";
 
 const initialState = {
     ingredients: [],
-    bun: null,
+    bunIngredient: null,
   };
 
   export const burgerConstructorReducer = (state = initialState, action) => {
@@ -11,7 +11,7 @@ const initialState = {
         case ADD_BUN: {
             return {
               ...state,
-              bun: action.bun,
+              bunIngredient: action.bunIngredient,
             };
           }
           case ADD_INGREDIENT: {
@@ -29,6 +29,17 @@ const initialState = {
               ingredients: [...state.ingredients].filter(
                 (ingredient) => ingredient.uuid !== action.uuid
               ),
+            };
+          }
+          case INGREDIENT_MOVE: {
+            const ingredients = [...state.ingredients];
+            [ingredients[action.dragIndex], ingredients[action.hoverIndex]] = [
+              ingredients[action.hoverIndex],
+              ingredients[action.dragIndex],
+            ];
+            return {
+              ...state,
+              ingredients,
             };
           }
           default: {

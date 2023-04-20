@@ -1,25 +1,18 @@
 import styles from './ingredients-card.module.css';
-import {
-    ConstructorElement,
-    DragIcon
-  } from "@ya.praktikum/react-developer-burger-ui-components";
   import PropTypes from "prop-types";
   import { PropTypeingredients } from '../../utils/data';
+  import { IngredientCard } from '../ingredient-card/ingredient-card';
 
 export const IngredientsCard = ({ ingredients }) => {
-
     return (
         <div className={styles.list} >
-          {ingredients.map((ingredient) => (
-            <li key={ingredient._id} className={styles.listItem}>
-              <div className={styles.points}><DragIcon type={"primary"} /></div>
-              <ConstructorElement
-                text={ingredient.name}
-                price={ingredient.price}
-                thumbnail={ingredient.image}
-              />
-            </li>
-          ))}
+          {ingredients.map((ingredient, index) => {
+            const { uuid } = ingredient;
+            return (
+              <IngredientCard ingredient={ingredient} index={index} key={uuid} /*key={ingredient} */>                
+              </IngredientCard>
+            )
+            })}
           </div>
     )
 }
@@ -28,4 +21,3 @@ export const IngredientsCard = ({ ingredients }) => {
 IngredientsCard.propTypes = {
     ingredients: PropTypes.arrayOf(PropTypeingredients.isRequired).isRequired,
   };
-  

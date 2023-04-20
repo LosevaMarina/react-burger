@@ -1,4 +1,4 @@
-import React, { useState, useContext, useReducer, useEffect } from "react";
+import React, { useState, useContext, useReducer, useEffect, useMemo } from "react";
 import {
   ConstructorElement,
   Button,
@@ -10,9 +10,13 @@ import { IngredientsContext } from "../../services/ingredientsContext";
 import { API_URL } from "../../utils/config";
 import { request } from "../../utils/utils";
 
+
+import { useDrag, useDrop } from "react-dnd";
 import { IngredientsCard } from '../ingredients-card/ingredients-card';
 import { BunCard } from '../bun-card/bun-card';
 import { useDispatch, useSelector } from "react-redux";
+import { INGREDIENT_CARD, ADD_BUN_COUNTER, ADD_INGREDIENT_COUNTER } from '../../services/actions/burger-ingredients';
+import { ADD_INGREDIENT, ADD_BUN } from '../../services/actions/burger-constructor';
 
 {/*const BurgerConstructor = () => {
   const [modalActive, setModalActive] = useState(false);
@@ -142,68 +146,94 @@ import { useDispatch, useSelector } from "react-redux";
 export default BurgerConstructor;
 */}
 export const BurgerConstructor = () => {
-  //const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
   const ingredients = useSelector(
     (state) => state.burgerConstructor.ingredients
   );
 
 
-  const { bun } = useSelector((state) => state.burgerConstructor);
-  const bunIngredients = ingredients.filter((item) => {
-    return item.type === "bun";
-  });
+  const { bunIngredient } = useSelector((state) => state.burgerConstructor);
+ const orderAmount = useMemo(() => {
+  return (
+    ingredients.reduce((acc, cur) => {
+      if (cur.price) {
+        return acc + cur.price;
+      }
+      return acc;
+    }, 0) + (bunIngredient ? bunIngredient.price * 2 : 0)
+  );
+}, [ingredients, bunIngredient]);
 
-  const otherIngredients = ingredients.filter((item) => {
-    return item.type !== "bun";
-  });  
-  
+const [, dropTargetRef] = useDrop({
+  accept: INGREDIENT_CARD,
+  drop(ingredient) {
+    handleDrop(ingredient);
+  },
+});
+
+function handleDrop(ingredient) {
+  const { _id, type } = ingredient;
+  switch (type) {
+    case "bun": {
+      dispatch({
+        type: ADD_BUN_COUNTER,
+        _id: _id,
+      });
+      dispatch({
+        type: ADD_BUN,
+        bunIngredient: ingredient,
+      });
+      break;
+    }
+    default: {
+      dispatch({
+        type: ADD_INGREDIENT_COUNTER,
+        _id: _id,
+      });
+      dispatch({
+        type: ADD_INGREDIENT,
+        ingredient
+      });
+      break;
+    }
+  }
+}
+
 
 
   return (
-    <section className={styles.block}>
+    <section className={styles.block} ref={dropTargetRef}>
       <ul className={styles.listElements}>
         <li className={styles.element}>
-        {bun && (
+        {bunIngredient && (
           <ConstructorElement
             type="top"
             isLocked={true}
-            text={`${bun.name} (верх)`}
-            price={bun.price}
-            thumbnail={bun.image}
+            text={`${bunIngredient.name} (верх)`}
+            price={bunIngredient.price}
+            thumbnail={bunIngredient.image}
           />
         )}
-        {!bun && <BunCard />}
+        {!bunIngredient && <BunCard />}
 
         </li>
 
         <IngredientsCard ingredients={ingredients} />
-      {/*
-        <div className={styles.list}>
-          {otherIngredients.map((ingredient) => (
-            <li key={ingredient._id} className={styles.listItem}>
-              <div className={styles.points}></div>
-              <ConstructorElement
-                text={ingredient.name}
-                price={ingredient.price}
-                thumbnail={ingredient.image}
-              />
-            </li>
-          ))}
-          </div>*/}
+
 
 
         <li className={styles.element}>
-        {bun && (
+        {bunIngredient && (
           <ConstructorElement
             type="bottom"
             isLocked={true}
-            text={`${bun.name} (низ)`}
-            price={bun.price}
-            thumbnail={bun.image}
+            text={`${bunIngredient.name} (низ)`}
+            price={bunIngredient.price}
+            thumbnail={bunIngredient.image}
           />
         )}
-        {!bun && <BunCard />}
+        {!bunIngredient && <BunCard />}
         </li>
       </ul>
 
@@ -211,7 +241,7 @@ export const BurgerConstructor = () => {
 
       <div className={styles.order}>
         <div className={styles.sum}>
-          <p className="text text_type_digits-medium">5000</p>
+          <p className="text text_type_digits-medium">{orderAmount}</p>
           <div className={styles.subtract}></div>
         </div>
         <Button htmlType="button" type="primary" size="large">

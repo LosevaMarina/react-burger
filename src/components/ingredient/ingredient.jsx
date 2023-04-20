@@ -1,14 +1,24 @@
-
+import { useDrag } from "react-dnd";
 import {
   Counter,
   CurrencyIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./ingredient.module.css";
+import { INGREDIENT_CARD } from '../../services/actions/burger-ingredients';
+
+
 
 export const Ingredient = ({ ingredient, onClick }) => {
   const { _id, image, price, name } = ingredient;
+
+  const [, dragRef] = useDrag({
+    type: INGREDIENT_CARD,
+    item: ingredient,
+  });
+
+
   return (
-    <li key={_id} className={styles.listItem} onClick={onClick}>
+    <li key={_id} className={styles.listItem} onClick={onClick} ref={dragRef}>
       {0 < ingredient.counter && (
           <Counter count={ingredient.counter} size="default" extraClass="m-1" />
         )}

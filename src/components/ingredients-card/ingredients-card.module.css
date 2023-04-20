@@ -16,15 +16,3 @@
   .list::-webkit-scrollbar-thumb {
     background-color: #8585ad;
   }
-
-  .listItem {
-    display: flex;
-    align-items: center;
-    gap: 13.5px;
-  }
-
-  
-  .points {
-    width: 13px;
-    height: 18.31px;
-  }
