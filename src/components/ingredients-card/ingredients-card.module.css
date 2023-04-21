@@ -3,9 +3,11 @@
     padding: 0 8px 0 5.5px;
     display: flex;
     flex-direction: column;
-    gap: 16px;
-    height: 464px;
-    overflow-y: scroll;
+    gap: 16px; 
+    max-height: 464px;
+    min-height: 200px;
+    overflow-y: scroll;    
+    justify-content: center;
   }
   .list::-webkit-scrollbar {
     width: 8px;

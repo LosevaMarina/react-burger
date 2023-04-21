@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useRef, useMemo, useSelector } from "react";
 import { useDispatch } from "react-redux";
 import { useDrag, useDrop } from "react-dnd";
 import { REMOVE_INGREDIENT_COUNTER } from "../../services/actions/burger-ingredients";
@@ -8,8 +8,7 @@ import {
     DragIcon
   } from "@ya.praktikum/react-developer-burger-ui-components";
   import styles from './ingredient-card.module.css';
-
-
+import { BunCard } from '../bun-card/bun-card';
 
 
 
@@ -18,7 +17,6 @@ import {
     const { name, price, image, uuid, _id } = ingredient;
     const dispatch = useDispatch();
     const ref = useRef(null);
-
 
 
     const [{ isDragging }, dragRef] = useDrag({
@@ -84,11 +82,7 @@ import {
           });
     }
 
-
-
-
-
-
+   
 
     return (
             <li             
@@ -96,13 +90,16 @@ import {
       ref={ref}
             
             >
+
               <div className={styles.points}><DragIcon type={"primary"} /></div>
               <ConstructorElement
                 text={name}
                 price={price}
                 thumbnail={image}
-                onClose={() => onClose(uuid, _id)}
+                handleClose={() => onClose(uuid, _id)}
               />
+
+
             </li>
 
     )}

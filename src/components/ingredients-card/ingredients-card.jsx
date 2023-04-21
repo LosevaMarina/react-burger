@@ -2,17 +2,26 @@ import styles from './ingredients-card.module.css';
   import PropTypes from "prop-types";
   import { PropTypeingredients } from '../../utils/data';
   import { IngredientCard } from '../ingredient-card/ingredient-card';
+  import React, { useRef, useMemo, useSelector } from "react";
+  import { FillingCard } from '../filling-card/filling-card';
 
 export const IngredientsCard = ({ ingredients }) => {
     return (
+      ingredients.length === 0 ?
+      <div className={styles.list} >
+<FillingCard />
+      </div>
+      :
         <div className={styles.list} >
           {ingredients.map((ingredient, index) => {
             const { uuid } = ingredient;
             return (
-              <IngredientCard ingredient={ingredient} index={index} key={uuid} /*key={ingredient} */>                
-              </IngredientCard>
+              <IngredientCard ingredient={ingredient} index={index} key={uuid} /*key={ingredient} */ />
             )
             })}
+
+
+
           </div>
     )
 }
@@ -21,3 +30,5 @@ export const IngredientsCard = ({ ingredients }) => {
 IngredientsCard.propTypes = {
     ingredients: PropTypes.arrayOf(PropTypeingredients.isRequired).isRequired,
   };
+  
+  

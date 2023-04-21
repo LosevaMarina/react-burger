@@ -1,9 +1,9 @@
 import styles from './bun-card.module.css';
 
-export const BunCard = () => {
+export const BunCard = ({style}) => {
   return (
-    <div className={styles.card}>
-      <p className="text text_type_main-medium text_color_inactive">
+    <div className={`${styles.card} ${style === 'top' ? styles.card_top : styles.card_bottom}`}>
+      <p className="text text_type_main-medium">
         Выбери булку
       </p>
     </div>

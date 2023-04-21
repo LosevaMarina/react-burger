@@ -11,7 +11,7 @@ import { API_URL } from "../../utils/config";
 import { request } from "../../utils/utils";
 
 
-import { useDrag, useDrop } from "react-dnd";
+import { useDrop } from "react-dnd";
 import { IngredientsCard } from '../ingredients-card/ingredients-card';
 import { BunCard } from '../bun-card/bun-card';
 import { useDispatch, useSelector } from "react-redux";
@@ -145,15 +145,18 @@ import { ADD_INGREDIENT, ADD_BUN } from '../../services/actions/burger-construct
 
 export default BurgerConstructor;
 */}
+
+
 export const BurgerConstructor = () => {
   const dispatch = useDispatch();
 
   const ingredients = useSelector(
     (state) => state.burgerConstructor.ingredients
   );
+  const Top = "top";
+  
 
-
-  const { bunIngredient } = useSelector((state) => state.burgerConstructor);
+ const { bunIngredient } = useSelector((state) => state.burgerConstructor);
  const orderAmount = useMemo(() => {
   return (
     ingredients.reduce((acc, cur) => {
@@ -201,8 +204,8 @@ function handleDrop(ingredient) {
 }
 
 
-
   return (
+    
     <section className={styles.block} ref={dropTargetRef}>
       <ul className={styles.listElements}>
         <li className={styles.element}>
@@ -215,12 +218,11 @@ function handleDrop(ingredient) {
             thumbnail={bunIngredient.image}
           />
         )}
-        {!bunIngredient && <BunCard />}
+        {!bunIngredient && <BunCard style = {Top}/>}
 
         </li>
-
+        
         <IngredientsCard ingredients={ingredients} />
-
 
 
         <li className={styles.element}>
@@ -233,7 +235,7 @@ function handleDrop(ingredient) {
             thumbnail={bunIngredient.image}
           />
         )}
-        {!bunIngredient && <BunCard />}
+        {!bunIngredient && <BunCard style= {!Top} />}
         </li>
       </ul>
 
