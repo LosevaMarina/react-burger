@@ -17,6 +17,7 @@ import { BunCard } from '../bun-card/bun-card';
 import { useDispatch, useSelector } from "react-redux";
 import { INGREDIENT_CARD, ADD_BUN_COUNTER, ADD_INGREDIENT_COUNTER } from '../../services/actions/burger-ingredients';
 import { ADD_INGREDIENT, ADD_BUN } from '../../services/actions/burger-constructor';
+import {createOrder} from '../../services/actions/order-details';
 
 {/*const BurgerConstructor = () => {
   const [modalActive, setModalActive] = useState(false);
@@ -204,6 +205,19 @@ function handleDrop(ingredient) {
 }
 
 
+function handlePlaceOrder() {
+  const orderIngredientIds = [
+    bunIngredient._id,
+    ...ingredients.map((ingredient) => ingredient._id),
+    bunIngredient._id,
+  ];
+  dispatch(createOrder(orderIngredientIds));
+}
+
+
+
+
+
   return (
     
     <section className={styles.block} ref={dropTargetRef}>
@@ -246,7 +260,7 @@ function handleDrop(ingredient) {
           <p className="text text_type_digits-medium">{orderAmount}</p>
           <div className={styles.subtract}></div>
         </div>
-        <Button htmlType="button" type="primary" size="large">
+        <Button htmlType="button" type="primary" size="large" onClick={handlePlaceOrder}>
           Оформить заказ
         </Button>
       </div>

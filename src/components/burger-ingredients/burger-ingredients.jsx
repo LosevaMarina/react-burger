@@ -6,7 +6,14 @@ import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 //import Modal from "../modal/modal";
 import styles from "./burger-ingredients.module.css";
 import { IngredientsBlock } from "./ingredients-block";
+import {
+  OPEN_MODAL_INGREDIENT,
+  selectIngredient,
+} from "../../services/actions/ingredient-details";
 import { useDispatch, useSelector } from "react-redux";
+
+
+
 
 {/*
 const BurgerIngredients = () => {
@@ -110,7 +117,7 @@ export default BurgerIngredients;
 */}
 export const BurgerIngredients = () => {
   const { ingredients } = useSelector((state) => state.burgerIngredients);
-  //const dispatch = useDispatch();
+  const dispatch = useDispatch();
   const [current, setCurrent] = useState("bun");
 
   const buns = useMemo(
@@ -173,9 +180,13 @@ export const BurgerIngredients = () => {
 
 
 
-  const openModal = () => {
+  const openModalIngredientCard = (ingredient) => {
+    dispatch (selectIngredient(ingredient));
+    dispatch({
+      type: OPEN_MODAL_INGREDIENT,
+    });
+    console.log (ingredient);
   };
-
 
 
 
@@ -199,19 +210,19 @@ export const BurgerIngredients = () => {
           ref={bunRef}
           title="Булки"
           ingredients={buns}
-          onClick={openModal}
+          onClick={openModalIngredientCard}
         />
       <IngredientsBlock
           ref={sauceRef}
           title="Соусы"
           ingredients={sauces}
-          onClick={openModal}
+          onClick={openModalIngredientCard}
         />
       <IngredientsBlock
           ref={mainRef}
           title="Начинки"
           ingredients={mains}
-          onClick={openModal}
+          onClick={openModalIngredientCard}
         />
       </div>
     </section>
