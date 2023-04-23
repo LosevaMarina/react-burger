@@ -1,11 +1,11 @@
 .card {
-    margin: 0;
-    background: #1C1C21;
-    width: 536px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    min-height: 80px;
-    border-radius: var(--common-border-radius-s);
-    margin-left: 26.5px;
+  margin: 0;
+  background: #1c1c21;
+  width: 536px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 80px;
+  border-radius: var(--common-border-radius-s);
+  margin-left: 26.5px;
 }

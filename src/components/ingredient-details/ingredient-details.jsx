@@ -2,14 +2,9 @@ import styles from "../ingredient-details/ingredient-details.module.css";
 import { useSelector } from "react-redux";
 
 export const IngredientDetails = () => {
+  const { ingredient } = useSelector((state) => state.ingredientDetails);
 
-
-  const { ingredient } = useSelector(
-    (state) => state.ingredientDetails
-  );
-
-  const { name, calories, carbohydrates, fat, proteins, image } =
-  ingredient;
+  const { name, calories, carbohydrates, fat, proteins, image } = ingredient;
 
   return (
     <>
@@ -17,14 +12,9 @@ export const IngredientDetails = () => {
         <h2 className="text text_type_main-large">Детали ингредиента</h2>
       </div>
       <div className={styles.conteiner}>
-        <img
-          src={image}
-          alt={name}
-          className={styles.image}
-        />
+        <img src={image} alt={name} className={styles.image} />
         <p className="text text_type_main-medium">{name}</p>
         <ul className={styles.lists}>
-
           <li className={styles.list}>
             <p className="text text_type_main-default text_color_inactive">
               Калории,ккал
@@ -60,10 +50,8 @@ export const IngredientDetails = () => {
               {carbohydrates / 10}
             </p>
           </li>
-
         </ul>
       </div>
     </>
   );
 };
-

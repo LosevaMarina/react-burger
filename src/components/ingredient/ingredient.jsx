@@ -4,9 +4,7 @@ import {
   CurrencyIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./ingredient.module.css";
-import { INGREDIENT_CARD } from '../../services/actions/burger-ingredients';
-
-
+import { INGREDIENT_CARD } from "../../services/actions/burger-ingredients";
 
 export const Ingredient = ({ ingredient, onClick }) => {
   const { _id, image, price, name } = ingredient;
@@ -16,13 +14,17 @@ export const Ingredient = ({ ingredient, onClick }) => {
     item: ingredient,
   });
 
-
   return (
     //<li key={_id} className={styles.listItem} onClick={onClick} ref={dragRef}>
-      <li key={_id} className={styles.listItem} onClick={()=>onClick(ingredient)} ref={dragRef}>
+    <li
+      key={_id}
+      className={styles.listItem}
+      onClick={() => onClick(ingredient)}
+      ref={dragRef}
+    >
       {0 < ingredient.counter && (
-          <Counter count={ingredient.counter} size="default" extraClass="m-1" />
-        )}
+        <Counter count={ingredient.counter} size="default" extraClass="m-1" />
+      )}
       <img src={image} alt={name} />
       <div className={styles.price}>
         <p className="text text_type_digits-default">{price}</p>
@@ -34,4 +36,3 @@ export const Ingredient = ({ ingredient, onClick }) => {
     </li>
   );
 };
-

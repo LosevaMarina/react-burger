@@ -1,14 +1,13 @@
 import { useSelector } from "react-redux";
 import styles from "../order-details/order-details.module.css";
 
-const OrderDetails = () => {
-
- const { orderId } = useSelector((state) => state.orderDetails);
+export const OrderDetails = () => {
+  const { orderId } = useSelector((state) => state.orderDetails);
 
   return (
     <div className={styles.container}>
       <h1 className={"text text_type_digits-large" + " " + styles.numberText}>
-       {orderId} 
+        {orderId}
       </h1>
       <p
         className={
@@ -31,6 +30,3 @@ const OrderDetails = () => {
     </div>
   );
 };
-
-
-export default OrderDetails;

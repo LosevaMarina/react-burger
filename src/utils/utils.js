@@ -6,17 +6,3 @@ export const checkResponse = (res) => {
   export function request(url, options) {
     return fetch(url, options).then(checkResponse)
   }
-
-
-
-  export const orderApi = (orderItemsId) => {
-    return fetch('https://norma.nomoreparties.space/api/orders', {
-      method: 'POST',
-      headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify({
-        "ingredients": orderItemsId
-      })
-    })
-    .then(checkResponse)
-  };
-  

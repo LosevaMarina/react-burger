@@ -1,16 +1,16 @@
 .card {
-    margin: 0;
-    background: #1C1C21;
-    width: 536px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    min-height: 80px;
+  margin: 0;
+  background: #1c1c21;
+  width: 536px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 80px;
 }
 .card_top {
-    border-radius: var(--top-constructor-item-border-radius);
+  border-radius: var(--top-constructor-item-border-radius);
 }
 
 .card_bottom {
-    border-radius: var(--bottom-constructor-item-border-radius);
+  border-radius: var(--bottom-constructor-item-border-radius);
 }

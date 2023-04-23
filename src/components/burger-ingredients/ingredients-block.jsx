@@ -1,14 +1,12 @@
-import React, { forwardRef } from "react";
+import { forwardRef } from "react";
 import styles from "./burger-ingredients.module.css";
 import PropTypes from "prop-types";
 import { PropTypeingredients } from "../../utils/data";
 import { Ingredient } from "../ingredient/ingredient";
 
-
-
-export const IngredientsBlock = forwardRef (
-    ({ title, ingredients, onClick }, ref) => {
-      return (
+export const IngredientsBlock = forwardRef(
+  ({ title, ingredients, onClick }, ref) => {
+    return (
       <>
         <h2 ref={ref} className="text text_type_main-medium">
           {title}
@@ -20,8 +18,7 @@ export const IngredientsBlock = forwardRef (
                 key={ingredient._id}
                 ingredient={ingredient}
                 onClick={onClick}
-              >
-              </Ingredient>
+              ></Ingredient>
             );
           })}
         </ul>

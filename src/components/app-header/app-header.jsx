@@ -6,7 +6,7 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./app-header.module.css";
 
-const AppHeader = () => {
+export const AppHeader = () => {
   return (
     <header className={styles.header}>
       <div className={styles.content}>
@@ -34,5 +34,4 @@ const AppHeader = () => {
       </div>
     </header>
   );
-};
-export default AppHeader;
+}

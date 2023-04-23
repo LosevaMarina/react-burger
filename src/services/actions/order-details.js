@@ -1,29 +1,25 @@
-
-import {request} from '../../utils/utils';
+import { request } from "../../utils/utils";
+import { API_URL } from "../../utils/config";
 export const ORDER_REQUEST = "ORDER_REQUEST";
 export const ORDER_SUCCEED = "ORDER_SUCCEED";
 export const ORDER_FAILED = "ORDER_FAILED";
 export const OPEN_ORDER_DETAILS_MODAL = "OPEN_ORDER_DETAILS_MODAL";
 export const CLOSE_ORDER_DETAILS_MODAL = "CLOSE_ORDER_DETAILS_MODAL";
 
-
-
 export const createOrder = (orderItemsId) => {
-    return (dispatch) => {
-        dispatch({
-            type: ORDER_REQUEST,
-          });
+  return (dispatch) => {
+    dispatch({
+      type: ORDER_REQUEST,
+    });
 
-      request('https://norma.nomoreparties.space/api/orders', {
-        method: 'POST',
-        headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify({
-          "ingredients": orderItemsId
-        })
-      })
-      .then(
-        (data) => {
-            
+    request(`${API_URL}/orders`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        ingredients: orderItemsId,
+      }),
+    })
+      .then((data) => {
         dispatch({
           type: ORDER_SUCCEED,
           orderId: data.order.number.toString(),
@@ -31,14 +27,11 @@ export const createOrder = (orderItemsId) => {
         dispatch({
           type: OPEN_ORDER_DETAILS_MODAL,
         });
-
-        }
-      )
+      })
       .catch((err) => {
         dispatch({
-            type: ORDER_FAILED,
-          });
+          type: ORDER_FAILED,
+        });
       });
-    }
   };
-
+};
