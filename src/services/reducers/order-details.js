@@ -1,7 +1,7 @@
 import {
-    PLACE_ORDER_REQUEST_STARTED,
-    PLACE_ORDER_REQUEST_SUCCEED,
-    PLACE_ORDER_REQUEST_FAILED,
+    ORDER_REQUEST,
+    ORDER_SUCCEED,
+    ORDER_FAILED,
     OPEN_ORDER_DETAILS_MODAL,
     CLOSE_ORDER_DETAILS_MODAL,
 } from "../actions/order-details";
@@ -15,13 +15,13 @@ const initialState = {
 
 export const orderDetailsReducer = (state = initialState, action) => {
     switch (action.type) {
-        case PLACE_ORDER_REQUEST_STARTED: {
+        case ORDER_REQUEST: {
             return {
                 ...state,
                 makeOrderRequestInProgress: true,
             }
         }
-        case PLACE_ORDER_REQUEST_SUCCEED: {
+        case ORDER_SUCCEED: {
             return {
                 ...state,
                 makeOrderRequestInProgress: false,
@@ -29,7 +29,7 @@ export const orderDetailsReducer = (state = initialState, action) => {
                 orderId: action.orderId,
             }
         }
-        case PLACE_ORDER_REQUEST_FAILED: {
+        case ORDER_FAILED: {
             return {
                 ...state,
                 makeOrderRequestInProgress: false,

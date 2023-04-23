@@ -18,7 +18,8 @@ export const Ingredient = ({ ingredient, onClick }) => {
 
 
   return (
-    <li key={_id} className={styles.listItem} onClick={onClick} ref={dragRef}>
+    //<li key={_id} className={styles.listItem} onClick={onClick} ref={dragRef}>
+      <li key={_id} className={styles.listItem} onClick={()=>onClick(ingredient)} ref={dragRef}>
       {0 < ingredient.counter && (
           <Counter count={ingredient.counter} size="default" extraClass="m-1" />
         )}

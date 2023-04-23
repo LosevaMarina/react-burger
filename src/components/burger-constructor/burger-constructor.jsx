@@ -203,7 +203,54 @@ function handleDrop(ingredient) {
     }
   }
 }
+{/*}
 
+export const createOrder = (orderItemsId) => {
+  return (dispatch) => {
+      dispatch({
+          type: ORDER_REQUEST,
+        });
+
+    orderApi(orderItemsId)
+    .then(
+      (data) => {
+          
+      dispatch({
+        type: ORDER_SUCCEED,
+        orderId: data.order.number.toString(),
+      });
+      dispatch({
+        type: OPEN_ORDER_DETAILS_MODAL,
+      });
+
+      }
+    )
+    .catch((err) => {
+      dispatch({
+          type: ORDER_FAILED,
+        });
+    });
+  }
+};
+
+const onClick = () => {
+  request(`${API_URL}/orders`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      ingredients: ingredients.map((ingredient) => ingredient._id),
+    }),
+  })
+    .then((data) => {
+      setOrderNumber(data);
+      openModal(true);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+}; */}
 
 function handlePlaceOrder() {
   const orderIngredientIds = [
