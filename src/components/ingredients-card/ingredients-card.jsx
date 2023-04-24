@@ -12,14 +12,13 @@ export const IngredientsCard = ({ ingredients }) => {
     </div>
   ) : (
     <div className={styles.list}>
-      {ingredients.map((ingredient, index) => {
+      {ingredients.map((ingredient) => {
         return (
           <IngredientCard
-            index={index}
             key={uuid()} /*key={ingredient} */
             isLocked={false}
             item={ingredient.ingredient}
-            id={ingredient._id}
+            id={ingredient.cartId}
           />
         );
       })}

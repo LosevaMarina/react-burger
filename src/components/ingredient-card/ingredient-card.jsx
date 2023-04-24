@@ -14,9 +14,10 @@ import {
 import styles from "./ingredient-card.module.css";
 import { v4 as uuid } from "uuid";
 
-export const IngredientCard = (props, { index }) => {
+export const IngredientCard = (props) => {
   const ingredient = props.item;
   const cartId = props.id;
+  const index= props.index;
   const dispatch = useDispatch();
 
   const [{ isDragging }, dragRef] = useDrag({
@@ -63,8 +64,8 @@ export const IngredientCard = (props, { index }) => {
   });
   dragRef(dropRef(ref));
 
-  const removeCartItem = (uuid, _id) => {
-    dispatch(removeIngredient(uuid));
+  const removeCartItem = (cartId, _id) => {
+    dispatch(removeIngredient(cartId));
     dispatch(removeIngredientCounter(_id));
   };
 
@@ -83,7 +84,7 @@ export const IngredientCard = (props, { index }) => {
         type={props.type}
         isLocked={props.isLocked}
         handleClose={() => {
-          removeCartItem(uuid, ingredient._id);
+          removeCartItem(cartId, ingredient._id);
         }}
       />
     </li>

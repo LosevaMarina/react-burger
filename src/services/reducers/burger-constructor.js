@@ -25,7 +25,7 @@ export const burgerConstructorReducer = (state = initialState, action) => {
         ...state,
         ingredients: [
           ...state.ingredients,
-          { ingredient: action.ingredient, uuid: action.uuid },
+          { ingredient: action.ingredient, cartId: action.uuid },
         ],
       };
     }

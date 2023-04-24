@@ -40,6 +40,9 @@ export const BurgerConstructor = () => {
     );
   }, [ingredients, bunIngredient]);
 
+
+
+  
   const [, dropTargetRef] = useDrop({
     accept: INGREDIENT_CARD,
     drop(ingredient) {
@@ -82,7 +85,7 @@ export const BurgerConstructor = () => {
     dispatch(createOrder(orderIngredientIds));
   }
 
-  return (
+ return (
     <section className={styles.block} ref={dropTargetRef}>
       <ul className={styles.listElements}>
         <li className={styles.element}>

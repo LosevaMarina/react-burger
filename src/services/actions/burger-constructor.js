@@ -11,8 +11,7 @@ export const addIngredient = (ingredient, uuid) => ({
   uuid: uuid,
 });
 
-export const removeIngredient = (ingredient, uuid) => ({
+export const removeIngredient = (cartId) => ({
   type: REMOVE_INGREDIENT,
-  ingredient: ingredient,
-  uuid: uuid,
+  cartId: cartId,
 });
