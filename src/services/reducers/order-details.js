@@ -1,3 +1,4 @@
+import { Ingredient } from "../../components/ingredient/ingredient";
 import {
   ORDER_REQUEST,
   ORDER_SUCCEED,
@@ -10,7 +11,7 @@ const initialState = {
   orderId: "",
   makeOrderRequestInProgress: false,
   makeOrderRequestFailed: false,
-  openModal: false,
+  openModal: false
 };
 
 export const orderDetailsReducer = (state = initialState, action) => {
@@ -19,6 +20,7 @@ export const orderDetailsReducer = (state = initialState, action) => {
       return {
         ...state,
         makeOrderRequestInProgress: true,
+        
       };
     }
     case ORDER_SUCCEED: {
@@ -40,7 +42,7 @@ export const orderDetailsReducer = (state = initialState, action) => {
     case OPEN_ORDER_DETAILS_MODAL: {
       return {
         ...state,
-        openModal: true,
+        openModal: true
       };
     }
     case CLOSE_ORDER_DETAILS_MODAL: {

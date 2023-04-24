@@ -7,7 +7,7 @@ import styles from "./ingredient.module.css";
 import { INGREDIENT_CARD } from "../../services/actions/burger-ingredients";
 
 export const Ingredient = ({ ingredient, onClick }) => {
-  const { _id, image, price, name } = ingredient;
+  const { image, price, name } = ingredient;
 
   const [, dragRef] = useDrag({
     type: INGREDIENT_CARD,
@@ -15,9 +15,8 @@ export const Ingredient = ({ ingredient, onClick }) => {
   });
 
   return (
-    //<li key={_id} className={styles.listItem} onClick={onClick} ref={dragRef}>
     <li
-      key={_id}
+      key={ingredient._id} 
       className={styles.listItem}
       onClick={() => onClick(ingredient)}
       ref={dragRef}

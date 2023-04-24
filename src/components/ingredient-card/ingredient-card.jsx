@@ -3,9 +3,9 @@ import { useDispatch } from "react-redux";
 import { useDrag, useDrop } from "react-dnd";
 import { REMOVE_INGREDIENT_COUNTER } from "../../services/actions/burger-ingredients";
 import {
-  REMOVE_INGREDIENT,
   CONSTRUCTOR_CARD,
   INGREDIENT_MOVE,
+  removeIngredient
 } from "../../services/actions/burger-constructor";
 import {
   ConstructorElement,
@@ -14,14 +14,14 @@ import {
 import styles from "./ingredient-card.module.css";
 
 export const IngredientCard = ({ ingredient, index }) => {
-  const { name, price, image, uuid, _id } = ingredient;
+  const { name, price, image, cartId, _id } = ingredient;
   const dispatch = useDispatch();
   const ref = useRef(null);
 
   const [{ isDragging }, dragRef] = useDrag({
     type: CONSTRUCTOR_CARD,
     item: () => {
-      return { uuid, index };
+      return { cartId, index };
     },
     collect: (monitor) => ({
       isDragging: monitor.isDragging(),
@@ -63,11 +63,8 @@ export const IngredientCard = ({ ingredient, index }) => {
   });
   dragRef(dropRef(ref));
 
-  function onClose(uuid, _id) {
-    dispatch({
-      type: REMOVE_INGREDIENT,
-      uuid: uuid,
-    });
+  function onClose(cartId, _id) {
+    dispatch(removeIngredient(cartId));
     dispatch({
       type: REMOVE_INGREDIENT_COUNTER,
       _id: _id,
@@ -86,7 +83,7 @@ export const IngredientCard = ({ ingredient, index }) => {
         text={name}
         price={price}
         thumbnail={image}
-        handleClose={() => onClose(uuid, _id)}
+        handleClose={() => onClose(cartId, _id)}
       />
     </li>
   );

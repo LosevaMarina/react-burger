@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { AppHeader } from "../app-header/app-header";
 import styles from "../app/app.module.css";
@@ -31,6 +31,11 @@ export const App = () => {
     (state) => state.orderDetails.openModal
   );
 
+  const REQUEST = useSelector(
+    (state) => state.orderDetails.makeOrderRequestInProgress
+  );
+
+
   function closeIngredientDetailsModal() {
     dispatch({ type: CLOSE_MODAL_INGREDIENT });
     dispatch({ type: NO_INGREDIENT });
@@ -40,13 +45,15 @@ export const App = () => {
     dispatch({ type: CLOSE_ORDER_DETAILS_MODAL });
   }
 
-  useEffect(() => {
-    dispatch(getIngredients());
-  }, [dispatch]);
 
+  
   return (
     <>
       <AppHeader />
+      {REQUEST && (<div className={styles.note}>
+        загрузка...
+</div>)}
+
       <main className={styles.main}>
         <DndProvider backend={HTML5Backend}>
           <BurgerIngredients />
@@ -63,6 +70,7 @@ export const App = () => {
           <OrderDetails />
         </Modal>
       )}
+      
     </>
   );
 };

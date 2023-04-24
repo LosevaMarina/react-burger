@@ -14,10 +14,11 @@ import {
   ADD_INGREDIENT_COUNTER,
 } from "../../services/actions/burger-ingredients";
 import {
-  ADD_INGREDIENT,
-  ADD_BUN,
+  ADD_BUN
 } from "../../services/actions/burger-constructor";
 import { createOrder } from "../../services/actions/order-details";
+import { v4 as uuid } from 'uuid';
+import { addIngredient } from "../../services/actions/burger-constructor";
 
 export const BurgerConstructor = () => {
   const dispatch = useDispatch();
@@ -29,7 +30,7 @@ export const BurgerConstructor = () => {
   const { bunIngredient } = useSelector((state) => state.burgerConstructor);
 
   const Top = "top";
-
+  
   const orderAmount = useMemo(() => {
     return (
       ingredients.reduce((acc, cur) => {
@@ -67,14 +68,14 @@ export const BurgerConstructor = () => {
           type: ADD_INGREDIENT_COUNTER,
           _id: _id,
         });
-        dispatch({
-          type: ADD_INGREDIENT,
-          ingredient,
-        });
+        dispatch(          
+          addIngredient(_id)
+        );
         break;
       }
     }
   }
+
 
   function handlePlaceOrder() {
     const orderIngredientIds = [
@@ -122,7 +123,9 @@ export const BurgerConstructor = () => {
           <p className="text text_type_digits-medium">{orderAmount}</p>
           <div className={styles.subtract}></div>
         </div>
+       
         <Button
+          disabled={!bunIngredient}
           htmlType="button"
           type="primary"
           size="large"
@@ -134,3 +137,5 @@ export const BurgerConstructor = () => {
     </section>
   );
 };
+
+

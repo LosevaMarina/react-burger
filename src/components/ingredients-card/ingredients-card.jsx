@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import { PropTypeingredients } from "../../utils/data";
 import { IngredientCard } from "../ingredient-card/ingredient-card";
 import { FillingCard } from "../filling-card/filling-card";
+import { v4 as uuid } from 'uuid';
 
 export const IngredientsCard = ({ ingredients }) => {
   return ingredients.length === 0 ? (
@@ -12,7 +13,6 @@ export const IngredientsCard = ({ ingredients }) => {
   ) : (
     <div className={styles.list}>
       {ingredients.map((ingredient, index) => {
-        const { uuid } = ingredient;
         return (
           <IngredientCard
             ingredient={ingredient}

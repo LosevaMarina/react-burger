@@ -1,5 +1,4 @@
-import { API_URL } from "../../utils/config";
-import { request } from "../../utils/utils";
+import { request, API_URL } from "../../utils/utils";
 
 export const ADD_INGREDIENT_COUNTER = "ADD_INGREDIENT_COUNTER";
 export const REMOVE_INGREDIENT_COUNTER = "REMOVE_INGREDIENT_COUNTER";

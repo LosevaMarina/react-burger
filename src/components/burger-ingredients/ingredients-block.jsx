@@ -15,7 +15,7 @@ export const IngredientsBlock = forwardRef(
           {ingredients.map((ingredient) => {
             return (
               <Ingredient
-                key={ingredient._id}
+                //key={ingredient._id}
                 ingredient={ingredient}
                 onClick={onClick}
               ></Ingredient>
