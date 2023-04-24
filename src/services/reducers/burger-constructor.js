@@ -2,15 +2,14 @@ import {
   ADD_BUN,
   ADD_INGREDIENT,
   REMOVE_INGREDIENT,
-  INGREDIENT_MOVE,
-  CLEAR_CONSTRUCTOR
+  CLEAR_CONSTRUCTOR,
+  MOVE_INGREDIENT,
 } from "../actions/burger-constructor";
 
 const initialState = {
   ingredients: [],
   bunIngredient: null,
 };
-
 
 export const burgerConstructorReducer = (state = initialState, action) => {
   switch (action.type) {
@@ -20,18 +19,16 @@ export const burgerConstructorReducer = (state = initialState, action) => {
         bunIngredient: action.bunIngredient,
       };
     }
-    
+
     case ADD_INGREDIENT: {
       return {
         ...state,
         ingredients: [
           ...state.ingredients,
-          {id: action.id,
-            uuid: action.uuid}
+          { ingredient: action.ingredient, uuid: action.uuid },
         ],
       };
     }
-
 
     case REMOVE_INGREDIENT: {
       return {
@@ -42,7 +39,7 @@ export const burgerConstructorReducer = (state = initialState, action) => {
       };
     }
 
-    case INGREDIENT_MOVE: {
+    case MOVE_INGREDIENT: {
       const ingredients = [...state.ingredients];
       [ingredients[action.dragIndex], ingredients[action.hoverIndex]] = [
         ingredients[action.hoverIndex],
@@ -59,8 +56,9 @@ export const burgerConstructorReducer = (state = initialState, action) => {
         ...state,
         ingredients: [],
         bunIngredient: null,
-      }
+      };
     }
+
     default: {
       return state;
     }

@@ -1,33 +1,33 @@
 import { useRef } from "react";
 import { useDispatch } from "react-redux";
 import { useDrag, useDrop } from "react-dnd";
-import { REMOVE_INGREDIENT_COUNTER } from "../../services/actions/burger-ingredients";
 import {
+  removeIngredient,
+  MOVE_INGREDIENT,
   CONSTRUCTOR_CARD,
-  INGREDIENT_MOVE,
-  removeIngredient
 } from "../../services/actions/burger-constructor";
+import { removeIngredientCounter } from "../../services/actions/burger-ingredients";
 import {
   ConstructorElement,
   DragIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./ingredient-card.module.css";
+import { v4 as uuid } from "uuid";
 
-export const IngredientCard = ({ ingredient, index }) => {
-  const { name, price, image, cartId, _id } = ingredient;
+export const IngredientCard = (props, { index }) => {
+  const ingredient = props.item;
+  const cartId = props.id;
   const dispatch = useDispatch();
-  const ref = useRef(null);
 
   const [{ isDragging }, dragRef] = useDrag({
-    type: CONSTRUCTOR_CARD,
-    item: () => {
-      return { cartId, index };
-    },
+    type: "cartItem",
+    item: { cartId: cartId, ingredient: ingredient },
     collect: (monitor) => ({
       isDragging: monitor.isDragging(),
     }),
   });
 
+  const ref = useRef(null);
   const [, dropRef] = useDrop({
     accept: CONSTRUCTOR_CARD,
     hover: (item, monitor) => {
@@ -53,7 +53,7 @@ export const IngredientCard = ({ ingredient, index }) => {
         return;
       }
       dispatch({
-        type: INGREDIENT_MOVE,
+        type: MOVE_INGREDIENT,
         dragIndex: dragIndex,
         hoverIndex: hoverIndex,
       });
@@ -63,13 +63,10 @@ export const IngredientCard = ({ ingredient, index }) => {
   });
   dragRef(dropRef(ref));
 
-  function onClose(cartId, _id) {
-    dispatch(removeIngredient(cartId));
-    dispatch({
-      type: REMOVE_INGREDIENT_COUNTER,
-      _id: _id,
-    });
-  }
+  const removeCartItem = (uuid, _id) => {
+    dispatch(removeIngredient(uuid));
+    dispatch(removeIngredientCounter(_id));
+  };
 
   return (
     <li
@@ -80,10 +77,14 @@ export const IngredientCard = ({ ingredient, index }) => {
         <DragIcon type={"primary"} />
       </div>
       <ConstructorElement
-        text={name}
-        price={price}
-        thumbnail={image}
-        handleClose={() => onClose(cartId, _id)}
+        text={ingredient.name}
+        price={ingredient.price}
+        thumbnail={ingredient.image}
+        type={props.type}
+        isLocked={props.isLocked}
+        handleClose={() => {
+          removeCartItem(uuid, ingredient._id);
+        }}
       />
     </li>
   );

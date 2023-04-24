@@ -13,11 +13,9 @@ import {
   ADD_BUN_COUNTER,
   ADD_INGREDIENT_COUNTER,
 } from "../../services/actions/burger-ingredients";
-import {
-  ADD_BUN
-} from "../../services/actions/burger-constructor";
+import { ADD_BUN } from "../../services/actions/burger-constructor";
 import { createOrder } from "../../services/actions/order-details";
-import { v4 as uuid } from 'uuid';
+import { v4 as uuid } from "uuid";
 import { addIngredient } from "../../services/actions/burger-constructor";
 
 export const BurgerConstructor = () => {
@@ -30,12 +28,12 @@ export const BurgerConstructor = () => {
   const { bunIngredient } = useSelector((state) => state.burgerConstructor);
 
   const Top = "top";
-  
+
   const orderAmount = useMemo(() => {
     return (
       ingredients.reduce((acc, cur) => {
-        if (cur.price) {
-          return acc + cur.price;
+        if (cur.ingredient.price) {
+          return acc + cur.ingredient.price;
         }
         return acc;
       }, 0) + (bunIngredient ? bunIngredient.price * 2 : 0)
@@ -68,14 +66,12 @@ export const BurgerConstructor = () => {
           type: ADD_INGREDIENT_COUNTER,
           _id: _id,
         });
-        dispatch(          
-          addIngredient(_id)
-        );
+        dispatch(addIngredient(ingredient, uuid()));
+
         break;
       }
     }
   }
-
 
   function handlePlaceOrder() {
     const orderIngredientIds = [
@@ -123,7 +119,7 @@ export const BurgerConstructor = () => {
           <p className="text text_type_digits-medium">{orderAmount}</p>
           <div className={styles.subtract}></div>
         </div>
-       
+
         <Button
           disabled={!bunIngredient}
           htmlType="button"
@@ -137,5 +133,3 @@ export const BurgerConstructor = () => {
     </section>
   );
 };
-
-

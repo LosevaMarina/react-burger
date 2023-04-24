@@ -1,4 +1,5 @@
 import { request, API_URL } from "../../utils/utils";
+import {clearIngredientCounter} from '../actions/burger-ingredients'
 export const CLEAR_CONSTRUCTOR = "CLEAR_CONSTRUCTOR";
 export const ORDER_REQUEST = "ORDER_REQUEST";
 export const ORDER_SUCCEED = "ORDER_SUCCEED";
@@ -31,6 +32,8 @@ export const createOrder = (orderItemsId) => {
         dispatch({
           type: CLEAR_CONSTRUCTOR
         })
+        dispatch (clearIngredientCounter())
+
       })
     
       .catch((err) => {

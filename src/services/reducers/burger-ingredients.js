@@ -4,7 +4,8 @@ import {
   INGREDIENTS_ERROR,
   ADD_INGREDIENT_COUNTER,
   REMOVE_INGREDIENT_COUNTER,
-  ADD_BUN_COUNTER
+  ADD_BUN_COUNTER,
+  CLEAR_INGREDIENT_COUNTER,
 } from "../actions/burger-ingredients";
 
 const initialState = {
@@ -58,7 +59,7 @@ export const burgerIngredientsReducer = (state = initialState, action) => {
         }),
       };
     }
-    
+
     case ADD_BUN_COUNTER: {
       return {
         ...state,
@@ -68,14 +69,22 @@ export const burgerIngredientsReducer = (state = initialState, action) => {
               ...ingredient,
               counter: ingredient._id === action._id ? 2 : 0,
             };
-            
           } else {
-            return ingredient
+            return ingredient;
           }
         }),
       };
     }
-   
+
+    case CLEAR_INGREDIENT_COUNTER: {
+      return {
+        ...state,
+        ingredients: [...state.ingredients].map((ingredient) => {
+          return { ...ingredient, counter: 0 };
+        }),
+      };
+    }
+
     default: {
       return state;
     }

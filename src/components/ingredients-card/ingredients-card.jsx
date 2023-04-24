@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { PropTypeingredients } from "../../utils/data";
 import { IngredientCard } from "../ingredient-card/ingredient-card";
 import { FillingCard } from "../filling-card/filling-card";
-import { v4 as uuid } from 'uuid';
+import { v4 as uuid } from "uuid";
 
 export const IngredientsCard = ({ ingredients }) => {
   return ingredients.length === 0 ? (
@@ -15,9 +15,11 @@ export const IngredientsCard = ({ ingredients }) => {
       {ingredients.map((ingredient, index) => {
         return (
           <IngredientCard
-            ingredient={ingredient}
             index={index}
-            key={uuid} /*key={ingredient} */
+            key={uuid()} /*key={ingredient} */
+            isLocked={false}
+            item={ingredient.ingredient}
+            id={ingredient._id}
           />
         );
       })}
