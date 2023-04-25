@@ -12,14 +12,13 @@ import {
   DragIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./ingredient-card.module.css";
-import { v4 as uuid } from "uuid";
 
 export const IngredientCard = (props) => {
+  
   const ingredient = props.item;
   const cartId = props.id;
   const index= props.index;
   const dispatch = useDispatch();
-
   const [{ isDragging }, dragRef] = useDrag({
     type: "cartItem",
     item: { cartId: cartId, ingredient: ingredient },
@@ -81,12 +80,13 @@ export const IngredientCard = (props) => {
         text={ingredient.name}
         price={ingredient.price}
         thumbnail={ingredient.image}
-        type={props.type}
-        isLocked={props.isLocked}
         handleClose={() => {
           removeCartItem(cartId, ingredient._id);
+        
         }}
       />
     </li>
+    
   );
+  
 };

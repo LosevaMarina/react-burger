@@ -7,19 +7,22 @@ import styles from "./ingredient.module.css";
 import { INGREDIENT_CARD } from "../../services/actions/burger-ingredients";
 
 export const Ingredient = ({ ingredient, onClick }) => {
-  const { image, price, name } = ingredient;
+  const { image, price, name, } = ingredient;
 
-  const [, dragRef] = useDrag({
+  const [{isDragging}, dragRef] = useDrag({
     type: INGREDIENT_CARD,
-    item: ingredient,
+    item: {...ingredient},
+    collect: (monitor) => ({
+      isDragging: !!monitor.isDragging(),
+    }),
   });
-
   return (
     <li
       key={ingredient._id} 
       className={styles.listItem}
       onClick={() => onClick(ingredient)}
       ref={dragRef}
+      style={{ border: isDragging ? "1px solid #2f2f37" : "0px" }}
     >
       {0 < ingredient.counter && (
         <Counter count={ingredient.counter} size="default" extraClass="m-1" />
