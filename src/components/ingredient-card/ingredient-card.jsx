@@ -16,7 +16,7 @@ import styles from "./ingredient-card.module.css";
 export const IngredientCard = (props) => {
   
   const ingredient = props.item;
-  const cartId = props.id;
+  const cartId = props.key;
   const index= props.index;
   const dispatch = useDispatch();
   const [{ isDragging }, dragRef] = useDrag({
@@ -63,8 +63,8 @@ export const IngredientCard = (props) => {
   });
   dragRef(dropRef(ref));
 
-  const removeCartItem = (cartId, _id) => {
-    dispatch(removeIngredient(cartId));
+  const removeCartItem = (ingredient, _id) => {
+    dispatch(removeIngredient(ingredient));
     dispatch(removeIngredientCounter(_id));
   };
 
@@ -80,8 +80,9 @@ export const IngredientCard = (props) => {
         text={ingredient.name}
         price={ingredient.price}
         thumbnail={ingredient.image}
+        key={ingredient.key}
         handleClose={() => {
-          removeCartItem(cartId, ingredient._id);
+          removeCartItem(ingredient, ingredient._id);
         
         }}
       />

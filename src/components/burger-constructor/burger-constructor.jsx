@@ -13,10 +13,15 @@ import {
   ADD_BUN_COUNTER,
   ADD_INGREDIENT_COUNTER,
 } from "../../services/actions/burger-ingredients";
-import { ADD_BUN } from "../../services/actions/burger-constructor";
+import { ADD_BUN, removeIngredient } from "../../services/actions/burger-constructor";
 import { createOrder } from "../../services/actions/order-details";
-import { v4 as uuid } from "uuid";
 import { addIngredient } from "../../services/actions/burger-constructor";
+
+import {FillingCard} from '../filling-card/filling-card';
+import {IngredientCard} from '../ingredient-card/ingredient-card';
+
+
+
 
 export const BurgerConstructor = () => {
   const dispatch = useDispatch();
@@ -69,7 +74,8 @@ export const BurgerConstructor = () => {
           type: ADD_INGREDIENT_COUNTER,
           _id: _id,
         });
-        dispatch(addIngredient(ingredient, uuid()));
+        dispatch(addIngredient(ingredient));
+        console.log ({ingredient});
 
         break;
       }
@@ -101,7 +107,7 @@ export const BurgerConstructor = () => {
           {!bunIngredient && <BunCard style={Top} />}
         </li>
 
-        <IngredientsCard ingredients={ingredients} />
+        <IngredientsCard ingredients={ingredients} /> 
 
         <li className={styles.element}>
           {bunIngredient && (

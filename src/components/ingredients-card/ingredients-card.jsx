@@ -14,7 +14,7 @@ export const IngredientsCard = ({ ingredients }) => {
       {ingredients.map((ingredient) => {
         return (
           <IngredientCard
-             key={ingredient.cartId} 
+            key={ingredient.key} 
             isLocked={false}
             item={ingredient.ingredient}
             id={ingredient.cartId}
