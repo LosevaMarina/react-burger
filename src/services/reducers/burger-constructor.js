@@ -3,7 +3,7 @@ import {
   ADD_INGREDIENT,
   REMOVE_INGREDIENT,
   CLEAR_CONSTRUCTOR,
-  MOVE_INGREDIENT, BURGER_INGREDIENT_ITEM_DELETE
+  MOVE_INGREDIENT
 } from "../actions/burger-constructor";
 
 const initialState = {

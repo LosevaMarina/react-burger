@@ -4,7 +4,6 @@ import {
   CurrencyIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./ingredient.module.css";
-import { INGREDIENT_CARD } from "../../services/actions/burger-ingredients";
 
 export const Ingredient = ({ ingredient, onClick }) => {
   const { image, price, name, } = ingredient;

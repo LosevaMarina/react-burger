@@ -13,14 +13,9 @@ import {
   ADD_BUN_COUNTER,
   ADD_INGREDIENT_COUNTER,
 } from "../../services/actions/burger-ingredients";
-import { ADD_BUN, removeIngredient } from "../../services/actions/burger-constructor";
+import { ADD_BUN } from "../../services/actions/burger-constructor";
 import { createOrder } from "../../services/actions/order-details";
 import { addIngredient } from "../../services/actions/burger-constructor";
-
-import {FillingCard} from '../filling-card/filling-card';
-import {IngredientCard} from '../ingredient-card/ingredient-card';
-
-
 
 
 export const BurgerConstructor = () => {
@@ -45,11 +40,13 @@ export const BurgerConstructor = () => {
     );
   }, [ingredients, bunIngredient]);
 
+ 
+
   
-  /*const [, dropTargetRef] = useDrop({
+  const [, dropTargetRef] = useDrop({
     accept: INGREDIENT_CARD,
-    drop(item) {
-      handleDrop(item.ingredient);
+    drop(ingredient) {
+      handleDrop(ingredient);
     },
   });
 
@@ -73,36 +70,10 @@ export const BurgerConstructor = () => {
           _id: _id,
         });
         dispatch(addIngredient(ingredient));
-        console.log ({ingredient});
         break;
       }
     }
-  }*/
-
-  const [, dropTargetRef] = useDrop({
-    accept: INGREDIENT_CARD,
-    drop(item) {
-      
-      if (item.ingredient.type === "bun") {
-        dispatch({
-          type: ADD_BUN_COUNTER,
-          _id: item.ingredient._id,
-        });
-        dispatch({
-          type: ADD_BUN,
-          bunIngredient: item.ingredient,
-        });
-      } else {
-        dispatch({
-        type: ADD_INGREDIENT_COUNTER,
-        _id: item.ingredient._id,
-      });
-      dispatch(addIngredient(item.ingredient));
-      console.log (item.ingredient);
-      }
-    },
-  });
-
+  }
 
   function handlePlaceOrder() {
     const orderIngredientIds = [
