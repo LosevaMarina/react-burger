@@ -3,7 +3,7 @@ import {
   ADD_INGREDIENT,
   REMOVE_INGREDIENT,
   CLEAR_CONSTRUCTOR,
-  MOVE_INGREDIENT,
+  MOVE_INGREDIENT, BURGER_INGREDIENT_ITEM_DELETE
 } from "../actions/burger-constructor";
 
 const initialState = {
@@ -25,17 +25,17 @@ export const burgerConstructorReducer = (state = initialState, action) => {
         ...state,
         ingredients: [
           ...state.ingredients,
-          { ingredient: action.ingredient,
-          key: action.key },
+          action.ingredient
         ],
       };
     }
+
     case REMOVE_INGREDIENT: {
+      const ingredientsArray = [...state.ingredients];
+      ingredientsArray.splice(action.insex, 1);
       return {
         ...state,
-        ingredients: [...state.ingredients].filter(
-          (ingredient) => ingredient.cartId !== action.cartId
-        ),
+        ingredients: ingredientsArray
       };
     }
 

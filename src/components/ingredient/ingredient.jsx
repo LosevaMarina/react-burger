@@ -10,7 +10,7 @@ export const Ingredient = ({ ingredient, onClick }) => {
   const { image, price, name, } = ingredient;
 
   const [{isDragging}, dragRef] = useDrag({
-    type: INGREDIENT_CARD,
+    type: "INGREDIENT_CARD",
     item: {...ingredient},
     collect: (monitor) => ({
       isDragging: !!monitor.isDragging(),

@@ -45,13 +45,11 @@ export const BurgerConstructor = () => {
     );
   }, [ingredients, bunIngredient]);
 
-
-
   
-  const [, dropTargetRef] = useDrop({
+  /*const [, dropTargetRef] = useDrop({
     accept: INGREDIENT_CARD,
-    drop(ingredient) {
-      handleDrop(ingredient);
+    drop(item) {
+      handleDrop(item.ingredient);
     },
   });
 
@@ -76,11 +74,35 @@ export const BurgerConstructor = () => {
         });
         dispatch(addIngredient(ingredient));
         console.log ({ingredient});
-
         break;
       }
     }
-  }
+  }*/
+
+  const [, dropTargetRef] = useDrop({
+    accept: INGREDIENT_CARD,
+    drop(item) {
+      
+      if (item.ingredient.type === "bun") {
+        dispatch({
+          type: ADD_BUN_COUNTER,
+          _id: item.ingredient._id,
+        });
+        dispatch({
+          type: ADD_BUN,
+          bunIngredient: item.ingredient,
+        });
+      } else {
+        dispatch({
+        type: ADD_INGREDIENT_COUNTER,
+        _id: item.ingredient._id,
+      });
+      dispatch(addIngredient(item.ingredient));
+      console.log (item.ingredient);
+      }
+    },
+  });
+
 
   function handlePlaceOrder() {
     const orderIngredientIds = [
