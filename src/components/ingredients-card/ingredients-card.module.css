@@ -1,0 +1,20 @@
+.list {
+  margin: 0;
+  padding: 0 8px 0 5.5px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  max-height: 464px;
+  min-height: 200px;
+  overflow-y: scroll;
+  justify-content: center;
+}
+.list::-webkit-scrollbar {
+  width: 8px;
+}
+.list::-webkit-scrollbar-track {
+  background: #2f2f37;
+}
+.list::-webkit-scrollbar-thumb {
+  background-color: #8585ad;
+}

@@ -20,39 +20,6 @@
   padding: 0 16px 0 32px;
 }
 
-.list {
-  margin: 0;
-  padding: 0 8px 0 5.5px;
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-  height: 464px;
-  overflow-y: scroll;
-}
-.list::-webkit-scrollbar {
-  width: 8px;
-}
-.list::-webkit-scrollbar-track {
-  background: #2f2f37;
-}
-.list::-webkit-scrollbar-thumb {
-  background-color: #8585ad;
-}
-
-.listItem {
-  display: flex;
-  align-items: center;
-  gap: 13.5px;
-}
-
-.points {
-  background-image: url("../../images/Vector.svg");
-  background-repeat: no-repeat;
-  background-position: center;
-  width: 13px;
-  height: 18.31px;
-}
-
 .order {
   margin-top: 40px;
   display: flex;
