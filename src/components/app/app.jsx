@@ -15,6 +15,11 @@ import {
 import { CLOSE_ORDER_DETAILS_MODAL } from "../../services/actions/order-details";
 import { IngredientDetails } from "../ingredient-details/ingredient-details.jsx";
 import { OrderDetails } from "../order-details/order-details";
+import { LoginPage } from "../../pages/login-page/login-page";
+import { RegisterPage } from "../../pages/register-page/register-page";
+import { ForgotPasswordPage } from "../../pages/forgot-password-page/forgot-password-page";
+import { ResetPasswordPage } from "../../pages/reset-password-page/reset-password-page";
+import { ProfilePage } from "../../pages/profile-page/profile-page";
 
 export const App = () => {
   const dispatch = useDispatch();
@@ -22,6 +27,8 @@ export const App = () => {
   useEffect(() => {
     dispatch(getIngredients());
   }, [dispatch]);
+
+
 
   const ingredientDetailsModal = useSelector(
     (state) => state.ingredientDetails.openModal
@@ -65,6 +72,18 @@ export const App = () => {
           <OrderDetails />
         </Modal>
       )}
+
+
+<LoginPage />
+
+<RegisterPage />
+
+<ForgotPasswordPage />
+
+<ResetPasswordPage/>
+
+
+<ProfilePage />
     </>
   );
 };
