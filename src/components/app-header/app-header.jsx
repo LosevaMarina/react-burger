@@ -6,6 +6,7 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useMatch, NavLink } from "react-router-dom";
 import styles from "./app-header.module.css";
+import { useSelector } from "react-redux";
 
 
 export const AppHeader = () => {
@@ -14,6 +15,11 @@ export const AppHeader = () => {
   const isFeed = !!useMatch("/feed");
   const isProfile = !!useMatch("/profile");
 
+
+
+  //const userName = useSelector((state) => state.user.data?.name);
+
+  
   return (
     <header className={styles.header}>
       <nav className={styles.content}>
@@ -39,10 +45,14 @@ export const AppHeader = () => {
           </NavLink>
 
         </div>
-
+        <NavLink
+            to = "/"
+            exact
+            >
         <div className={styles.logo}>
           <Logo />
         </div>
+        </NavLink>
 
         <NavLink
             to = "/profile"

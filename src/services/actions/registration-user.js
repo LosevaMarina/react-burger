@@ -18,8 +18,8 @@ export const registerUserFailed = (err) => ({
   payload: err,
 });
 
-//export function registerUser(name, email, password) {
-  export function registrationUserAction(name, email, password) {
+export function registerUser(name, email, password) {
+  //export function registrationUserAction(name, email, password) {
   return async (dispatch) => {
     dispatch(registerUserRequest(name, email, password));
 

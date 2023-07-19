@@ -11,10 +11,20 @@ const LoginPage = () => {
     <form className={styles.content}>
       <h1 className={`${styles.title} text text_type_main-medium`}>Вход</h1>
       <div className={styles.input}>
-        <EmailInput name={"email"} isIcon={false} />
+        <EmailInput 
+        name={"email"} 
+        isIcon={false} 
+        
+        
+        />
       </div>
       <div className={styles.input}>
-        <PasswordInput name={"password"} extraClass="mb-2" />
+        <PasswordInput 
+        name={"password"} 
+        extraClass="mb-2" 
+
+        
+        />
       </div>
 
       <div className={styles.input}>
