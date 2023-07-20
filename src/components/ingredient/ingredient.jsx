@@ -19,6 +19,7 @@ export const Ingredient = ({ ingredient, onClick }) => {
       isDragging: !!monitor.isDragging(),
     }),
   });
+  
   return (
     /*<li
       key={ingredient._id} 
@@ -35,8 +36,6 @@ export const Ingredient = ({ ingredient, onClick }) => {
       onClick={() => onClick(ingredient)}
       ref={dragRef}
       style={{ border: isDragging ? "1px solid #2f2f37" : "0px" }}
-
-      
       // динамический путь для ингредиента
       to={`/ingredients/${ingredient._id}`}
       //сохраняем в свойство background роут, на котором была открыта модалка

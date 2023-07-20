@@ -27,6 +27,7 @@ import { RegisterPage } from "../../pages/register-page/register-page";
 import { ProfilePage } from "../../pages/profile-page/profile-page";
 import { getCookie } from '../../utils/cookies';
 import { loginSuccess } from '../../services/actions/login';
+import { Page } from "../page/page";
 
 
 
@@ -106,14 +107,6 @@ export const App = () => {
     //navigate(-1);
   }
 
-
-
-
-
-
-
-
-
 {/* 
   return (
     <>
@@ -165,6 +158,9 @@ return (
             element={<PublicRoute element={<ResetPasswordPage />} />}
             />
             <Route path="/profile" element={<ProtectedRoute element={<ProfilePage />} />} />
+            <Route path="/ingredients/:_id" element={<Page>
+                    <IngredientDetails />
+                  </Page>} />
       </Routes>
       
       {background && (
@@ -174,15 +170,6 @@ return (
                 element={
                   <Modal closeModal={closeIngredientDetailsModal}>
                     <IngredientDetails />
-                  </Modal>
-                }
-              />
-
-              <Route
-                //path='/orders/:id'
-                element={
-                  <Modal closeModal={closeOrderDetailsModal}>
-                    <OrderDetails />
                   </Modal>
                 }
               />
