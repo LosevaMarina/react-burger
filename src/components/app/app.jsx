@@ -15,7 +15,7 @@ import {
 import { CLOSE_ORDER_DETAILS_MODAL } from "../../services/actions/order-details";
 import { IngredientDetails } from "../ingredient-details/ingredient-details.jsx";
 import { OrderDetails } from "../order-details/order-details";
-import { Routes, Route, useLocation } from 'react-router-dom';
+import { Routes, Route, useLocation, useNavigate } from 'react-router-dom';
 import { HomePage } from "../../pages/home-page/home-page";
 import { LoginPage } from "../../pages/login-page/login-page";
 import { ForgotPasswordPage } from "../../pages/forgot-password-page/forgot-password-page";
@@ -54,7 +54,13 @@ export const App = () => {
 
   const location = useLocation();
   const background = location.state && location.state.background;
-  
+  const navigate = useNavigate();
+  //const history = useHistory();
+
+
+  const handleModalClose = () => {
+    navigate(-1);
+  };
 
 {/*
 
@@ -71,15 +77,44 @@ export const App = () => {
     (state) => state.orderDetails.makeOrderRequestInProgress
   );
 
- {/* function closeIngredientDetailsModal() {
+ function closeIngredientDetailsModal() {
     dispatch({ type: CLOSE_MODAL_INGREDIENT });
     dispatch({ type: NO_INGREDIENT });
+    
+    window.removeEventListener('popstate', closeIngredientDetailsModal);
+
+    const background = location.state && location.state.background;
+    if (background) {
+      navigate(background, { replace: true });
+    } else {
+      navigate(-1, { state: { modal: false } });
+    }
+    //navigate(-1);
   }
 
   function closeOrderDetailsModal() {
     dispatch({ type: CLOSE_ORDER_DETAILS_MODAL });
+    
+    window.removeEventListener('popstate', closeOrderDetailsModal);
+
+    const background = location.state && location.state.background;
+    if (background) {
+      navigate(background, { replace: true });
+    } else {
+      navigate(-1, { state: { modal: false } });
+    }
+    //navigate(-1);
   }
 
+
+
+
+
+
+
+
+
+{/* 
   return (
     <>
       <AppHeader />
@@ -115,7 +150,7 @@ return (
       <AppHeader />
       {REQUEST && <div className={styles.note}>загрузка...</div>}
       
-      <Routes>
+      <Routes location={background || location}>
             <Route path="/" element={<HomePage />} />
             <Route path="*" element={<NotFound404 />} />
             <Route
@@ -132,6 +167,27 @@ return (
             <Route path="/profile" element={<ProtectedRoute element={<ProfilePage />} />} />
       </Routes>
       
+      {background && (
+            <Routes>
+              <Route
+                path='/ingredients/:_id'
+                element={
+                  <Modal closeModal={closeIngredientDetailsModal}>
+                    <IngredientDetails />
+                  </Modal>
+                }
+              />
+
+              <Route
+                //path='/orders/:id'
+                element={
+                  <Modal closeModal={closeOrderDetailsModal}>
+                    <OrderDetails />
+                  </Modal>
+                }
+              />
+            </Routes>
+          )}
 
   </section>
 

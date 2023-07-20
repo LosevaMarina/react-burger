@@ -1,8 +1,24 @@
 import styles from "../ingredient-details/ingredient-details.module.css";
 import { useSelector } from "react-redux";
+//import { useParams } from 'react-router-dom';
 
 export const IngredientDetails = () => {
   const { ingredient } = useSelector((state) => state.ingredientDetails);
+
+
+
+  //const allIngredients = useSelector((state) => state.ingredients.ingredients);
+  //const { id } = useParams();
+
+
+  //const ingredient = allIngredients.find((ingredient) => ingredient._id === id);
+
+  //if (!ingredient) {
+ //   return null;
+ // }
+
+
+
 
   const { name, calories, carbohydrates, fat, proteins, image } = ingredient;
 
