@@ -38,7 +38,8 @@ const [nameValue, setNameValue] = useState('')
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const handleSubmit = (e) => {
+
+const handleSubmit = (e) => {
     e.preventDefault();
     createUser({ email: emailValue, password: passwordValue, username: nameValue })
       .then(res => {

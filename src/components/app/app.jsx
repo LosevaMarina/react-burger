@@ -27,8 +27,6 @@ import { ProfilePage } from "../../pages/profile-page/profile-page";
 //import { loginSuccess } from '../../services/actions/login';
 import { Page } from "../page/page";
 import  { OnlyAuth, OnlyUnAuth } from "../protected-route/protected-route";
-
-
 //import ProtectedRouteElement from "../protected-route/protected-route";
 //import PublicRouteElement from "../public-route/public-route";
 
@@ -41,8 +39,9 @@ export const App = () => {
     dispatch(getIngredients());
 
     {/*проверка авторизации пользователя:
-    dispatch(что-то там());
+    dispatch(checkUserAuth());
 */}
+
   }, [dispatch]);
 
   const location = useLocation();
@@ -72,38 +71,7 @@ export const App = () => {
   }
 
 
-
-{/* 
-  return (
-    <>
-      <AppHeader />
-      {REQUEST && <div className={styles.note}>загрузка...</div>}
-
-      <main className={styles.main}>
-        <DndProvider backend={HTML5Backend}>
-          <BurgerIngredients />
-          <BurgerConstructor />
-        </DndProvider>
-      </main>
-      {ingredientDetailsModal && (
-        <Modal closeModal={closeIngredientDetailsModal}>
-          <IngredientDetails />
-        </Modal>
-      )}
-      {orderDetailsModal && (
-        <Modal closeModal={closeOrderDetailsModal}>
-          <OrderDetails />
-        </Modal>
-      )}
-
-
-      
-    </>
-  );
-      */}
-
-
-
+      //console.log (Boolean(localStorage.getItem("accessToken")) + "=>rurururu=>" + Boolean(localStorage.getItem("refreshToken")));
 return (
   <section className={styles.block}>
       <AppHeader />
