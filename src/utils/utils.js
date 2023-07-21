@@ -13,9 +13,9 @@ export function request(url, options) {
 export const getAuthChecked = (state) => state.user.isAuthChecked;
 
 
-export const fetchWithRefresh = async (endpoint, options) => {
+export const fetchWithRefresh = async (url, options) => {
   try {
-    const res = await fetch(`${API_URL}/${endpoint}`, options);
+    const res = await fetch(`${API_URL}/${url}`, options);
     return await checkResponse(res);
   } catch (err) {
     if (err.message === "jwt expired") {
@@ -26,7 +26,7 @@ export const fetchWithRefresh = async (endpoint, options) => {
       localStorage.setItem("refreshToken", refreshData.refreshToken);
       localStorage.setItem("accessToken", refreshData.accessToken);
       options.headers.authorization = refreshData.accessToken;
-      const res = await fetch(`${API_URL}/${endpoint}`, options); 
+      const res = await fetch(`${API_URL}/${url}`, options); 
       return await checkResponse(res);
     } else {
       return Promise.reject(err);

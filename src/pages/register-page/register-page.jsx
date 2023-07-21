@@ -111,6 +111,7 @@ const handleSubmit = (e) => {
       </p>
     </form>
   );
+  
 };
 
 export { RegisterPage };
