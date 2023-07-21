@@ -3,14 +3,17 @@ import {
   PasswordInput,
   Input,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import styles from "./reset-password-page.module.css";
-import { Link, useNavigate } from "react-router-dom";
-import { resetPasswordAction } from "../../services/actions/reset-password";
+import styles from "../login-page/login-page.module.css";
+import { Link, useNavigate, useLocation } from "react-router-dom";
+//import { resetPasswordAction } from "../../services/actions/reset-password";
 import { useState, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+//import { useDispatch, useSelector } from 'react-redux';
+import { resetPassword } from '../../utils/utils';
+
 
 const ResetPasswordPage = () => {
 
+  {/*
   const dispatch = useDispatch();
   const resetPassword = useSelector((state) => state.resetPassword);
   const navigate = useNavigate();
@@ -30,16 +33,50 @@ const ResetPasswordPage = () => {
       });
     }
   }, [resetPassword, navigate]);
+*/}
 
+
+function useForm(inputValues) {
+  const [values, setValues] = useState(inputValues);
+
+  const handleChange = (event) => {
+    const {value, name} = event.target;
+    setValues({...values, [name]: value});
+  };
+  return {values, handleChange, setValues};
+}
+
+
+const {values, handleChange} = useForm({password: '', code: ''});
+
+  const navigate = useNavigate();
+  let state = useLocation();
+
+  const createNewPassword = (e) => {
+    e.preventDefault();
+    resetPassword(values.password, values.code)
+      .then((res) => {
+        if (res && res.success) {
+          navigate('/login')
+        } else {
+          alert('Ошибка восстановления пароля');
+        }
+      })
+      .catch((err) => {
+        console.log(`Произошла ошибка: ${err}`);
+      })
+  }
+
+  useEffect(() => {
+    if (state === null || state.state === null || !state.state.checkForgetToReset) {
+      navigate('/forgot-password')
+    }
+  }, [state])
 
   return (
     <form 
     className={styles.content}
-    onSubmit={(e) => {
-      e.preventDefault();
-      dispatch(resetPasswordAction(value.password, value.token));
-    }}
-    
+    onSubmit={createNewPassword}    
     >
       <h1 className={`${styles.title} text text_type_main-medium`}>
         Восстановление пароля
@@ -49,8 +86,8 @@ const ResetPasswordPage = () => {
           placeholder={"Введите новый пароль"}
           name={"password"}
           extraClass="mb-2"
-          onChange={(e) => setValue({ ...value, password: e.target.value })}
-          value={value.password}
+          onChange={handleChange}
+          value={values.password}
         />
       </div>
       <div className={styles.input}>
@@ -62,8 +99,8 @@ const ResetPasswordPage = () => {
           errorText={"Ошибка"}
           size={"default"}
           extraClass="mb-2"
-          value={value.token}
-          onChange={(e) => setValue({ ...value, token: e.target.value })}
+          value={values.code}
+          onChange={handleChange}
         />
       </div>
       <div className={styles.input}>

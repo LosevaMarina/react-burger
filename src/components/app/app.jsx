@@ -2,35 +2,35 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { AppHeader } from "../app-header/app-header";
 import styles from "../app/app.module.css";
-import { BurgerIngredients } from "../burger-ingredients/burger-ingredients";
-import { BurgerConstructor } from "../burger-constructor/burger-constructor";
+//import { BurgerIngredients } from "../burger-ingredients/burger-ingredients";
+//import { BurgerConstructor } from "../burger-constructor/burger-constructor";
 import { getIngredients } from "../../services/actions/burger-ingredients";
-import { DndProvider } from "react-dnd";
-import { HTML5Backend } from "react-dnd-html5-backend";
+//import { DndProvider } from "react-dnd";
+//import { HTML5Backend } from "react-dnd-html5-backend";
 import { Modal } from "../modal/modal";
 import {
   CLOSE_MODAL_INGREDIENT,
   NO_INGREDIENT,
 } from "../../services/actions/ingredient-details";
-import { CLOSE_ORDER_DETAILS_MODAL } from "../../services/actions/order-details";
+//import { CLOSE_ORDER_DETAILS_MODAL } from "../../services/actions/order-details";
 import { IngredientDetails } from "../ingredient-details/ingredient-details.jsx";
-import { OrderDetails } from "../order-details/order-details";
+//import { OrderDetails } from "../order-details/order-details";
 import { Routes, Route, useLocation, useNavigate } from 'react-router-dom';
 import { HomePage } from "../../pages/home-page/home-page";
 import { LoginPage } from "../../pages/login-page/login-page";
 import { ForgotPasswordPage } from "../../pages/forgot-password-page/forgot-password-page";
 import { ResetPasswordPage } from "../../pages/reset-password-page/reset-password-page";
 import { NotFound404 } from "../../pages/not-found/not-found";
-import { PublicRoute } from "../public-route/public-route";
-import { ProtectedRoute } from "../protected-route/protected-route";
 import { RegisterPage } from "../../pages/register-page/register-page";
 import { ProfilePage } from "../../pages/profile-page/profile-page";
-import { getCookie } from '../../utils/cookies';
-import { loginSuccess } from '../../services/actions/login';
+//import { getCookie } from '../../utils/cookies';
+//import { loginSuccess } from '../../services/actions/login';
 import { Page } from "../page/page";
+import  { OnlyAuth, OnlyUnAuth } from "../protected-route/protected-route";
 
 
-
+//import ProtectedRouteElement from "../protected-route/protected-route";
+//import PublicRouteElement from "../public-route/public-route";
 
 
 
@@ -42,26 +42,12 @@ export const App = () => {
 
     {/*проверка авторизации пользователя:
     dispatch(что-то там());
-  */}
-
-  const accessToken = getCookie('accessToken');
-  const refreshToken = getCookie('refreshToken');
-
-  if (accessToken && refreshToken) {
-    dispatch(loginSuccess(accessToken, refreshToken));
-    dispatch({ type: 'ISAUTH_CHECKED', payload: true });
-  }
+*/}
   }, [dispatch]);
 
   const location = useLocation();
   const background = location.state && location.state.background;
   const navigate = useNavigate();
-  //const history = useHistory();
-
-
-  const handleModalClose = () => {
-    navigate(-1);
-  };
 
 {/*
 
@@ -82,30 +68,10 @@ export const App = () => {
     dispatch({ type: CLOSE_MODAL_INGREDIENT });
     dispatch({ type: NO_INGREDIENT });
     
-    window.removeEventListener('popstate', closeIngredientDetailsModal);
-
-    const background = location.state && location.state.background;
-    if (background) {
-      navigate(background, { replace: true });
-    } else {
-      navigate(-1, { state: { modal: false } });
-    }
-    //navigate(-1);
+    navigate(-1);
   }
 
-  function closeOrderDetailsModal() {
-    dispatch({ type: CLOSE_ORDER_DETAILS_MODAL });
-    
-    window.removeEventListener('popstate', closeOrderDetailsModal);
 
-    const background = location.state && location.state.background;
-    if (background) {
-      navigate(background, { replace: true });
-    } else {
-      navigate(-1, { state: { modal: false } });
-    }
-    //navigate(-1);
-  }
 
 {/* 
   return (
@@ -145,22 +111,37 @@ return (
       
       <Routes location={background || location}>
             <Route path="/" element={<HomePage />} />
-            <Route path="*" element={<NotFound404 />} />
-            <Route
-              path="/register"
-              element={<PublicRoute element={<RegisterPage />} />}
-            />
+            
             <Route
               path="/login"
-              element={<PublicRoute element={<LoginPage />} />}
+              element={<OnlyUnAuth component={<LoginPage />} />}
             />
-            <Route path="/reset-password" 
-            element={<PublicRoute element={<ResetPasswordPage />} />}
+
+            <Route
+              path="/register"
+              element={<OnlyUnAuth component={<RegisterPage />} />}
             />
-            <Route path="/profile" element={<ProtectedRoute element={<ProfilePage />} />} />
-            <Route path="/ingredients/:_id" element={<Page>
-                    <IngredientDetails />
+
+
+            <Route 
+              path="/forgot-password"
+              element={<OnlyUnAuth component={<ForgotPasswordPage />} />}
+            />
+
+            <Route 
+              path="/reset-password" 
+              element={<OnlyUnAuth component={<ResetPasswordPage />} />}
+            />
+
+            
+            <Route path={"/profile"} element={<OnlyAuth component={<ProfilePage />} />} />     
+            
+
+            <Route path="/ingredients/:_id" element={<Page> <IngredientDetails />
                   </Page>} />
+
+
+            <Route path="*" element={<NotFound404 />} />
       </Routes>
       
       {background && (
@@ -179,6 +160,4 @@ return (
   </section>
 
 )
-
-
 };

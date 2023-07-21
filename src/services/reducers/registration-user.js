@@ -1,41 +1,50 @@
 import {
-    REGISTRATION_REQUEST,
-    REGISTRATION_SUCCESS,
-    REGISTRATION_FAILED
-  } from '../actions/registration-user'
+    GET_USER_REQUEST,
+    GET_USER_SUCCESS,
+    GET_USER_FAILED,
+    CLEAR_USER
+  } from '../actions/registration-user';
   
-  const initialState = {
-    name: null,
-    email: null,
-    password: null,
-    isAuthenticated: false
-  };
+  const initialUserState = {
+    user: null,
+    isAuthChecked: true,
+    userFailed: false
+  }
   
-  export const registrationUserReduser = (state = initialState, action) => {
+  export const userReducer = (state = initialUserState, action) => {
     switch (action.type) {
-      case REGISTRATION_REQUEST:
+      case GET_USER_REQUEST: {
         return {
           ...state,
-        };
-      case REGISTRATION_SUCCESS:
-        if (action.payload && action.payload.name && action.payload.email) {
-          return {
-            name: action.payload.name,
-            email: action.payload.email,
-            password: action.payload.password,
-            isAuthenticated: true
-          };
-        } else {
-          return state;
+          isAuthChecked: false
         }
-      case REGISTRATION_FAILED:
+      }
+      case GET_USER_SUCCESS: {
         return {
-          name: null,
-          email: null,
-          password: null,
-          isAuthenticated: false
-        };
-      default:
+          ...state,
+          user: action.user,
+          isAuthChecked: true,
+          userFailed: false
+        }
+      }
+      case GET_USER_FAILED: {
+        return {
+          ...state,
+          userFailed: true,
+          isAuthChecked: true
+        }
+      }
+      case CLEAR_USER: {
+        return {
+          ...state,
+          user: null,
+          userFailed: false,
+          isAuthChecked: true
+        }
+      }
+      default: {
         return state;
+      }
     }
-  };
+  }
+  

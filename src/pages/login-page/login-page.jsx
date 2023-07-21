@@ -4,74 +4,70 @@ import {
   PasswordInput,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./login-page.module.css";
-import { useLocation, Navigate, Link } from "react-router-dom";
-import { useState, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { loginApi } from '../../services/actions/login';
-import {setCookie } from "../../utils/cookies";
+import { useLocation, useNavigate, Link } from "react-router-dom";
+import { useState } from 'react';
+import { useDispatch } from 'react-redux';
+//import { loginApi } from '../../services/actions/login';
+//import {setCookie } from "../../utils/cookies";
+import { login } from "../../utils/utils";
+import { GET_USER_SUCCESS } from '../../services/actions/registration-user';
+
+
 
 export const LoginPage = () => {
 
+  
+
+function useForm(inputValues) {
+  const [values, setValues] = useState(inputValues);
+
+  const handleChange = (event) => {
+    const {value, name} = event.target;
+    setValues({...values, [name]: value});
+  };
+  return {values, handleChange, setValues};
+}
+
+
+const {values, handleChange} = useForm({email: '', password: ''});
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const location = useLocation();
-  const loginDetails = useSelector((store) => store.login);
-  const isLoggedIn = useSelector((store) => store.user.isAuthChecked);
 
-
-  const [formValues, setFormValues] = useState({
-    email: '',
-    password: '',
-  });
-  function onSubmitFrom(e) {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(loginApi(formValues.email, formValues.password));
+    login({ email: values.email, password: values.password })
+      .then(res => {
+        localStorage.setItem("refreshToken", res.refreshToken);
+        localStorage.setItem("accessToken", res.accessToken);
+        //navigate( '/');
+        let pathroute;
+        if (location.state === null || location.state.from ===null ) {
+          pathroute = "/";
+        } else {
+          pathroute = location.state.from.pathname;
+        }
+        navigate(pathroute);
+
+        dispatch({
+          type: GET_USER_SUCCESS,
+          user: res.user
+        })
+      })
+      .catch((err) => {
+        console.log(`Произошла ошибка: ${err}`);
+      })
   }
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormValues((prevValues) => ({ ...prevValues, [name]: value }));
-  };
-
- 
-
-  const [fromPath, setFromPath] = useState('/');
-
-  useEffect(() => {
-    if (location.state && location.state.from) {
-      setFromPath(location.state.from);
-    }
-  }, [location.state]);
-
-
-
-
-  useEffect(() => {
-    if (loginDetails.status) {
-      setCookie(loginDetails.accessToken, loginDetails.refreshToken);
-      setFormValues({
-        email: '',
-        password: '',
-      });
-
-      if (isLoggedIn) {
-        return <Navigate to={location?.state?.from || '/'} />;
-      }
-    }
-  }, [loginDetails, isLoggedIn, location.state]);
-
-
-
-
-
   return (
-    <form className={styles.content}>
+    <form className={styles.content} onSubmit={handleSubmit}>
       <h1 className={`${styles.title} text text_type_main-medium`}>Вход</h1>
       <div className={styles.input}>
         <EmailInput 
         name={"email"} 
         isIcon={false} 
         onChange={handleChange}
-        value={formValues.email}
+        value={values.email}
         />
       </div>
       <div className={styles.input}>
@@ -79,7 +75,7 @@ export const LoginPage = () => {
         name={"password"} 
         extraClass="mb-2" 
         onChange={handleChange}
-        value={formValues.password}
+        value={values.password}
         />
       </div>
 

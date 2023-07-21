@@ -2,35 +2,48 @@ import {
   Button,
   EmailInput,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import styles from "./forgot-password-page.module.css";
+import styles from "../login-page/login-page.module.css";
 import { useNavigate, Link } from "react-router-dom";
-import { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { forgotPasswordAction } from "../../services/actions/forgot-password";
+import { useState } from "react";
+import { forgotPassword } from '../../utils/utils';
 
 const ForgotPasswordPage = () => {
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-  const forgotPassword = useSelector((state) => state.forgotPassword);
 
-  const [emailValue, setEmailValue] = useState(null);
-  const email = (e) => {
-    setEmailValue(e.target.value);
+function useForm(inputValues) {
+  const [values, setValues] = useState(inputValues);
+
+  const handleChange = (event) => {
+    const {value, name} = event.target;
+    setValues({...values, [name]: value});
   };
-  useEffect(() => {
-    if (forgotPassword.status) {
-      setEmailValue("");
-      navigate("/reset-password", { state: { reset: true } });
-    }
-  }, [forgotPassword, navigate]);
+  return {values, handleChange, setValues};
+}
+
+
+const {values, handleChange} = useForm({email: ''});
+  const navigate = useNavigate();
+
+  const restorePassword = (e) => {
+    e.preventDefault();
+    forgotPassword(values.email)
+      .then((res) => {
+        if (res && res.success) {
+          navigate('/reset-password', { state: { checkForgetToReset: true } })
+        } else {
+          alert('Произошла ошибка при восстановлении пароля')
+        }
+      })
+      .catch((err) => {
+        console.log(`Произошла ошибка: ${err}`);
+      })
+  }
+
+
 
   return (
     <form
       className={styles.content}
-      onSubmit={(e) => {
-        e.preventDefault();
-        dispatch(forgotPasswordAction(emailValue));
-      }}
+      onSubmit={restorePassword}
     >
       <h1 className={`${styles.title} text text_type_main-medium`}>
         Восстановление пароля
@@ -40,8 +53,9 @@ const ForgotPasswordPage = () => {
           placeholder="Укажите E-mail"
           name={"email"}
           isIcon={false}
-          onChange={email}
-          value={emailValue || ""}
+          onChange={handleChange}
+          //value={values.email || " "}
+          value={values.email}
         />
       </div>
 

@@ -6,7 +6,7 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useMatch, NavLink } from "react-router-dom";
 import styles from "./app-header.module.css";
-import { useSelector } from "react-redux";
+
 
 
 export const AppHeader = () => {
