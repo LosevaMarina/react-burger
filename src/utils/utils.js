@@ -14,9 +14,9 @@ export function request(url, options) {
 export const getAuthChecked = (state) => state.user.isAuthChecked;
 
 
-export const fetchWithRefresh = async (url, options) => {
+export const fetchWithRefresh = async (endpoint, options) => {
   try {
-    const res = await fetch(`${API_URL}/${url}`, options);
+    const res = await fetch(`${API_URL}/${endpoint}`, options);
     return await checkResponse(res);
   } catch (err) {
     if (err.message === "jwt expired") {
@@ -27,7 +27,7 @@ export const fetchWithRefresh = async (url, options) => {
       localStorage.setItem("refreshToken", refreshData.refreshToken);
       localStorage.setItem("accessToken", refreshData.accessToken);
       options.headers.authorization = refreshData.accessToken;
-      const res = await fetch(`${API_URL}/${url}`, options); 
+      const res = await fetch(`${API_URL}/${endpoint}`, options); 
       return await checkResponse(res);
     } else {
       return Promise.reject(err);
@@ -35,16 +35,8 @@ export const fetchWithRefresh = async (url, options) => {
   }
 }
 
-export const getIngredients = () => {
-  return request('ingredients', {
-    headers: {
-      'Content-Type': 'application/json; charset=UTF-8'
-    }
-  })
-}
-
 export const forgotPassword = (value) => {
-  return request('password-reset', {
+  return request(`${API_URL}/password-reset`, {
     method: 'POST',
     body: JSON.stringify({
       "email": value
@@ -56,7 +48,7 @@ export const forgotPassword = (value) => {
 }
 
 export const resetPassword = (password, token) => {
-  return request('password-reset/reset', {
+  return request(`${API_URL}/password-reset/reset`, {
     method: 'POST',
     body: JSON.stringify({
       "password": password,
@@ -69,7 +61,7 @@ export const resetPassword = (password, token) => {
 }
 
 export const createUser = ({email, password, username}) => {
-  return request('auth/register', {
+  return request(`${API_URL}/auth/register`, {
     method: 'POST',
     body: JSON.stringify({
       "email": email,
@@ -83,7 +75,7 @@ export const createUser = ({email, password, username}) => {
 }
 
 export const login = ({email, password}) => {
-  return request('auth/login', {
+  return request(`${API_URL}/auth/login`, {
     method: 'POST',
     body: JSON.stringify({
       "email": email,
@@ -97,7 +89,7 @@ export const login = ({email, password}) => {
 
 
 export const logout = () => {
-  return request('auth/logout', {
+  return request(`${API_URL}/auth/logout`, {
     method: 'POST',
     body: JSON.stringify({
       "token": localStorage.getItem("refreshToken"),
@@ -109,7 +101,7 @@ export const logout = () => {
 }
 
 export const refreshToken = () => {
-  return request('auth/token', {
+  return request(`${API_URL}/auth/token`, {
     method: 'POST',
     body: JSON.stringify({
       "token": localStorage.getItem("refreshToken"),
@@ -121,7 +113,7 @@ export const refreshToken = () => {
 }
 
 export const getUser = () => {
-  return fetchWithRefresh('auth/user', {
+  return fetchWithRefresh(`${API_URL}/auth/user`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json; charset=UTF-8',
@@ -131,7 +123,7 @@ export const getUser = () => {
 }
 
 export const updateUser = ({name, email, password}) => {
-  return fetchWithRefresh('auth/user', {
+  return fetchWithRefresh(`${API_URL}/auth/user`, {
     method: 'PATCH',
     body: JSON.stringify({
 

@@ -56,6 +56,8 @@ const ProfilePage = () => {
       })
   }
 
+
+
   useEffect(() => {
     let isMounted = true;
     getUser()
@@ -65,11 +67,15 @@ const ProfilePage = () => {
         }
       })
       .catch((err) => {
-        console.log(`Произошла ошибка: ${err}`);
+        console.log(`Ошибка : ${err}`);
       })
     //clean
     return () => { isMounted = false };
   }, [])
+
+
+  
+
 
   const saveUser = (e) => {
     e.preventDefault();

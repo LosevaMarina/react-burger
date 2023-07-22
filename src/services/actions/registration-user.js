@@ -25,7 +25,7 @@ export function getUser({email, password, username}) {
         }
       })
       .catch((err) => {
-        console.log(`Ошибка регистрации: ${err}`);
+        console.log(`Ошибка регистрации пользователя: ${err}`);
         dispatch({
           type: GET_USER_FAILED
         })

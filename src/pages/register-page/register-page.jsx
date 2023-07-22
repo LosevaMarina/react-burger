@@ -52,7 +52,7 @@ const handleSubmit = (e) => {
         })
       })
       .catch((err) => {
-        console.log(`Произошла ошибка: ${err}`);
+        console.log(`Произошла ошибка регистрации пользователя: ${err}`);
       })
   }
 
