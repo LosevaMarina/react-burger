@@ -50,6 +50,7 @@ const ProfilePage = () => {
         localStorage.removeItem("accessToken");
         localStorage.removeItem("refreshToken");
         navigate('/login');
+        console.log('Удачный выход с аккаунта!');
       })
       .catch((err) => {
         console.log(`Ошибка при выходе с аккаунта: ${err}`);
@@ -60,11 +61,13 @@ const ProfilePage = () => {
 
   useEffect(() => {
     let isMounted = true;
+    console.log (" ВЛАГ: " + isMounted)
     getUser()
       .then((res) => {
         if (isMounted) {
           setValues({...values, name: res.user.name, email: res.user.email});
         }
+        console.log('Удачно!');
       })
       .catch((err) => {
         console.log(`Ошибка : ${err}`);

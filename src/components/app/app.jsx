@@ -2,19 +2,13 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { AppHeader } from "../app-header/app-header";
 import styles from "../app/app.module.css";
-//import { BurgerIngredients } from "../burger-ingredients/burger-ingredients";
-//import { BurgerConstructor } from "../burger-constructor/burger-constructor";
 import { getIngredients } from "../../services/actions/burger-ingredients";
-//import { DndProvider } from "react-dnd";
-//import { HTML5Backend } from "react-dnd-html5-backend";
 import { Modal } from "../modal/modal";
 import {
   CLOSE_MODAL_INGREDIENT,
   NO_INGREDIENT,
 } from "../../services/actions/ingredient-details";
-//import { CLOSE_ORDER_DETAILS_MODAL } from "../../services/actions/order-details";
 import { IngredientDetails } from "../ingredient-details/ingredient-details.jsx";
-//import { OrderDetails } from "../order-details/order-details";
 import { Routes, Route, useLocation, useNavigate } from 'react-router-dom';
 import { HomePage } from "../../pages/home-page/home-page";
 import { LoginPage } from "../../pages/login-page/login-page";
@@ -23,13 +17,8 @@ import { ResetPasswordPage } from "../../pages/reset-password-page/reset-passwor
 import { NotFound404 } from "../../pages/not-found/not-found";
 import { RegisterPage } from "../../pages/register-page/register-page";
 import { ProfilePage } from "../../pages/profile-page/profile-page";
-//import { getCookie } from '../../utils/cookies';
-//import { loginSuccess } from '../../services/actions/login';
 import { Page } from "../page/page";
 import  { OnlyAuth, OnlyUnAuth } from "../protected-route/protected-route";
-//import ProtectedRouteElement from "../protected-route/protected-route";
-//import PublicRouteElement from "../public-route/public-route";
-
 
 
 export const App = () => {
@@ -47,18 +36,6 @@ export const App = () => {
   const location = useLocation();
   const background = location.state && location.state.background;
   const navigate = useNavigate();
-
-{/*
-
-  const ingredientDetailsModal = useSelector(
-    (state) => state.ingredientDetails.openModal
-  );
-
-  const orderDetailsModal = useSelector(
-    (state) => state.orderDetails.openModal
-  );
-
-  */}
   const REQUEST = useSelector(
     (state) => state.orderDetails.makeOrderRequestInProgress
   );
@@ -71,7 +48,7 @@ export const App = () => {
   }
 
 
-      //console.log (Boolean(localStorage.getItem("accessToken")) + "=>rurururu=>" + Boolean(localStorage.getItem("refreshToken")));
+  console.log (Boolean(localStorage.getItem("accessToken")) + "=>токены=>" + Boolean(localStorage.getItem("refreshToken")));
 return (
   <section className={styles.block}>
       <AppHeader />

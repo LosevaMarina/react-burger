@@ -15,6 +15,7 @@ export const getAuthChecked = (state) => state.user.isAuthChecked;
 
 
 export const fetchWithRefresh = async (endpoint, options) => {
+  console.log ("перешли в функцию fetchWithRefresh: ")
   try {
     const res = await fetch(`${API_URL}/${endpoint}`, options);
     return await checkResponse(res);
@@ -113,7 +114,8 @@ export const refreshToken = () => {
 }
 
 export const getUser = () => {
-  return fetchWithRefresh(`${API_URL}/auth/user`, {
+  console.log ("перешли в функцию getUser: ")
+  return fetchWithRefresh('auth/user', {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json; charset=UTF-8',
@@ -123,7 +125,7 @@ export const getUser = () => {
 }
 
 export const updateUser = ({name, email, password}) => {
-  return fetchWithRefresh(`${API_URL}/auth/user`, {
+  return fetchWithRefresh('auth/user', {
     method: 'PATCH',
     body: JSON.stringify({
 
