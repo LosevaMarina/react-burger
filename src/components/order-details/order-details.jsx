@@ -3,7 +3,7 @@ import styles from "../order-details/order-details.module.css";
 
 export const OrderDetails = () => {
   const { orderId } = useSelector((state) => state.orderDetails);
-
+  console.log("удачное оформление заказа!!!!!!!!!!!!" + orderId);
   return (
     <div className={styles.container}>
       <h1 className={"text text_type_digits-large" + " " + styles.numberText}>

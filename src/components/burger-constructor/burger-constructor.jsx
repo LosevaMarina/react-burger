@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import {
   ConstructorElement,
   Button,
@@ -19,11 +19,14 @@ import { addIngredient } from "../../services/actions/burger-constructor";
 import { useNavigate } from 'react-router-dom';
 
 
+
+
 export const BurgerConstructor = () => {
   const UserAuth = Boolean(localStorage.getItem("refreshToken") && localStorage.getItem("accessToken"));
   console.log ("Пользователь авторизирован? : " + UserAuth);
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
 
   const ingredients = useSelector(
     (state) => state.burgerConstructor.ingredients
@@ -91,6 +94,7 @@ export const BurgerConstructor = () => {
     navigate('/login', {state: { from: { pathname: "/" } }});
   }
   }
+
 
  return (
     <section className={styles.block} ref={dropTargetRef}>

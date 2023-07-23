@@ -9,6 +9,7 @@ import {
   NO_INGREDIENT,
 } from "../../services/actions/ingredient-details";
 import { IngredientDetails } from "../ingredient-details/ingredient-details.jsx";
+import { OrderDetails } from "../order-details/order-details";
 import { Routes, Route, useLocation, useNavigate } from 'react-router-dom';
 import { HomePage } from "../../pages/home-page/home-page";
 import { LoginPage } from "../../pages/login-page/login-page";
@@ -99,15 +100,6 @@ return (
                   </Modal>
                 }
               />
-            <Route
-                path='/order'
-                element={
-                  <Modal closeModal={closeIngredientDetailsModal}>
-                    <IngredientDetails />
-                  </Modal>
-                }
-              />
-
             </Routes>
           )}
 
