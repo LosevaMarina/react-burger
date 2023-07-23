@@ -10,134 +10,127 @@ export function request(url, options) {
   return fetch(url, options).then(checkResponse);
 }
 
-
 export const getAuthChecked = (state) => state.user.isAuthChecked;
 
-
 export const fetchWithRefresh = async (endpoint, options) => {
-  console.log ("перешли в функцию fetchWithRefresh: ")
   try {
     const res = await fetch(`${API_URL}/${endpoint}`, options);
     return await checkResponse(res);
   } catch (err) {
     if (err.message === "jwt expired") {
-      const refreshData = await refreshToken(); //обновляем токен
+      //обновляем токен
+      const refreshData = await refreshToken();
       if (!refreshData.success) {
         return Promise.reject(refreshData);
       }
       localStorage.setItem("refreshToken", refreshData.refreshToken);
       localStorage.setItem("accessToken", refreshData.accessToken);
       options.headers.authorization = refreshData.accessToken;
-      const res = await fetch(`${API_URL}/${endpoint}`, options); 
+      const res = await fetch(`${API_URL}/${endpoint}`, options);
       return await checkResponse(res);
     } else {
       return Promise.reject(err);
     }
   }
-}
+};
 
 export const forgotPassword = (value) => {
   return request(`${API_URL}/password-reset`, {
-    method: 'POST',
+    method: "POST",
     body: JSON.stringify({
-      "email": value
+      email: value,
     }),
     headers: {
-      'Content-Type': 'application/json; charset=UTF-8'
-    }
-  })
-}
+      "Content-Type": "application/json; charset=UTF-8",
+    },
+  });
+};
 
 export const resetPassword = (password, token) => {
   return request(`${API_URL}/password-reset/reset`, {
-    method: 'POST',
+    method: "POST",
     body: JSON.stringify({
-      "password": password,
-      "token": token
+      password: password,
+      token: token,
     }),
     headers: {
-      'Content-Type': 'application/json; charset=UTF-8'
-    }
-  })
-}
+      "Content-Type": "application/json; charset=UTF-8",
+    },
+  });
+};
 
-export const createUser = ({email, password, username}) => {
+export const createUser = ({ email, password, username }) => {
   return request(`${API_URL}/auth/register`, {
-    method: 'POST',
+    method: "POST",
     body: JSON.stringify({
-      "email": email,
-      "password": password,
-      "name": username
+      email: email,
+      password: password,
+      name: username,
     }),
     headers: {
-      'Content-Type': 'application/json; charset=UTF-8'
-    }
-  })
-}
+      "Content-Type": "application/json; charset=UTF-8",
+    },
+  });
+};
 
-export const login = ({email, password}) => {
+export const login = ({ email, password }) => {
   return request(`${API_URL}/auth/login`, {
-    method: 'POST',
+    method: "POST",
     body: JSON.stringify({
-      "email": email,
-      "password": password,
+      email: email,
+      password: password,
     }),
     headers: {
-      'Content-Type': 'application/json; charset=UTF-8'
-    }
-  })
-}
-
+      "Content-Type": "application/json; charset=UTF-8",
+    },
+  });
+};
 
 export const logout = () => {
   return request(`${API_URL}/auth/logout`, {
-    method: 'POST',
+    method: "POST",
     body: JSON.stringify({
-      "token": localStorage.getItem("refreshToken"),
+      token: localStorage.getItem("refreshToken"),
     }),
     headers: {
-      'Content-Type': 'application/json; charset=UTF-8'
-    }
-  })
-}
+      "Content-Type": "application/json; charset=UTF-8",
+    },
+  });
+};
 
 export const refreshToken = () => {
   return request(`${API_URL}/auth/token`, {
-    method: 'POST',
+    method: "POST",
     body: JSON.stringify({
-      "token": localStorage.getItem("refreshToken"),
+      token: localStorage.getItem("refreshToken"),
     }),
     headers: {
-      'Content-Type': 'application/json; charset=UTF-8'
-    }
-  })
-}
+      "Content-Type": "application/json; charset=UTF-8",
+    },
+  });
+};
 
 export const getUser = () => {
-  console.log ("перешли в функцию getUser: ")
-  return fetchWithRefresh('auth/user', {
-    method: 'GET',
+  return fetchWithRefresh("auth/user", {
+    method: "GET",
     headers: {
-      'Content-Type': 'application/json; charset=UTF-8',
-      authorization: localStorage.getItem('accessToken')
-    }
-  })
-}
+      "Content-Type": "application/json; charset=UTF-8",
+      authorization: localStorage.getItem("accessToken"),
+    },
+  });
+};
 
-export const updateUser = ({name, email, password}) => {
-  return fetchWithRefresh('auth/user', {
-    method: 'PATCH',
+export const updateUser = ({ name, email, password }) => {
+  return fetchWithRefresh("auth/user", {
+    method: "PATCH",
     body: JSON.stringify({
-
-        "email": email,
-        "name": name,
-        "password": password
-
+      email: email,
+      name: name,
+      password: password,
     }),
     headers: {
-      'Content-Type': 'application/json; charset=UTF-8',
-      authorization: localStorage.getItem('accessToken')
-    }
-  })
-}
-
+      "Content-Type": "application/json; charset=UTF-8",
+      authorization: localStorage.getItem("accessToken"),
+    },
+  });
+};

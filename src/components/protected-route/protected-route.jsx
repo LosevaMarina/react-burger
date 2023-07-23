@@ -1,11 +1,9 @@
 import { useSelector } from "react-redux";
 import { Navigate, useLocation } from "react-router-dom";
-import { getAuthChecked } from '../../utils/utils';
+import { getAuthChecked } from "../../utils/utils";
 
 const Protected = ({ onlyUnAuth = false, component }) => {
-  // isAuthChecked это флаг, показывающий что проверка токена произведена
-  // при этом результат этой проверки не имеет значения, важно только,
-  // что сам факт проверки имел место.
+  //проверка токена произведена
   const isAuthChecked = useSelector(getAuthChecked);
 
   const location = useLocation();
@@ -15,15 +13,11 @@ const Protected = ({ onlyUnAuth = false, component }) => {
   const isTokensExist = isRefreshToken && isAccessToken;
 
   if (!isAuthChecked) {
-    // Запрос еще выполняется
-    // Выводим прелоадер в ПР
-    // Здесь возвращается просто null для экономии времени
     return null;
   }
 
   if (onlyUnAuth && isTokensExist) {
-    // Пользователь авторизован, но роут предназначен для неавторизованного пользователя
-    // Делаем редирект на главную страницу или на тот адрес, что записан в location.state.from
+    //авторизация выполнена
     const { from } = location.state || { from: { pathname: "/" } };
     return <Navigate to={from} />;
   }
@@ -40,11 +34,3 @@ export const OnlyAuth = Protected;
 export const OnlyUnAuth = ({ component }) => (
   <Protected onlyUnAuth={true} component={component} />
 );
-
-
-
-
-
-
-
-

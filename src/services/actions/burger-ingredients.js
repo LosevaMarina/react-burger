@@ -22,11 +22,6 @@ export const getIngredients = () => (dispatch) => {
           counter: 0,
         })),
       });
-
-      //обновление токенов
-      localStorage.removeItem("accessToken");
-      localStorage.removeItem("refreshToken");
-      console.log ("токены обновлены!");
     })
     .catch(() => dispatch(ingredientsError()));
 };

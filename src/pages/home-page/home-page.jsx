@@ -4,9 +4,7 @@ import { BurgerIngredients } from "../../components/burger-ingredients/burger-in
 import { BurgerConstructor } from "../../components/burger-constructor/burger-constructor";
 import { HTML5Backend } from "react-dnd-html5-backend";
 
-
 const HomePage = () => {
-
   return (
     <>
       <main className={styles.main}>
@@ -17,6 +15,6 @@ const HomePage = () => {
       </main>
     </>
   );
-}
+};
 
 export { HomePage };

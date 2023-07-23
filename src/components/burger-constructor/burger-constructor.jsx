@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useMemo } from "react";
 import {
   ConstructorElement,
   Button,
@@ -16,17 +16,23 @@ import {
 import { ADD_BUN } from "../../services/actions/burger-constructor";
 import { createOrder } from "../../services/actions/order-details";
 import { addIngredient } from "../../services/actions/burger-constructor";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 
-
-
+import { Modal } from "../modal/modal";
+import { OrderDetails } from "../order-details/order-details";
+import { CLOSE_ORDER_DETAILS_MODAL } from "../../services/actions/order-details";
 
 export const BurgerConstructor = () => {
-  const UserAuth = Boolean(localStorage.getItem("refreshToken") && localStorage.getItem("accessToken"));
-  console.log ("Пользователь авторизирован? : " + UserAuth);
+  const UserAuth = Boolean(
+    localStorage.getItem("refreshToken") && localStorage.getItem("accessToken")
+  );
+  console.log("Пользователь авторизирован? : " + UserAuth);
   const navigate = useNavigate();
   const dispatch = useDispatch();
-
+  //const [Modal, setModal] = useState(false);
+  const orderDetailsModal = useSelector(
+    (state) => state.orderDetails.openModal
+  );
 
   const ingredients = useSelector(
     (state) => state.burgerConstructor.ingredients
@@ -47,9 +53,6 @@ export const BurgerConstructor = () => {
     );
   }, [ingredients, bunIngredient]);
 
- 
-
-  
   const [, dropTargetRef] = useDrop({
     accept: INGREDIENT_CARD,
     drop(ingredient) {
@@ -84,19 +87,24 @@ export const BurgerConstructor = () => {
 
   function handlePlaceOrder() {
     if (UserAuth) {
-    const orderIngredientIds = [
-      bunIngredient._id,
-      ...ingredients.map((ingredient) => ingredient._id),
-      bunIngredient._id,
-    ];
-    dispatch(createOrder(orderIngredientIds));
-  } else {
-    navigate('/login', {state: { from: { pathname: "/" } }});
-  }
+      //setModal(true);
+      const orderIngredientIds = [
+        bunIngredient._id,
+        ...ingredients.map((ingredient) => ingredient._id),
+        bunIngredient._id,
+      ];
+      dispatch(createOrder(orderIngredientIds));
+    } else {
+      navigate("/login", { state: { from: { pathname: "/" } } });
+    }
   }
 
+  function closeOrderDetailsModal() {
+    //setModal(false);
+    dispatch({ type: CLOSE_ORDER_DETAILS_MODAL });
+  }
 
- return (
+  return (
     <section className={styles.block} ref={dropTargetRef}>
       <ul className={styles.listElements}>
         <li className={styles.element}>
@@ -112,7 +120,7 @@ export const BurgerConstructor = () => {
           {!bunIngredient && <BunCard style={Top} />}
         </li>
 
-        <IngredientsCard ingredients={ingredients} /> 
+        <IngredientsCard ingredients={ingredients} />
 
         <li className={styles.element}>
           {bunIngredient && (
@@ -144,6 +152,14 @@ export const BurgerConstructor = () => {
           Оформить заказ
         </Button>
       </div>
+
+      {/*открытие модалки с номером заказа*/}
+
+      {orderDetailsModal && (
+        <Modal closeModal={closeOrderDetailsModal}>
+          <OrderDetails />
+        </Modal>
+      )}
     </section>
   );
 };

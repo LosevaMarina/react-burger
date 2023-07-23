@@ -1,12 +1,10 @@
 import styles from "../ingredient-details/ingredient-details.module.css";
 import { useSelector } from "react-redux";
-import { useParams } from 'react-router-dom';
-import {useMemo} from 'react';
-
+import { useParams } from "react-router-dom";
+import { useMemo } from "react";
 
 export const IngredientDetails = () => {
   //const { ingredient } = useSelector((state) => state.ingredientDetails);
-  
 
   const { ingredients } = useSelector((state) => state.burgerIngredients);
 
@@ -14,16 +12,15 @@ export const IngredientDetails = () => {
   const prodId = params._id;
 
   const ingredient = useMemo(() => {
-    return ingredients.find(({_id}) => _id === prodId);
-   }, [prodId, ingredients]);
- 
-   if (!ingredient) {
-     return null;
-   }
+    return ingredients.find(({ _id }) => _id === prodId);
+  }, [prodId, ingredients]);
 
+  if (!ingredient) {
+    return null;
+  }
 
-   const { name, calories, carbohydrates, fat, proteins, image } = ingredient;
-   
+  const { name, calories, carbohydrates, fat, proteins, image } = ingredient;
+
   return (
     <>
       <div className={styles.title}>

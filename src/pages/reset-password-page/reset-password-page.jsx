@@ -5,49 +5,21 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "../login-page/login-page.module.css";
 import { Link, useNavigate, useLocation } from "react-router-dom";
-//import { resetPasswordAction } from "../../services/actions/reset-password";
-import { useState, useEffect } from 'react';
-//import { useDispatch, useSelector } from 'react-redux';
-import { resetPassword } from '../../utils/utils';
-
+import { useState, useEffect } from "react";
+import { resetPassword } from "../../utils/utils";
 
 const ResetPasswordPage = () => {
+  function useForm(inputValues) {
+    const [values, setValues] = useState(inputValues);
 
-  {/*
-  const dispatch = useDispatch();
-  const resetPassword = useSelector((state) => state.resetPassword);
-  const navigate = useNavigate();
-  const [value, setValue] = useState({
-    password: '',
-    token: '',
-  });
+    const handleChange = (event) => {
+      const { value, name } = event.target;
+      setValues({ ...values, [name]: value });
+    };
+    return { values, handleChange, setValues };
+  }
 
-
-
-  useEffect(() => {
-    if (resetPassword.status === 'success') {
-      navigate('/login');
-      setValue({
-        password: '',
-        token: '',
-      });
-    }
-  }, [resetPassword, navigate]);
-*/}
-
-
-function useForm(inputValues) {
-  const [values, setValues] = useState(inputValues);
-
-  const handleChange = (event) => {
-    const {value, name} = event.target;
-    setValues({...values, [name]: value});
-  };
-  return {values, handleChange, setValues};
-}
-
-
-const {values, handleChange} = useForm({password: '', code: ''});
+  const { values, handleChange } = useForm({ password: "", code: "" });
 
   const navigate = useNavigate();
   let state = useLocation();
@@ -57,27 +29,28 @@ const {values, handleChange} = useForm({password: '', code: ''});
     resetPassword(values.password, values.code)
       .then((res) => {
         if (res && res.success) {
-          navigate('/login')
+          navigate("/login");
         } else {
-          alert('Ошибка восстановления пароля');
+          alert("Ошибка восстановления пароля");
         }
       })
       .catch((err) => {
         console.log(`Произошла ошибка: ${err}`);
-      })
-  }
+      });
+  };
 
   useEffect(() => {
-    if (state === null || state.state === null || !state.state.checkForgetToReset) {
-      navigate('/forgot-password')
+    if (
+      state === null ||
+      state.state === null ||
+      !state.state.checkForgetToReset
+    ) {
+      navigate("/forgot-password");
     }
-  }, [state])
+  }, [state]);
 
   return (
-    <form 
-    className={styles.content}
-    onSubmit={createNewPassword}    
-    >
+    <form className={styles.content} onSubmit={createNewPassword}>
       <h1 className={`${styles.title} text text_type_main-medium`}>
         Восстановление пароля
       </h1>

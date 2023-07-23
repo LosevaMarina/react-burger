@@ -1,10 +1,14 @@
 import { useSelector } from "react-redux";
 import styles from "../order-details/order-details.module.css";
+//import { Navigate, useLocation } from "react-router-dom";
 
 export const OrderDetails = () => {
   const { orderId } = useSelector((state) => state.orderDetails);
   console.log("удачное оформление заказа!!!!!!!!!!!!" + orderId);
+  //const location = useLocation();
   return (
+    //<Navigate to={`/profile/orders/${orderId}`} state={{ background: location }} >
+
     <div className={styles.container}>
       <h1 className={"text text_type_digits-large" + " " + styles.numberText}>
         {orderId}
@@ -28,5 +32,7 @@ export const OrderDetails = () => {
         Дождитесь готовности на орбитальной станции
       </p>
     </div>
+    //</Navigate>
+    
   );
 };
