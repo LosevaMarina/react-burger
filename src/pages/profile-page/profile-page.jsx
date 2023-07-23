@@ -61,7 +61,7 @@ const ProfilePage = () => {
 
   useEffect(() => {
     let isMounted = true;
-    console.log (" ВЛАГ: " + isMounted)
+    console.log (" ФЛАГ isMounted: " + isMounted)
     getUser()
       .then((res) => {
         if (isMounted) {

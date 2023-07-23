@@ -16,9 +16,13 @@ import {
 import { ADD_BUN } from "../../services/actions/burger-constructor";
 import { createOrder } from "../../services/actions/order-details";
 import { addIngredient } from "../../services/actions/burger-constructor";
+import { useNavigate } from 'react-router-dom';
 
 
 export const BurgerConstructor = () => {
+  const UserAuth = Boolean(localStorage.getItem("refreshToken") && localStorage.getItem("accessToken"));
+  console.log ("Пользователь авторизирован? : " + UserAuth);
+  const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const ingredients = useSelector(
@@ -76,12 +80,16 @@ export const BurgerConstructor = () => {
   }
 
   function handlePlaceOrder() {
+    if (UserAuth) {
     const orderIngredientIds = [
       bunIngredient._id,
       ...ingredients.map((ingredient) => ingredient._id),
       bunIngredient._id,
     ];
     dispatch(createOrder(orderIngredientIds));
+  } else {
+    navigate('/login', {state: { from: { pathname: "/" } }});
+  }
   }
 
  return (

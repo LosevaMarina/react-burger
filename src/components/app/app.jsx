@@ -99,6 +99,15 @@ return (
                   </Modal>
                 }
               />
+            <Route
+                path='/order'
+                element={
+                  <Modal closeModal={closeIngredientDetailsModal}>
+                    <IngredientDetails />
+                  </Modal>
+                }
+              />
+
             </Routes>
           )}
 
