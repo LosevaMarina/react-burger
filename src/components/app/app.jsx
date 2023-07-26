@@ -19,6 +19,7 @@ import { RegisterPage } from "../../pages/register-page/register-page";
 import { ProfilePage } from "../../pages/profile-page/profile-page";
 import { Page } from "../page/page";
 import { OnlyAuth, OnlyUnAuth } from "../protected-route/protected-route";
+import { routeHome, routeLogin, routeRegister, routeForgotPassword, routeResetPassword, routeProfile, routeIngredient, routeIngredientId, route404 } from "../../utils/data";
 
 export const App = () => {
   const dispatch = useDispatch();
@@ -47,51 +48,47 @@ export const App = () => {
       {REQUEST && <div className={styles.note}>загрузка...</div>}
 
       <Routes location={background || location}>
-        <Route path="/" element={<HomePage />} />
+        <Route path={routeHome} element={<HomePage />} />
 
         <Route
-          path="/login"
+          path={routeLogin}
           element={<OnlyUnAuth component={<LoginPage />} />}
         />
 
         <Route
-          path="/register"
+          path={routeRegister}
           element={<OnlyUnAuth component={<RegisterPage />} />}
         />
 
         <Route
-          path="/forgot-password"
+          path={routeForgotPassword}
           element={<OnlyUnAuth component={<ForgotPasswordPage />} />}
         />
 
         <Route
-          path="/reset-password"
+          path={routeResetPassword}
           element={<OnlyUnAuth component={<ResetPasswordPage />} />}
         />
 
         <Route
-          path={"/profile"}
+          path={routeProfile}
           element={<OnlyAuth component={<ProfilePage />} />}
         />
 
         <Route
-          path="/ingredients/:_id"
-          element={
-            <Page>
-              {" "}
-              <IngredientDetails />
-            </Page>
+          path={`${routeIngredient}${routeIngredientId}`}
+          element={!background ?
+            <Page /> : null
           }
         />
 
-        <Route path="*" element={<NotFound404 />} />
+        <Route path={route404} element={<NotFound404 />} />
       </Routes>
 
       {background && (
         <Routes>
           <Route
-            path="/ingredients/:_id"
-            exact
+            path={`${routeIngredient}${routeIngredientId}`}
             element={
               <Modal closeModal={closeIngredientDetailsModal}>
                 <IngredientDetails />

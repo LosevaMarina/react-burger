@@ -10,6 +10,7 @@ import { useDispatch } from "react-redux";
 import { useState, useRef } from "react";
 import { createUser } from "../../utils/utils";
 import { GET_USER_SUCCESS } from "../../services/actions/registration-user";
+import { refreshToken, accessToken, routeLogin } from "../../utils/data";
 
 const RegisterPage = () => {
   const [nameValue, setNameValue] = useState("");
@@ -40,8 +41,8 @@ const RegisterPage = () => {
       username: nameValue,
     })
       .then((res) => {
-        localStorage.setItem("refreshToken", res.refreshToken);
-        localStorage.setItem("accessToken", res.accessToken);
+        localStorage.setItem(refreshToken, res.refreshToken);
+        localStorage.setItem(accessToken, res.accessToken);
         navigate("/");
         dispatch({
           type: GET_USER_SUCCESS,
@@ -102,7 +103,7 @@ const RegisterPage = () => {
       >
         Уже зарегистрированы?
         <span>
-          <Link to="/login" className={styles.links}>
+          <Link to={routeLogin} className={styles.links}>
             Войти
           </Link>
         </span>

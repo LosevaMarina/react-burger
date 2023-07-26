@@ -9,6 +9,8 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { login } from "../../utils/utils";
 import { GET_USER_SUCCESS } from "../../services/actions/registration-user";
+import { routeHome, routeRegister, routeForgotPassword } from '../../utils/data';
+import { refreshToken, accessToken } from "../../utils/data";
 
 export const LoginPage = () => {
   function useForm(inputValues) {
@@ -30,12 +32,12 @@ export const LoginPage = () => {
     e.preventDefault();
     login({ email: values.email, password: values.password })
       .then((res) => {
-        localStorage.setItem("refreshToken", res.refreshToken);
-        localStorage.setItem("accessToken", res.accessToken);
+        localStorage.setItem(refreshToken, res.refreshToken);
+        localStorage.setItem(accessToken, res.accessToken);
         //navigate( '/');
         let pathroute;
         if (location.state === null || location.state.from === null) {
-          pathroute = "/";
+          pathroute = routeHome;
         } else {
           pathroute = location.state.from.pathname;
         }
@@ -86,7 +88,7 @@ export const LoginPage = () => {
       >
         Вы - новый пользователь?
         <span>
-          <Link to="/register" className={styles.links}>
+          <Link to={routeRegister} className={styles.links}>
             Зарегистрироваться
           </Link>
         </span>
@@ -96,7 +98,7 @@ export const LoginPage = () => {
       >
         Забыли пароль?
         <span>
-          <Link to="/forgot-password" className={styles.links}>
+          <Link to={routeForgotPassword} className={styles.links}>
             Восстановить пароль
           </Link>
         </span>

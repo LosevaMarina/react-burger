@@ -3,7 +3,7 @@ export const API_URL = "https://norma.nomoreparties.space/api";
 export const checkResponse = (res) => {
   return res.ok
     ? res.json()
-    : res.json().then(() => Promise.reject(res.status));
+    : res.json().then((err) => Promise.reject(err));
 };
 
 export function request(url, options) {
@@ -11,6 +11,7 @@ export function request(url, options) {
 }
 
 export const getAuthChecked = (state) => state.user.isAuthChecked;
+
 
 export const fetchWithRefresh = async (endpoint, options) => {
   try {

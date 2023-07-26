@@ -49,6 +49,7 @@ const ForgotPasswordPage = () => {
           onChange={handleChange}
           //value={values.email || " "}
           value={values.email}
+          extraClass="mt-6"
         />
       </div>
 

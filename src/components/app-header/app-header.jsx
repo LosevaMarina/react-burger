@@ -8,6 +8,7 @@ import { useMatch, NavLink } from "react-router-dom";
 import styles from "./app-header.module.css";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import { routeHome, routeProfile } from '../../utils/data';
 
 export const AppHeader = () => {
   const isConstructor = !!useMatch({ path: "/", exact: true });
@@ -32,11 +33,10 @@ export const AppHeader = () => {
       <nav className={styles.content}>
         <div className={styles.navigator}>
           <NavLink
-            to="/"
+            to={routeHome}
             className={({ isActive }) =>
               isActive ? styles.link_active : styles.link
             }
-            exact
           >
             <BurgerIcon type={isConstructor ? "primary" : "secondary"} />
             <p className="text text_type_main-default ml-2">Конструктор</p>
@@ -52,14 +52,14 @@ export const AppHeader = () => {
             <p className="text text_type_main-default ml-2">Лента заказов</p>
           </NavLink>
         </div>
-        <NavLink to="/" exact>
+        <NavLink to={routeHome}>
           <div className={styles.logo}>
             <Logo />
           </div>
         </NavLink>
 
         <NavLink
-          to="/profile"
+          to={routeProfile}
           className={({ isActive }) =>
             isActive ? styles.link_active : styles.link
           }

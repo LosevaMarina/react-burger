@@ -4,7 +4,7 @@ import styles from "../order-details/order-details.module.css";
 
 export const OrderDetails = () => {
   const { orderId } = useSelector((state) => state.orderDetails);
-  console.log("удачное оформление заказа!!!!!!!!!!!!" + orderId);
+  //console.log("удачное оформление заказа " + orderId);
   //const location = useLocation();
   return (
     //<Navigate to={`/profile/orders/${orderId}`} state={{ background: location }} >

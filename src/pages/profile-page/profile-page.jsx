@@ -12,6 +12,8 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { logout, updateUser, getUser } from "../../utils/utils";
 import { CLEAR_USER } from "../../services/actions/registration-user";
+import { routeProfile, routeLogin } from '../../utils/data';
+import { refreshToken, accessToken } from "../../utils/data";
 
 const ProfilePage = () => {
   function useForm(inputValues) {
@@ -51,10 +53,10 @@ const ProfilePage = () => {
           type: CLEAR_USER,
         });
         //обновление токенов
-        localStorage.removeItem("accessToken");
-        localStorage.removeItem("refreshToken");
-        navigate("/login");
-        console.log("Удачный выход с аккаунта!");
+        localStorage.removeItem(accessToken);
+        localStorage.removeItem(refreshToken);
+        navigate(routeLogin);
+        //console.log("Удачный выход с аккаунта!");
       })
       .catch((err) => {
         console.log(`Ошибка при выходе с аккаунта: ${err}`);
@@ -68,7 +70,6 @@ const ProfilePage = () => {
         if (isMounted) {
           setValues({ ...values, name: res.user.name, email: res.user.email });
         }
-        console.log("Удачно!");
       })
       .catch((err) => {
         console.log(`Ошибка : ${err}`);
@@ -106,7 +107,7 @@ const ProfilePage = () => {
       <div className={styles.content}>
         <nav className={styles.menu}>
           <NavLink
-            to="/profile"
+            to={routeProfile}
             className={({ isActive }) =>
               isActive
                 ? `${styles.link_active} + text_type_main-medium text_color_inactive text`
@@ -128,7 +129,7 @@ const ProfilePage = () => {
           </NavLink>
 
           <NavLink
-            to="/login"
+            to={routeLogin}
             className={({ isActive }) =>
               isActive
                 ? `${styles.link_active} + text_type_main-medium text_color_inactive text`

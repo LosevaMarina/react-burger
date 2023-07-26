@@ -21,12 +21,12 @@ import { useNavigate } from "react-router-dom";
 import { Modal } from "../modal/modal";
 import { OrderDetails } from "../order-details/order-details";
 import { CLOSE_ORDER_DETAILS_MODAL } from "../../services/actions/order-details";
+import { refreshToken, accessToken } from "../../utils/data";
 
 export const BurgerConstructor = () => {
   const UserAuth = Boolean(
-    localStorage.getItem("refreshToken") && localStorage.getItem("accessToken")
+    localStorage.getItem(refreshToken) && localStorage.getItem(accessToken)
   );
-  console.log("Пользователь авторизирован? : " + UserAuth);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   //const [Modal, setModal] = useState(false);
@@ -95,7 +95,11 @@ export const BurgerConstructor = () => {
       ];
       dispatch(createOrder(orderIngredientIds));
     } else {
+      //перенаправляем на страницу входа
       navigate("/login", { state: { from: { pathname: "/" } } });
+      //обновляем токены
+      localStorage.removeItem(accessToken);
+      localStorage.removeItem(refreshToken);
     }
   }
 

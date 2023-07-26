@@ -7,6 +7,7 @@ import styles from "../login-page/login-page.module.css";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { resetPassword } from "../../utils/utils";
+import { routeLogin, routeForgotPassword } from "../../utils/data";
 
 const ResetPasswordPage = () => {
   function useForm(inputValues) {
@@ -29,7 +30,7 @@ const ResetPasswordPage = () => {
     resetPassword(values.password, values.code)
       .then((res) => {
         if (res && res.success) {
-          navigate("/login");
+          navigate(routeLogin);
         } else {
           alert("Ошибка восстановления пароля");
         }
@@ -45,7 +46,7 @@ const ResetPasswordPage = () => {
       state.state === null ||
       !state.state.checkForgetToReset
     ) {
-      navigate("/forgot-password");
+      navigate(routeForgotPassword);
     }
   }, [state]);
 
@@ -67,7 +68,7 @@ const ResetPasswordPage = () => {
         <Input
           type={"text"}
           placeholder={"Введите код из письма"}
-          name={"token"}
+          name={"code"}
           error={false}
           errorText={"Ошибка"}
           size={"default"}

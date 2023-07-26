@@ -1,14 +1,13 @@
-import PropTypes from "prop-types";
-import styles from "./page.module.css";
 
-export const Page = (props) => {
+import styles from "./page.module.css";
+import { IngredientDetails } from "../ingredient-details/ingredient-details";
+
+export const Page = () => {
   return (
     <section className={styles.content}>
-      <div className={styles.page}>{props.children}</div>
+      <div className={styles.page}>
+      <IngredientDetails />
+        </div>
     </section>
   );
-};
-
-Page.propTypes = {
-  children: PropTypes.element.isRequired,
 };
