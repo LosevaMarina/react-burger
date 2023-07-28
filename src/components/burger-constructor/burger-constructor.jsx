@@ -16,10 +16,23 @@ import {
 import { ADD_BUN } from "../../services/actions/burger-constructor";
 import { createOrder } from "../../services/actions/order-details";
 import { addIngredient } from "../../services/actions/burger-constructor";
+import { useNavigate } from "react-router-dom";
 
+import { Modal } from "../modal/modal";
+import { OrderDetails } from "../order-details/order-details";
+import { CLOSE_ORDER_DETAILS_MODAL } from "../../services/actions/order-details";
+import { refreshToken, accessToken } from "../../utils/data";
 
 export const BurgerConstructor = () => {
+  const UserAuth = Boolean(
+    localStorage.getItem(refreshToken) && localStorage.getItem(accessToken)
+  );
+  const navigate = useNavigate();
   const dispatch = useDispatch();
+  //const [Modal, setModal] = useState(false);
+  const orderDetailsModal = useSelector(
+    (state) => state.orderDetails.openModal
+  );
 
   const ingredients = useSelector(
     (state) => state.burgerConstructor.ingredients
@@ -40,9 +53,6 @@ export const BurgerConstructor = () => {
     );
   }, [ingredients, bunIngredient]);
 
- 
-
-  
   const [, dropTargetRef] = useDrop({
     accept: INGREDIENT_CARD,
     drop(ingredient) {
@@ -76,15 +86,29 @@ export const BurgerConstructor = () => {
   }
 
   function handlePlaceOrder() {
-    const orderIngredientIds = [
-      bunIngredient._id,
-      ...ingredients.map((ingredient) => ingredient._id),
-      bunIngredient._id,
-    ];
-    dispatch(createOrder(orderIngredientIds));
+    if (UserAuth) {
+      //setModal(true);
+      const orderIngredientIds = [
+        bunIngredient._id,
+        ...ingredients.map((ingredient) => ingredient._id),
+        bunIngredient._id,
+      ];
+      dispatch(createOrder(orderIngredientIds));
+    } else {
+      //перенаправляем на страницу входа
+      navigate("/login", { state: { from: { pathname: "/" } } });
+      //обновляем токены
+      localStorage.removeItem(accessToken);
+      localStorage.removeItem(refreshToken);
+    }
   }
 
- return (
+  function closeOrderDetailsModal() {
+    //setModal(false);
+    dispatch({ type: CLOSE_ORDER_DETAILS_MODAL });
+  }
+
+  return (
     <section className={styles.block} ref={dropTargetRef}>
       <ul className={styles.listElements}>
         <li className={styles.element}>
@@ -100,7 +124,7 @@ export const BurgerConstructor = () => {
           {!bunIngredient && <BunCard style={Top} />}
         </li>
 
-        <IngredientsCard ingredients={ingredients} /> 
+        <IngredientsCard ingredients={ingredients} />
 
         <li className={styles.element}>
           {bunIngredient && (
@@ -132,6 +156,14 @@ export const BurgerConstructor = () => {
           Оформить заказ
         </Button>
       </div>
+
+      {/*открытие модалки с номером заказа*/}
+
+      {orderDetailsModal && (
+        <Modal closeModal={closeOrderDetailsModal}>
+          <OrderDetails />
+        </Modal>
+      )}
     </section>
   );
 };

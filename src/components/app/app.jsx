@@ -2,19 +2,24 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { AppHeader } from "../app-header/app-header";
 import styles from "../app/app.module.css";
-import { BurgerIngredients } from "../burger-ingredients/burger-ingredients";
-import { BurgerConstructor } from "../burger-constructor/burger-constructor";
 import { getIngredients } from "../../services/actions/burger-ingredients";
-import { DndProvider } from "react-dnd";
-import { HTML5Backend } from "react-dnd-html5-backend";
 import { Modal } from "../modal/modal";
 import {
   CLOSE_MODAL_INGREDIENT,
   NO_INGREDIENT,
 } from "../../services/actions/ingredient-details";
-import { CLOSE_ORDER_DETAILS_MODAL } from "../../services/actions/order-details";
 import { IngredientDetails } from "../ingredient-details/ingredient-details.jsx";
-import { OrderDetails } from "../order-details/order-details";
+import { Routes, Route, useLocation, useNavigate } from "react-router-dom";
+import { HomePage } from "../../pages/home-page/home-page";
+import { LoginPage } from "../../pages/login-page/login-page";
+import { ForgotPasswordPage } from "../../pages/forgot-password-page/forgot-password-page";
+import { ResetPasswordPage } from "../../pages/reset-password-page/reset-password-page";
+import { NotFound404 } from "../../pages/not-found/not-found";
+import { RegisterPage } from "../../pages/register-page/register-page";
+import { ProfilePage } from "../../pages/profile-page/profile-page";
+import { Page } from "../page/page";
+import { OnlyAuth, OnlyUnAuth } from "../protected-route/protected-route";
+import { routeHome, routeLogin, routeRegister, routeForgotPassword, routeResetPassword, routeProfile, routeIngredient, routeIngredientId, route404 } from "../../utils/data";
 
 export const App = () => {
   const dispatch = useDispatch();
@@ -23,14 +28,9 @@ export const App = () => {
     dispatch(getIngredients());
   }, [dispatch]);
 
-  const ingredientDetailsModal = useSelector(
-    (state) => state.ingredientDetails.openModal
-  );
-
-  const orderDetailsModal = useSelector(
-    (state) => state.orderDetails.openModal
-  );
-
+  const location = useLocation();
+  const background = location.state && location.state.background;
+  const navigate = useNavigate();
   const REQUEST = useSelector(
     (state) => state.orderDetails.makeOrderRequestInProgress
   );
@@ -38,33 +38,65 @@ export const App = () => {
   function closeIngredientDetailsModal() {
     dispatch({ type: CLOSE_MODAL_INGREDIENT });
     dispatch({ type: NO_INGREDIENT });
-  }
 
-  function closeOrderDetailsModal() {
-    dispatch({ type: CLOSE_ORDER_DETAILS_MODAL });
+    navigate(-1);
   }
 
   return (
-    <>
+    <section className={styles.block}>
       <AppHeader />
       {REQUEST && <div className={styles.note}>загрузка...</div>}
 
-      <main className={styles.main}>
-        <DndProvider backend={HTML5Backend}>
-          <BurgerIngredients />
-          <BurgerConstructor />
-        </DndProvider>
-      </main>
-      {ingredientDetailsModal && (
-        <Modal closeModal={closeIngredientDetailsModal}>
-          <IngredientDetails />
-        </Modal>
+      <Routes location={background || location}>
+        <Route path={routeHome} element={<HomePage />} />
+
+        <Route
+          path={routeLogin}
+          element={<OnlyUnAuth component={<LoginPage />} />}
+        />
+
+        <Route
+          path={routeRegister}
+          element={<OnlyUnAuth component={<RegisterPage />} />}
+        />
+
+        <Route
+          path={routeForgotPassword}
+          element={<OnlyUnAuth component={<ForgotPasswordPage />} />}
+        />
+
+        <Route
+          path={routeResetPassword}
+          element={<OnlyUnAuth component={<ResetPasswordPage />} />}
+        />
+
+        <Route
+          path={routeProfile}
+          element={<OnlyAuth component={<ProfilePage />} />}
+        />
+
+        <Route
+          path={`${routeIngredient}${routeIngredientId}`}
+          element={!background ?
+            <Page /> : null
+          }
+        />
+
+        <Route path={route404} element={<NotFound404 />} />
+      </Routes>
+
+      {background && (
+        <Routes>
+          <Route
+            path={`${routeIngredient}${routeIngredientId}`}
+            element={
+              <Modal closeModal={closeIngredientDetailsModal}>
+                <IngredientDetails />
+              </Modal>
+            }
+          />
+        </Routes>
       )}
-      {orderDetailsModal && (
-        <Modal closeModal={closeOrderDetailsModal}>
-          <OrderDetails />
-        </Modal>
-      )}
-    </>
+    </section>
   );
 };

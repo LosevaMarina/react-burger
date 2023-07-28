@@ -15,6 +15,24 @@ export const PropTypeingredients = PropTypes.shape({
 });
   
 
+
+
+export const routeHome = "/";
+export const routeLogin = "/login";
+export const routeRegister = "/register";
+export const routeForgotPassword = "/forgot-password";
+export const routeResetPassword = "/reset-password";
+export const routeProfile = "/profile";
+export const routeIngredient = "/ingredients";
+export const routeIngredientId = "/:_id";
+export const route404 = "*";
+
+
+export const refreshToken = "refreshToken";
+export const accessToken = "accessToken";
+
+
+
 const data = [
     {
      "_id":"60666c42cc7b410027a1a9b1",

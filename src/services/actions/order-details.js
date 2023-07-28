@@ -33,13 +33,14 @@ export const createOrder = (orderItemsId) => {
           type: CLEAR_CONSTRUCTOR
         })
         dispatch (clearIngredientCounter())
-
+        console.log("удачное оформление заказа!!!");
       })
     
       .catch((err) => {
         dispatch({
           type: ORDER_FAILED,
         });
+        console.log(`Произошла ошибка открытия модалки с номером заказа: ${err}`);
       });
   };
 };
