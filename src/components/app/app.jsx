@@ -19,7 +19,22 @@ import { RegisterPage } from "../../pages/register-page/register-page";
 import { ProfilePage } from "../../pages/profile-page/profile-page";
 import { Page } from "../page/page";
 import { OnlyAuth, OnlyUnAuth } from "../protected-route/protected-route";
-import { routeHome, routeLogin, routeRegister, routeForgotPassword, routeResetPassword, routeProfile, routeIngredient, routeIngredientId, route404 } from "../../utils/data";
+import {
+  routeHome,
+  routeLogin,
+  routeRegister,
+  routeForgotPassword,
+  routeResetPassword,
+  routeProfile,
+  routeIngredient,
+  routeIngredientId,
+  route404,
+  routeOrderFeed,
+  routeUser,
+  routeUserOrders,
+} from "../../utils/data";
+import { OrderFeedPage } from "../../pages/order-feed-page/order-feed-page";
+import { ProfileInfoPage } from "../../pages/profile-info-page/profile-info-page";
 
 export const App = () => {
   const dispatch = useDispatch();
@@ -50,6 +65,8 @@ export const App = () => {
       <Routes location={background || location}>
         <Route path={routeHome} element={<HomePage />} />
 
+        <Route path={routeOrderFeed} element={<OrderFeedPage />} />
+
         <Route
           path={routeLogin}
           element={<OnlyUnAuth component={<LoginPage />} />}
@@ -70,16 +87,32 @@ export const App = () => {
           element={<OnlyUnAuth component={<ResetPasswordPage />} />}
         />
 
-        <Route
+        {/* <Route
           path={routeProfile}
           element={<OnlyAuth component={<ProfilePage />} />}
         />
+  */}
+
+        <Route
+          path={routeUser}
+          element={<OnlyAuth component={<ProfilePage />} />}
+        >
+          <Route index element={<ProfileInfoPage />} />
+          <Route
+            path={routeProfile}
+            element={<OnlyAuth component={<ProfileInfoPage />} />}
+          />
+          <Route
+            path={routeUserOrders}
+            element={<OnlyAuth component={<NotFound404 />} />}
+          />
+        </Route>
+
+        
 
         <Route
           path={`${routeIngredient}${routeIngredientId}`}
-          element={!background ?
-            <Page /> : null
-          }
+          element={!background ? <Page /> : null}
         />
 
         <Route path={route404} element={<NotFound404 />} />

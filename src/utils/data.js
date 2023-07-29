@@ -18,11 +18,17 @@ export const PropTypeingredients = PropTypes.shape({
 
 
 export const routeHome = "/";
+
+export const routeUser= "user";
+export const routeOrderFeed = "/feed";
+export const routeOrderFeedId = "/:orderId";
+export const routeUserOrders = "orders";
+
 export const routeLogin = "/login";
 export const routeRegister = "/register";
 export const routeForgotPassword = "/forgot-password";
 export const routeResetPassword = "/reset-password";
-export const routeProfile = "/profile";
+export const routeProfile = "profile";
 export const routeIngredient = "/ingredients";
 export const routeIngredientId = "/:_id";
 export const route404 = "*";
