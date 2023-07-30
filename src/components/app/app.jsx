@@ -35,6 +35,12 @@ import {
 } from "../../utils/data";
 import { OrderFeedPage } from "../../pages/order-feed-page/order-feed-page";
 import { ProfileInfoPage } from "../../pages/profile-info-page/profile-info-page";
+import { UserOrdersPage } from "../../pages/user-orders-page/user-orders-page";
+
+
+
+
+
 
 export const App = () => {
   const dispatch = useDispatch();
@@ -104,11 +110,11 @@ export const App = () => {
           />
           <Route
             path={routeUserOrders}
-            element={<OnlyAuth component={<NotFound404 />} />}
+            element={<OnlyAuth component={<UserOrdersPage />} />}
           />
         </Route>
 
-        
+
 
         <Route
           path={`${routeIngredient}${routeIngredientId}`}
