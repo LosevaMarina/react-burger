@@ -27,6 +27,8 @@ export const BurgerConstructor = () => {
   const UserAuth = Boolean(
     localStorage.getItem(refreshToken) && localStorage.getItem(accessToken)
   );
+  console.log("состояние токена: " + UserAuth)
+  
   const navigate = useNavigate();
   const dispatch = useDispatch();
   //const [Modal, setModal] = useState(false);
@@ -93,6 +95,13 @@ export const BurgerConstructor = () => {
         ...ingredients.map((ingredient) => ingredient._id),
         bunIngredient._id,
       ];
+     // const orderIngredientName = [
+     //   bunIngredient.name,
+    ////    ...ingredients.map((ingredient) => ingredient.name),
+      //  bunIngredient.name,
+     // ];
+
+     // console.log ("ингредиенты имя   " + orderIngredientName);
       dispatch(createOrder(orderIngredientIds));
     } else {
       //перенаправляем на страницу входа
@@ -109,6 +118,7 @@ export const BurgerConstructor = () => {
   }
 
   return (
+    
     <section className={styles.block} ref={dropTargetRef}>
       <ul className={styles.listElements}>
         <li className={styles.element}>

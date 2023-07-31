@@ -38,6 +38,7 @@ const ProfilePage = () => {
       });
   };
 
+
   return (
     <section className={styles.conteiner}>
       <div className={styles.content}>

@@ -1,5 +1,15 @@
 export const API_URL = "https://norma.nomoreparties.space/api";
+
 export const FEED_URL = "wss://norma.nomoreparties.space/orders/all";
+
+const accessToken = localStorage.getItem('accessToken') ? localStorage.getItem('accessToken').slice(7) : '';
+export const ORDERS_URL = `wss://norma.nomoreparties.space/orders?token=${accessToken}`;
+
+
+
+
+
+
 
 export const checkResponse = (res) => {
   return res.ok
@@ -10,14 +20,6 @@ export const checkResponse = (res) => {
 export function request(url, options) {
   return fetch(url, options).then(checkResponse);
 }
-
-
-export const WebsocketStatus  = {
-  CONNECTING:  'CONNECTING...',
-  ONLINE: 'ONLINE',
-  OFFLINE: 'OFFLINE'
-}
-
 
 
 export const getAuthChecked = (state) => state.user.isAuthChecked;

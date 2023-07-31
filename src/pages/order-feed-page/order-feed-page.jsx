@@ -2,12 +2,12 @@ import style from './order-feed-page.module.css';
 
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
-import {connect as connectFeedTable, disconnect as disconnectFeedTable} from '../../services/actions/order-feed';
+import {connect as connectFeedTable, disconnect as disconnectFeedTable} from '../../services/actions/ws-actions';
 import { FEED_URL } from "../../utils/utils";
 
 export const OrderFeedPage = () => {
 
-    const {orders } = useSelector(state => state.orderFeedReducer.orders.orders);
+    const { orders } = useSelector(state => state.orderFeed.orders);
     //const { orders } = useSelector(state => state.orders.orders);
     console.log (orders);
     const dispatch = useDispatch();
@@ -19,6 +19,22 @@ export const OrderFeedPage = () => {
         }
     },[])
 
+    console.log (useSelector((state) => state.userFeed.status));
+
+
+    const done = orders && orders.map(item => {
+        if (item.status === 'done') {
+            return item.number
+        }
+    }).slice(0, 7);
+
+
+
+
+
+
+
+
 
     return (
         <section className={style.section}>
@@ -26,7 +42,8 @@ export const OrderFeedPage = () => {
 
             <div className={style.content}>
 
-
+            {orders && done && done.map((item, i) => <p key={i} className="text text_type_digits-default text_color_inactive">{item}</p>)}
+                          
                 <div className={style.list}>
                 </div>
 
