@@ -18,7 +18,7 @@ import {
 
 
 export const UserOrdersPage = () => {
-  const orders = useSelector((state) => state.userFeed.orders);
+  const {orders} = useSelector((state) => state.userFeed.orders);
   const UserAuth = Boolean(
     localStorage.getItem('accessToken')
   );

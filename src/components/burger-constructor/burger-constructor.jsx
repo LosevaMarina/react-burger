@@ -27,8 +27,7 @@ export const BurgerConstructor = () => {
   const UserAuth = Boolean(
     localStorage.getItem(refreshToken) && localStorage.getItem(accessToken)
   );
-  console.log("состояние токена: " + UserAuth)
-  
+ 
   const navigate = useNavigate();
   const dispatch = useDispatch();
   //const [Modal, setModal] = useState(false);

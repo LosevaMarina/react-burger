@@ -10,10 +10,6 @@ export const Order = (props) => {
     const location = useLocation();
 
     const numberId = props.order['number'];
-    console.log ("номер" + numberId);
-
-
-   
     
 
 

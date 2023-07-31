@@ -15,40 +15,39 @@ export const socketMiddleware = (wsActions) => {
         wsConnecting,
         wsDisconnect,
       } = wsActions;
-      console.log ("wsConnect       " + wsConnect);
-      console.log ("wsConnect.type       " + wsConnect.type);
+      //console.log ("wsConnect       " + wsConnect);
 
-      if (type === wsConnect.type) {
+      if (type === wsConnect) {
         socket = new WebSocket(action.payload);
         console.log ("socket       " + socket);
-        dispatch(wsConnecting());
+        dispatch({type: wsConnecting});
       }
 
       if (socket) {
         socket.onopen = () => {
-          dispatch(onOpen());
+          dispatch({ type: onOpen });
         };
 
         socket.onerror = (event) => {
-          dispatch(onError("Error"));
+          dispatch({ type: onError, payload: 'Error' });
         };
 
         socket.onmessage = (event) => {
           const { data } = event;
           const parsedData = JSON.parse(data);
 
-          dispatch(onMessage(parsedData));
+          dispatch({ type: onMessage, payload: parsedData });
         };
 
         socket.onclose = (event) => {
-          dispatch(onClose());
+          dispatch({ type: onClose });
         };
 
-        if (wsSendMessage && type === wsSendMessage.type) {
+        if (wsSendMessage && type === wsSendMessage) {
           socket.send(JSON.stringify(action.payload));
         }
 
-        if (wsDisconnect.type === type) {
+        if (wsDisconnect === type) {
           socket.close();
           socket = null;
         }
