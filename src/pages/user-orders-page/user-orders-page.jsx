@@ -18,29 +18,27 @@ import {
 
 
 export const UserOrdersPage = () => {
-  const {orders} = useSelector((state) => state.userFeed.orders);
-  const UserAuth = Boolean(
-    localStorage.getItem('accessToken')
-  );
+  const {orders} = useSelector((store) => store.userFeed.orders);
+  //const {orders} = useSelector((state) => state.userFeed.orders);
   
-    console.log("проверка токена в истории заказов пользователя: " + UserAuth);
-
-  
-  
-  const wsUrlFeed = "wss://norma.nomoreparties.space/orders/all";
-  const accessToken = localStorage.getItem('accessToken') ? localStorage.getItem('accessToken').slice(7) : '';
+  //const UserAuth = Boolean(
+    //localStorage.getItem('accessToken')
+ // );
+  //  console.log("проверка токена в истории заказов пользователя: " + UserAuth);
+  //const wsUrlFeed = "wss://norma.nomoreparties.space/orders/all";
+ // const accessToken = localStorage.getItem('accessToken') ? localStorage.getItem('accessToken').slice(7) : '';
   //const accessToken = localStorage.getItem("accessToken").split(' ')[1];
-  const wsUrlUserFeed = `wss://norma.nomoreparties.space/orders?token=${accessToken}`;
+ // const wsUrlUserFeed = `wss://norma.nomoreparties.space/orders?token=${accessToken}`;
   
 
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(connectUserFeedTable(wsUrlUserFeed));
-    //dispatch(connectFeedTable(wsUrlFeed));
+    dispatch(connectUserFeedTable(ORDERS_URL));
+    dispatch(connectFeedTable(FEED_URL));
     return () => {
       dispatch(disconnectUserFeedTable());
-      //dispatch(disconnectFeedTable());
+      dispatch(disconnectFeedTable());
     };
   }, [dispatch]);
 
@@ -53,8 +51,9 @@ export const UserOrdersPage = () => {
   return (
     <section className={`${style.itemsFeed} custom-scroll`}>
 
-    {orders && orders.map((item, i) => <Order key={i} order={item}/>)}
+    {/*{orders && orders.map((item, i) => <Order key={i} order={item}/>)}*/}
 
+    {orders && orders.map(order => <Order order={order} key={order.number} />)}
 
     </section>
   );

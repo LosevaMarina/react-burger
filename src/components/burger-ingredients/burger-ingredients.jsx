@@ -10,6 +10,8 @@ import { useDispatch, useSelector } from "react-redux";
 
 export const BurgerIngredients = () => {
   const { ingredients } = useSelector((state) => state.burgerIngredients);
+  
+ 
 
   const dispatch = useDispatch();
 
