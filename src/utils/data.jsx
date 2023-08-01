@@ -21,7 +21,8 @@ export const routeHome = "/";
 
 export const routeUser= "user";
 export const routeOrderFeed = "/feed";
-export const routeOrderFeedId = "/:orderId";
+//export const routeOrderFeedId = "/:orderId";
+export const routeOrderFeedId = "/:id";
 export const routeUserOrders = "orders";
 
 export const routeLogin = "/login";

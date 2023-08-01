@@ -35,10 +35,10 @@ export const UserOrdersPage = () => {
 
   useEffect(() => {
     dispatch(connectUserFeedTable(ORDERS_URL));
-    dispatch(connectFeedTable(FEED_URL));
+    //dispatch(connectFeedTable(FEED_URL));
     return () => {
       dispatch(disconnectUserFeedTable());
-      dispatch(disconnectFeedTable());
+    //  dispatch(disconnectFeedTable());
     };
   }, [dispatch]);
 

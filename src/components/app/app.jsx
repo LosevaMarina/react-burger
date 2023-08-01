@@ -32,10 +32,13 @@ import {
   routeOrderFeed,
   routeUser,
   routeUserOrders,
+  routeOrderFeedId
 } from "../../utils/data";
 import { OrderFeedPage } from "../../pages/order-feed-page/order-feed-page";
 import { ProfileInfoPage } from "../../pages/profile-info-page/profile-info-page";
 import { UserOrdersPage } from "../../pages/user-orders-page/user-orders-page";
+import {OrderDescription} from "../../components/order-description/order-description";
+import {Order} from "../../components/order/order";
 
 
 
@@ -93,6 +96,10 @@ export const App = () => {
           element={<OnlyUnAuth component={<ResetPasswordPage />} />}
         />
 
+        
+
+
+
         {/* <Route
           path={routeProfile}
           element={<OnlyAuth component={<ProfilePage />} />}
@@ -114,8 +121,6 @@ export const App = () => {
           />
         </Route>
 
-
-
         <Route
           path={`${routeIngredient}${routeIngredientId}`}
           element={!background ? <Page /> : null}
@@ -134,6 +139,16 @@ export const App = () => {
               </Modal>
             }
           />
+            <Route
+            path={`${routeProfile}/${routeUserOrders}${routeOrderFeedId}`}
+            element={<OnlyAuth component={
+              <Modal closeModal={closeIngredientDetailsModal}>
+                <OrderDescription />
+              </Modal>
+            }
+            />}
+          />
+         
         </Routes>
       )}
     </section>
