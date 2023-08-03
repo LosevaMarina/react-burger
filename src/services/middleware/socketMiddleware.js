@@ -19,8 +19,8 @@ export const socketMiddleware = (wsActions) => {
 
       if (type === wsConnect) {
         socket = new WebSocket(action.payload);
-        console.log ("socket       " + socket);
-        dispatch({type: wsConnecting});
+        console.log("socket       " + socket);
+        dispatch({ type: wsConnecting });
       }
 
       if (socket) {
@@ -29,7 +29,7 @@ export const socketMiddleware = (wsActions) => {
         };
 
         socket.onerror = (event) => {
-          dispatch({ type: onError, payload: 'Error' });
+          dispatch({ type: onError, payload: "Error" });
         };
 
         socket.onmessage = (event) => {

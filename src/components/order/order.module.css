@@ -1,159 +1,86 @@
-.main {
-	width: 1280px;
-	margin: 40px auto 0;
-	display: flex;
-	flex-direction: column;
-  }
-  
-  .box {
-	display: flex;
-	margin-top: 20px;
-  }
-  
-  .order_list {
-	width: 584px;
-	height: 90wh;
-  }
-  
-  .order_numbers {
-	display: flex;
-	column-gap: 36px;
-  }
-  
-  .order_number {
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-  }
-  
-  .order {
-	display: flex;
-	flex-direction: column;
-	width: 536px;
-	height: 198px;
-	padding: 24px;
-	border-radius: 40px;
-	background-color: #1C1C21;
-	margin-bottom: 16px;
-	row-gap: 24px;
-	color: #fff;
-	text-decoration: none;
-  }
-  
-  .ingredient_image {
-	width: 56px;
-	height: 56px;
-	margin-left: -12px;
-	border-radius: 50%;
-	border: 1px solid #4C4CFF;
-	object-fit: cover;
-	background-color: #1C1C21;
-  }
-  
-  .ingredients {
-	display: flex;
-	margin-left: 12px;
-  }
-  
-  
-  .ingredient_image:nth-child(1) {
-	z-index: 7;
-  }
-  
-  .ingredient_image:nth-child(2) {
-	z-index: 6;
-  }
-  
-  .ingredient_image:nth-child(3) {
-	z-index: 5;
-  }
-  
-  .ingredient_image:nth-child(4) {
-	z-index: 4;
-  }
-  
-  .ingredient_image:nth-child(5) {
-	z-index: 3;
-  }
-  
-  .ingredient_image:nth-child(6) {
-	z-index: 1;
-  }
-  
-  .done_order {
-	color: #0CC;
-  }
-  
-  .done_orders {
-	width: 272px;
-	margin-top: 24px;
-	display: flex;
-	flex-direction: column;
-	row-gap: 8px;
-  }
-  
-  .total_price {
-	display: flex;
-	column-gap: 8px;
-  }
-  
-  .box_ingredients {
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-  }
-  
-  .orders {
-	margin-left: 60px;
-	display: flex;
-	flex-direction: column;
-	row-gap: 60px;
-  }
-  
-  .shadow {
-	text-shadow: rgb(51, 51, 255) 1px 0 10px;
-  }
-  
-  .layer {
-	position: absolute;
-	top: 0;
-	left: 0;
-	width: 56px;
-	height: 56px;
-	border-radius: 50%;
-	opacity: 0.6;
-	background-color: #1C1C21;
-	z-index: 2;
-	margin: 0 0 0 -12px;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-  }
-  
-  .hidden_elements {
-	position: relative;
-	width: 56px;
-	height: 56px;
-	border-radius: 50%;
-  }
-  
-  .status {
-	margin: 8px 0 0;
-  }
-  
-  .status_done {
-	margin: 8px 0 0;
-	color: #0CC;
-  }
-  
-  .order_name {
-	text-overflow: ellipsis;
-	white-space: nowrap;
-	overflow: hidden;
-  }
+.items {
+  margin: 0;
+  padding: 0;
+}
 
+.order {
+  display: flex;
+  flex-direction: column;
+  padding: 24px;
+  gap: 24px;
+  background-color: #1c1c21;
+  border-radius: 40px;
+  margin-bottom: 20px;
+  margin-right: 8px;
+  cursor: pointer;
+  text-decoration: none;
+  color: #fff;
+}
 
+.number {
+  display: flex;
+  justify-content: space-between;
+}
+.text {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+}
 
+.price {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  box-sizing: border-box;
+}
 
+.ingredients {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: start;
+}
+.imgEl {
+  position: relative;
+}
+ul .imgEl:not(:last-child) {
+  margin-left: -15px;
+}
 
+ul .last::after {
+  display: block;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+  background: #1c1c21;
+  opacity: 0.6;
+  content: "";
+  border-radius: 50px;
+}
+.image {
+  width: 64px;
+  height: 64px;
+  object-fit: cover;
+  object-position: center;
+  background-color: #131316;
+  border-radius: 50px;
+  border: 2px solid rgba(128, 26, 178, 1);
+}
 
+.textAbout {
+  font-family: "JetBrains Mono";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;
+  position: absolute;
+  z-index: 15;
+  top: 30%;
+  left: 30%;
+  margin: 0;
+}

@@ -1,7 +1,7 @@
 import style from "./ingredient-order.module.css";
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 
-export const IngredientOnOrder = ({ card }) => {
+export const IngredientOrder = ({ card }) => {
   return (
     <div className={style.container}>
       <div className={style.ingredient}>

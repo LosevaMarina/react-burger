@@ -1,75 +1,36 @@
-import { useDispatch, useSelector } from "react-redux";
-import style from './order-description.module.css';
-import { CurrencyIcon, FormattedDate } from '@ya.praktikum/react-developer-burger-ui-components';
-import { IngredientOnOrder } from "../ingredient-order/ingredient-order";
-import { useParams,useLocation } from "react-router-dom";
-import React from "react";
-import { createOrder } from "../../services/actions/order-details";
-import { useMemo, useEffect,useState } from "react";
+import styles from "./order-description.module.css";
+import { OrderDetailsModal } from "../order-details-modal/order-details-modal";
+import {
+  connect as connectUserFeedTable,
+  disconnect as disconnectUserFeedTable,
+} from "../../services/actions/ws-profile";
+
+import { ORDERS_URL } from "../../utils/utils";
+
+import { useSelector, useDispatch } from "react-redux";
+import { useEffect } from "react";
+import { useParams } from "react-router";
 
 export const OrderDescription = () => {
   const dispatch = useDispatch();
-
-
-
-  const order = useSelector(store => store.createOrder);
-console.log ("order_number: " + order);
-
-
-
-
   const { id } = useParams();
-  const { ingredients } = useSelector((store) => store.burgerIngredients);
 
-  const ingredientsInfo = order && order.ingredients.map(item => ingredients.find(ing => item == ing._id));
-  let uniqueIngredients;
+  useEffect(() => {
+    dispatch(connectUserFeedTable(ORDERS_URL));
+    //dispatch(connectFeedTable(FEED_URL));
+    return () => {
+      dispatch(disconnectUserFeedTable());
+      //dispatch(disconnectFeedTable());
+    };
+  }, [dispatch]);
 
-  const totalPrice = useMemo(() => {
-    return (
-      ingredientsInfo && ingredientsInfo.reduce((sum, item) => {
-        return (item ? (sum + item.price) : sum)
-      }, 0)
-    )
-  }, [ingredientsInfo])
+  const { orders } = useSelector((store) => store.orderFeed.orders);
 
-  useEffect(
-    () => {
-      dispatch(createOrder(id))
-    },
-    []
-  );
-
-
-  const arrayWithCounters = ingredientsInfo && ingredientsInfo.map((a) => {
-    const counter = ingredientsInfo.filter(item => item._id === a._id).length;
-    return { ...a, counter: counter }
-  })
-
-  if (order) {
-    const set = new Set(order.ingredients);
-    const uniqueId = [...set];
-    uniqueIngredients = uniqueId.map(item => arrayWithCounters.find(ing => item == ing._id));
-  }
-
+  const order = orders.find((order) => order._id === id);
 
   return (
-    <div className={style.order}>
-      {order && <p className={style.order_number + " text text_type_digits-default"}>#{order.number}</p>}
-      {order && <h3 className={style.name + " text text_type_main-medium"}>{order.name}</h3>}
-      {order && order.status === 'done' ? <p className={style.status + " text text_type_main-default"}>Выполнен</p> : <p className={"text text_type_main-default"}>Готовится</p>}
-      <p className={style.composition + " text text_type_main-medium"}>Состав:</p>
-      <div className={style.ingredients + " custom-scroll"}>
-        {
-          order && uniqueIngredients.map((item, index) => <IngredientOnOrder key={index} card={item} />)
-        }
-      </div>
-      <div className={style.total}>
-        {order && <p className="text text_type_main-small text_color_inactive">{<FormattedDate date={new Date(order.updatedAt)} />}</p>}
-        <div className={style.total_price}>
-          {totalPrice && <p className="text text_type_digits-default">{totalPrice}</p>}
-          <CurrencyIcon type="primary" />
-        </div>
-      </div>
-    </div>
-  )
-}
+    <section className={styles.section}>
+      {order && <OrderDetailsModal orders={orders} />}
+    </section>
+  );
+};

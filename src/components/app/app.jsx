@@ -4,10 +4,6 @@ import { AppHeader } from "../app-header/app-header";
 import styles from "../app/app.module.css";
 import { getIngredients } from "../../services/actions/burger-ingredients";
 import { Modal } from "../modal/modal";
-import {
-  CLOSE_MODAL_INGREDIENT,
-  NO_INGREDIENT,
-} from "../../services/actions/ingredient-details";
 import { IngredientDetails } from "../ingredient-details/ingredient-details.jsx";
 import { Routes, Route, useLocation, useNavigate } from "react-router-dom";
 import { HomePage } from "../../pages/home-page/home-page";
@@ -32,18 +28,13 @@ import {
   routeOrderFeed,
   routeUser,
   routeUserOrders,
-  routeOrderFeedId
+  routeOrderFeedId,
 } from "../../utils/data";
 import { OrderFeedPage } from "../../pages/order-feed-page/order-feed-page";
 import { ProfileInfoPage } from "../../pages/profile-info-page/profile-info-page";
 import { UserOrdersPage } from "../../pages/user-orders-page/user-orders-page";
-import {OrderDescription} from "../../components/order-description/order-description";
-import {Order} from "../../components/order/order";
-
-
-
-
-
+import { OrderDescription } from "../../components/order-description/order-description";
+import { OrderDescriptionInProfile } from "../../components/order-description-in-profile/order-description-in-profile";
 
 export const App = () => {
   const dispatch = useDispatch();
@@ -60,9 +51,6 @@ export const App = () => {
   );
 
   function closeIngredientDetailsModal() {
-    dispatch({ type: CLOSE_MODAL_INGREDIENT });
-    dispatch({ type: NO_INGREDIENT });
-
     navigate(-1);
   }
 
@@ -95,10 +83,6 @@ export const App = () => {
           path={routeResetPassword}
           element={<OnlyUnAuth component={<ResetPasswordPage />} />}
         />
-
-        
-
-
 
         {/* <Route
           path={routeProfile}
@@ -139,16 +123,27 @@ export const App = () => {
               </Modal>
             }
           />
-            <Route
-            path={`${routeProfile}/${routeUserOrders}${routeOrderFeedId}`}
-            element={<OnlyAuth component={
-              <Modal closeModal={closeIngredientDetailsModal}>
-                <OrderDescription />
+          <Route
+            path={`${routeOrderFeed}${routeOrderFeedId}`}
+            element={
+              <OnlyAuth
+                component={
+                  <Modal closeModal={closeIngredientDetailsModal}>
+                    <OrderDescription />
+                  </Modal>
+                }
+              />
+            }
+          />
+
+          <Route
+            path={`/${routeProfile}/${routeUserOrders}${routeOrderFeedId}`}
+            element={
+              <Modal onClose={closeIngredientDetailsModal}>
+                <OrderDescriptionInProfile />
               </Modal>
             }
-            />}
           />
-         
         </Routes>
       )}
     </section>

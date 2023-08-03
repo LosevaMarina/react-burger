@@ -1,62 +1,59 @@
 .section {
-	margin: 0 auto;
-	padding-top: 40px;
-    max-width: 1240px;
-
+  margin: 0 auto;
+  padding-top: 40px;
+  max-width: 1240px;
 }
 .content {
-	display: flex;
-	gap: 60px;
-	justify-content: flex-start;
-  margin-top: 40px;
+  display: flex;
+  justify-content: flex-start;
+  gap: 60px;
+}
+
+.ordersInfo {
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: column;
+  gap: 60px;
 }
 
 .list {
-    margin: 0;
-    padding: 0;
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-    height: 756px;
-    width: 600px;
-    overflow-y: scroll;
-  }
-  .list::-webkit-scrollbar {
-    width: 8px;
-  }
-  .list::-webkit-scrollbar-track {
-    background: #2f2f37;
-  }
-  .list::-webkit-scrollbar-thumb {
-    background-color: #8585ad;
-  }
-
-.ordersInfo {
-	display: flex;
-	flex-direction: column;
-	gap: 60px;
-    width: 580px;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  height: 756px;
+  width: 580px;
+  overflow-y: scroll;
+}
+.list::-webkit-scrollbar {
+  width: 8px;
+}
+.list::-webkit-scrollbar-track {
+  background: #2f2f37;
+}
+.list::-webkit-scrollbar-thumb {
+  background-color: #8585ad;
 }
 
 .ordersAvailability {
-	display: grid;
-    justify-items: start;
-	grid-template-columns: repeat(2, 1fr);
-	gap: 36px;
+  display: grid;
+  justify-items: start;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 36px;
 }
 
 .orderNumber {
-	margin-top: 24px;
-	display: flex;
-    flex-direction: column;
-	gap: 8px;
-	height: 152px;
+  margin-top: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  height: 152px;
 }
 .number {
   list-style-type: none;
   margin: 0;
   padding: 0;
-  
 }
 
 .number__color {

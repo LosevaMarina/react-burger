@@ -38,7 +38,7 @@ export const BurgerConstructor = () => {
   const ingredients = useSelector(
     (state) => state.burgerConstructor.ingredients
   );
-
+  
   const { bunIngredient } = useSelector((state) => state.burgerConstructor);
 
   const Top = "top";
@@ -172,6 +172,7 @@ export const BurgerConstructor = () => {
         <Modal closeModal={closeOrderDetailsModal}>
           <OrderDetails />
         </Modal>
+        
       )}
     </section>
   );
