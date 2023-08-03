@@ -37,6 +37,7 @@ export const ProfileInfoPage = () => {
           .then((res) => {
             if (isMounted) {
               setValues({ ...values, name: res.user.name, email: res.user.email });
+              
             }
           })
           .catch((err) => {

@@ -35,12 +35,31 @@ import { ProfileInfoPage } from "../../pages/profile-info-page/profile-info-page
 import { UserOrdersPage } from "../../pages/user-orders-page/user-orders-page";
 import { OrderDescription } from "../../components/order-description/order-description";
 import { OrderDescriptionInProfile } from "../../components/order-description-in-profile/order-description-in-profile";
+import { CHECK_TOKEN, GET_USER } from "../../services/actions/registration-user";
+import {getUser} from "../../utils/utils";
+
+
+
+
 
 export const App = () => {
   const dispatch = useDispatch();
+  const UserAuth = Boolean(
+    localStorage.getItem("refreshToken") && localStorage.getItem("accessToken")
+  );
+  console.log ("пользователь есть?  " + UserAuth)
 
   useEffect(() => {
     dispatch(getIngredients());
+    dispatch({ type: CHECK_TOKEN });
+    if (localStorage.getItem("accessToken")) {
+      getUser() 
+      .then(res => {
+        dispatch({ type: GET_USER, payload: res })
+      })
+      .catch(err => console.log(err));
+    }
+    //dispatch(checkUserAuth());
   }, [dispatch]);
 
   const location = useLocation();

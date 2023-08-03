@@ -3,12 +3,14 @@ export const API_URL = "https://norma.nomoreparties.space/api";
 export const FEED_URL = "wss://norma.nomoreparties.space/orders/all";
 
 const accessToken = localStorage.getItem('accessToken') ? localStorage.getItem('accessToken').slice(7) : '';
+
+console.log  ("accessToken" + accessToken);
 export const ORDERS_URL = `wss://norma.nomoreparties.space/orders?token=${accessToken}`;
 
 
 
 
-
+ 
 
 
 export const checkResponse = (res) => {
@@ -110,7 +112,7 @@ export const logout = () => {
     },
   });
 };
-
+ 
 export const refreshToken = () => {
   return request(`${API_URL}/auth/token`, {
     method: "POST",
@@ -132,6 +134,9 @@ export const getUser = () => {
     },
   });
 };
+
+
+
 
 export const updateUser = ({ name, email, password }) => {
   return fetchWithRefresh("auth/user", {
