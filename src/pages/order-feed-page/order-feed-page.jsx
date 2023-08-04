@@ -7,17 +7,16 @@ import {
   disconnect as disconnectFeedTable,
 } from "../../services/actions/ws-actions";
 import { FEED_URL } from "../../utils/utils";
-import Order from "../../components/order/order";
+import {OrderFeed} from "../../components/order-feed/order-feed";
 
 export const OrderFeedPage = () => {
-  const { orders, total, totalToday } = useSelector(
-    (store) => store.orderFeed.orders
-  );
-
-  //console.log(
-  //  "/feed  -   ORDERS это массив? :    " + Array.isArray(orders)
-  //);
   const dispatch = useDispatch();
+  
+
+  const { orders, total, totalToday } = useSelector(store => store.orderFeed.orders);
+
+
+
 
   useEffect(() => {
     dispatch(connectFeedTable(FEED_URL));
@@ -25,6 +24,7 @@ export const OrderFeedPage = () => {
       dispatch(disconnectFeedTable());
     };
   }, []);
+  
 
   const done =
     orders &&
@@ -35,7 +35,7 @@ export const OrderFeedPage = () => {
         }
       })
       .slice(0, 5);
-
+      
   const pending =
     orders &&
     orders
@@ -52,7 +52,11 @@ export const OrderFeedPage = () => {
 
       <div className={style.content}>
         <section className={style.list + " custom-scroll"}>
-          <Order orders={orders} status="" />
+           
+          {
+            orders && orders.map(order => <OrderFeed order={order} key={order._id} />)
+          }
+
         </section>
 
         <div className={style.ordersInfo}>

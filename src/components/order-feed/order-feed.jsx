@@ -1,4 +1,4 @@
-import styles from "./order.module.css";
+import styles from "./order-feed.module.css";
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import { v4 as uuidv4 } from "uuid";
 import { useSelector } from "react-redux";
@@ -6,7 +6,7 @@ import { Link, useLocation } from "react-router-dom";
 import { useMemo } from "react";
 import { FormattedDate } from "@ya.praktikum/react-developer-burger-ui-components";
 
-export const Order = ({ order, status }) => {
+export const OrderFeed = ({ order, status }) => {
   const location = useLocation();
 
   const ingredientsT = order.ingredients;
@@ -18,7 +18,6 @@ export const Order = ({ order, status }) => {
   const ingredientsInfo = ingredientsT.map((item) =>
     ingredients.find((ing) => item == ing._id)
   );
-
 
 
   const totalPrice = useMemo(() => {
@@ -46,23 +45,7 @@ export const Order = ({ order, status }) => {
           </div>
           <h2 className={`${styles.text} text text_type_main-medium mb-6`}>
             {order.name}
-            <span className="text_type_main-small pt-2">
-              {order.status == "done" ? (
-                <p
-                  className={styles.status_done + " text text_type_main-default"}
-                >
-                  Выполнен
-                </p>
-              ) : order.status == "created" ? (
-                <p className={styles.status + " text text_type_main-default"}>
-                  Создан
-                </p>
-              ) : (
-                <p className={styles.status + " text text_type_main-default"}>
-                  Готовится
-                </p>
-              )}
-            </span>
+           
           </h2>
           <div className={styles.price}>
             <ul className={styles.ingredients}>
@@ -127,4 +110,3 @@ export const Order = ({ order, status }) => {
     </section>
   );
 };
-

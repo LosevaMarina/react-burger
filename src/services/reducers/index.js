@@ -13,6 +13,8 @@ export const rootReducer = combineReducers({
   burgerConstructor: burgerConstructorReducer,
   orderDetails: orderDetailsReducer,
   user: userReducer,
+  //userFeedReducer,
+  //orderFeedReducer
   userFeed: userFeedReducer,
   orderFeed: orderFeedReducer,
 });

@@ -3,8 +3,9 @@ import styles from "../order-details/order-details.module.css";
 //import { Navigate, useLocation } from "react-router-dom";
 
 export const OrderDetails = () => {
-  const order = useSelector((store) => store.orderDetails.order);
+  //const order = useSelector((store) => store.orderDetails.order);
   //const location = useLocation();
+  const order = useSelector(state => state.orderDetails.order);
 
   return (
     //<Navigate to={`/profile/orders/${order}`} state={{ background: location }} >

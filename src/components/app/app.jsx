@@ -44,10 +44,7 @@ import {getUser} from "../../utils/utils";
 
 export const App = () => {
   const dispatch = useDispatch();
-  const UserAuth = Boolean(
-    localStorage.getItem("refreshToken") && localStorage.getItem("accessToken")
-  );
-  console.log ("пользователь есть?  " + UserAuth)
+
 
   useEffect(() => {
     dispatch(getIngredients());
@@ -59,7 +56,6 @@ export const App = () => {
       })
       .catch(err => console.log(err));
     }
-    //dispatch(checkUserAuth());
   }, [dispatch]);
 
   const location = useLocation();

@@ -11,6 +11,7 @@ const initialState = {
   status: " ",
   orders: [],
   connectingError: "",
+  loader: false,
 };
 
 export const userFeedReducer = (state = initialState, action) => {
@@ -19,12 +20,14 @@ export const userFeedReducer = (state = initialState, action) => {
       return {
         ...state,
         status: "CONNECTING...",
+        loader: true,
       };
     case WS_USER_FEED_OPEN:
       return {
         ...state,
         status: "ONLINE",
         connectingError: "",
+        loader: true,
       };
     case WS_USER_FEED_DISCONNECT:
       return {
@@ -40,6 +43,7 @@ export const userFeedReducer = (state = initialState, action) => {
       return {
         ...state,
         orders: action.payload,
+        loader: false,
       };
     default:
       return state;

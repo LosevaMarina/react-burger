@@ -21,10 +21,14 @@ export const createOrder = (orderItemsId) => {
       }),
     })
       .then((data) => {
-        dispatch({
-          type: ORDER_SUCCEED,
-          order: data.order.number.toString(),
-        });
+
+        if (data && data.success) {
+          dispatch({
+            type: ORDER_SUCCEED,
+            order: data.order.number.toString(),
+          })
+        }
+
         dispatch({
           type: OPEN_ORDER_DETAILS_MODAL,
         });
@@ -32,7 +36,6 @@ export const createOrder = (orderItemsId) => {
           type: CLEAR_CONSTRUCTOR,
         });
         dispatch(clearIngredientCounter());
-        //console.log("удачное оформление заказа!!!");
       })
 
       .catch((err) => {

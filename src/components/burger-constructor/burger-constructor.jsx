@@ -88,19 +88,12 @@ export const BurgerConstructor = () => {
 
   function handlePlaceOrder() {
     if (UserAuth) {
-      //setModal(true);
+     
       const orderIngredientIds = [
         bunIngredient._id,
         ...ingredients.map((ingredient) => ingredient._id),
         bunIngredient._id,
       ];
-     // const orderIngredientName = [
-     //   bunIngredient.name,
-    ////    ...ingredients.map((ingredient) => ingredient.name),
-      //  bunIngredient.name,
-     // ];
-
-     // console.log ("ингредиенты имя   " + orderIngredientName);
       dispatch(createOrder(orderIngredientIds));
     } else {
       //перенаправляем на страницу входа

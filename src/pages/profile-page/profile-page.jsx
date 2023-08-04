@@ -31,7 +31,6 @@ const ProfilePage = () => {
         localStorage.removeItem(accessToken);
         localStorage.removeItem(refreshToken);
         navigate(routeLogin);
-        //console.log("Удачный выход с аккаунта!");
       })
       .catch((err) => {
         console.log(`Ошибка при выходе с аккаунта: ${err}`);

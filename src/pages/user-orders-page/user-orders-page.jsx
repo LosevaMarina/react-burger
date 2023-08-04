@@ -1,5 +1,5 @@
 import style from "./user-orders-page.module.css";
-import Order from "../../components/order/order";
+import {Order} from "../../components/order/order";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import {
@@ -31,7 +31,10 @@ export const UserOrdersPage = () => {
 
   return (
     <section className={`${style.list} custom-scroll`}>
-      <Order orders={orders} status="oooo" />
+      {/*<Order orders={orders} status="oooo" />*/}
+      {
+        orders && orders.map(order => <Order order={order} key={order._id} />)
+      }
     </section>
   );
 };

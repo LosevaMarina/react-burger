@@ -84,3 +84,11 @@ ul .last::after {
   left: 30%;
   margin: 0;
 }
+
+.status_done {
+  margin: 8px 0 0;
+  color: #0CC;
+}
+ .status {
+  margin: 8px 0 0;
+ }

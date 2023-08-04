@@ -4,7 +4,7 @@ export const FEED_URL = "wss://norma.nomoreparties.space/orders/all";
 
 const accessToken = localStorage.getItem('accessToken') ? localStorage.getItem('accessToken').slice(7) : '';
 
-console.log  ("accessToken" + accessToken);
+
 export const ORDERS_URL = `wss://norma.nomoreparties.space/orders?token=${accessToken}`;
 
 

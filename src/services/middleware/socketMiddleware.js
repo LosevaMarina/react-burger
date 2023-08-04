@@ -1,59 +1,57 @@
 export const socketMiddleware = (wsActions) => {
-  return (store) => {
-    let socket = null;
+  return store => {
+      let socket = null;
 
-    return (next) => (action) => {
-      const { dispatch } = store;
-      const { type } = action;
-      const {
-        wsConnect,
-        wsSendMessage,
-        onOpen,
-        onClose,
-        onError,
-        onMessage,
-        wsConnecting,
-        wsDisconnect,
-      } = wsActions;
-      //console.log ("wsConnect       " + wsConnect);
+      return next => action => {
+          const { dispatch } = store;
+          const { type } = action;
+          const {
+              wsConnect,
+              wsSendMessage,
+              onOpen,
+              onClose,
+              onError,
+              onMessage,
+              wsConnecting,
+              wsDisconnect,
+          } = wsActions;
 
-      if (type === wsConnect) {
-        socket = new WebSocket(action.payload);
-        console.log("socket       " + socket);
-        dispatch({ type: wsConnecting });
-      }
+          if (type === wsConnect) {
+              socket = new WebSocket(action.payload);
+              dispatch({type: wsConnecting});
+          }
 
-      if (socket) {
-        socket.onopen = () => {
-          dispatch({ type: onOpen });
-        };
+          if (socket) {
+              socket.onopen = () => {
+                  dispatch({ type: onOpen });
+              };
 
-        socket.onerror = (event) => {
-          dispatch({ type: onError, payload: "Error" });
-        };
+              socket.onerror = () => {
+                  dispatch({ type: onError, payload: 'Error' });
+              };
 
-        socket.onmessage = (event) => {
-          const { data } = event;
-          const parsedData = JSON.parse(data);
+              socket.onmessage = event => {
+                  const { data } = event;
+                  const parsedData = JSON.parse(data);
 
-          dispatch({ type: onMessage, payload: parsedData });
-        };
+                  dispatch({ type: onMessage, payload: parsedData });
+              };
 
-        socket.onclose = (event) => {
-          dispatch({ type: onClose });
-        };
+              socket.onclose = () => {
+                  dispatch({ type: onClose });
+              };
 
-        if (wsSendMessage && type === wsSendMessage) {
-          socket.send(JSON.stringify(action.payload));
-        }
+              if (type === wsSendMessage) {
+                  socket.send(JSON.stringify(action.payload));
+              }
 
-        if (wsDisconnect === type) {
-          socket.close();
-          socket = null;
-        }
-      }
+              if (type === wsDisconnect) {
+                  socket.close();
+                  socket = null;
+              }
+          }
 
-      next(action);
-    };
+          next(action);
+      };
   };
 };
