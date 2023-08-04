@@ -99,12 +99,6 @@ export const App = () => {
           element={<OnlyUnAuth component={<ResetPasswordPage />} />}
         />
 
-        {/* <Route
-          path={routeProfile}
-          element={<OnlyAuth component={<ProfilePage />} />}
-        />
-  */}
-
         <Route
           path={routeUser}
           element={<OnlyAuth component={<ProfilePage />} />}
