@@ -10,7 +10,7 @@ import { FEED_URL } from "../../utils/utils";
 import {OrderFeed} from "../../components/order-feed/order-feed";
 
 export const OrderFeedPage = () => {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch(); 
   
 
   const { orders, total, totalToday } = useSelector(store => store.orderFeed.orders);
@@ -54,7 +54,7 @@ export const OrderFeedPage = () => {
         <section className={style.list + " custom-scroll"}>
            
           {
-            orders && orders.map(order => <OrderFeed order={order} key={order._id} />)
+            orders && orders.map(order => <OrderFeed order={order} key={order.number} />)
           }
 
         </section>
@@ -67,7 +67,7 @@ export const OrderFeedPage = () => {
                 {orders &&
                   done &&
                   done.map((item, i) => (
-                    <p
+                    <p 
                       key={i}
                       className="text text_type_digits-default text_color_inactive"
                     >

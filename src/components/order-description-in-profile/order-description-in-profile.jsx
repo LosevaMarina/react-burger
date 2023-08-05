@@ -12,7 +12,7 @@ import { useParams } from "react-router";
 export const OrderDescriptionInProfile = () => {
   const dispatch = useDispatch();
   const { id } = useParams();
-
+ 
   useEffect(() => {
     dispatch(connectFeedTable(FEED_URL));
     return () => {
@@ -22,7 +22,8 @@ export const OrderDescriptionInProfile = () => {
 
   const { orders } = useSelector((store) => store.orderFeed.orders);
 
-  const order = orders.find((order) => order._id === id);
+  //const order = orders.find((order) => order._id === id);
+  const order = orders.find((order) => order.number === id);
 
   return (
     <section className={styles.section}>

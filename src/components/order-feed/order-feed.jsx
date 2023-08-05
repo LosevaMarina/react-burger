@@ -1,6 +1,6 @@
 import styles from "./order-feed.module.css";
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
-import { v4 as uuidv4 } from "uuid";
+//import { v4 as uuidv4 } from "uuid";
 import { useSelector } from "react-redux";
 import { Link, useLocation } from "react-router-dom";
 import { useMemo } from "react";
@@ -9,7 +9,7 @@ import { FormattedDate } from "@ya.praktikum/react-developer-burger-ui-component
 export const OrderFeed = ({ order, status }) => {
   const location = useLocation();
 
-  const ingredientsT = order.ingredients;
+  const ingredientsT = order.ingredients; 
 
   const ingredients = useSelector(
     (store) => store.burgerIngredients.ingredients
@@ -27,13 +27,12 @@ export const OrderFeed = ({ order, status }) => {
   }, []);
 
   const margin = status === "" ? "mt-10" : "";
-  const _id = order._id;
   return (
     <section className={margin}>
       <ul className={styles.items}>
-        <Link
+        <Link 
           key={order.number}
-          to={`/feed/${_id}`}
+          to={`/feed/${order.number}`}
           state={{ background: location }}
           className={styles.order}
         >
@@ -54,7 +53,8 @@ export const OrderFeed = ({ order, status }) => {
                   if (index > 0 && index <= 5) {
                     return (
                       <li
-                        key={uuidv4()}
+                        //key={uuidv4()}
+                        key={index}
                         style={{ zIndex: index }}
                         className={styles.imgEl}
                       >
@@ -73,9 +73,10 @@ export const OrderFeed = ({ order, status }) => {
                   }
                   if (order.ingredients.length > 5) {
                     if (index === 0) {
-                      return (
+                      return ( 
                         <li
-                          key={uuidv4()}
+                          //key={uuidv4()}
+                          key={index}
                           style={{ zIndex: index }}
                           className={`${styles.imgEl} ${styles.last}`}
                         >

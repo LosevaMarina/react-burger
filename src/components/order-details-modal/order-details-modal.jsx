@@ -13,7 +13,7 @@ export const OrderDetailsModal = ({ orders }) => {
 
   const order = orders.find((order) => order._id === id);
 
-  const { name, number, createdAt, ingredient, status } = order;
+  const { name, number, updatedAt, ingredient, status } = order;
 
   const ingredients = useSelector(
     (state) => state.burgerIngredients.ingredients
@@ -78,7 +78,7 @@ export const OrderDetailsModal = ({ orders }) => {
       </ul>
       <div className={`pt-10 ${styles.info_box}`}>
         <span className="text text_type_main-small text_color_inactive">
-          <FormattedDate date={new Date(createdAt)} />
+          <FormattedDate date={new Date(updatedAt)} />
         </span>
         <div className={styles.price_box}>
           <p className="text text_type_digits-default">{totalPrice}</p>

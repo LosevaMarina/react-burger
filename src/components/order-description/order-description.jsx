@@ -10,7 +10,7 @@ import { ORDERS_URL } from "../../utils/utils";
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect } from "react";
 import { useParams } from "react-router";
-
+ 
 export const OrderDescription = () => {
   const dispatch = useDispatch();
   const { id } = useParams();
@@ -26,7 +26,8 @@ export const OrderDescription = () => {
 
   const { orders } = useSelector((store) => store.orderFeed.orders);
 
-  const order = orders.find((order) => order._id === id);
+  //const order = orders.find((order) => order._id === id);
+  const order = orders.find((order) => order.number === id);
 
   return (
     <section className={styles.section}>

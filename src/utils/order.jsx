@@ -1,6 +1,6 @@
 export const diffDays = (first, second) => {
   return Math.round((second - first) / (1000 * 60 * 60 * 24));
-};
+}; 
 
 export const diffToString = (diff) => {
   switch (diff) {

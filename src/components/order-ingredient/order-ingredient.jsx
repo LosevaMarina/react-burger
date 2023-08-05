@@ -7,4 +7,4 @@ export const OrderIngredient = ({ card }) => {
     {card && <img key={key} className={style.ingredient_image} src={card.image} />}
   </>
   )
-}
+} 

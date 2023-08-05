@@ -19,26 +19,30 @@ export const socketMiddleware = (wsActions) => {
           if (type === wsConnect) {
               socket = new WebSocket(action.payload);
               dispatch({type: wsConnecting});
+              console.log ("CONNECTING.....")
           }
 
           if (socket) {
               socket.onopen = () => {
                   dispatch({ type: onOpen });
+                  console.log ("OPEN")
               };
 
               socket.onerror = () => {
                   dispatch({ type: onError, payload: 'Error' });
+                  console.log ("ERROR")
               };
 
               socket.onmessage = event => {
                   const { data } = event;
                   const parsedData = JSON.parse(data);
-
+                  console.log ("MESSAGE")
                   dispatch({ type: onMessage, payload: parsedData });
               };
 
               socket.onclose = () => {
                   dispatch({ type: onClose });
+                  console.log ("CLOSE")
               };
 
               if (type === wsSendMessage) {

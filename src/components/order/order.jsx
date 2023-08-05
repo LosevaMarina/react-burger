@@ -1,6 +1,6 @@
 import styles from "./order.module.css";
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
-import { v4 as uuidv4 } from "uuid";
+//import { v4 as uuidv4 } from "uuid";
 import { useSelector } from "react-redux";
 import { Link, useLocation } from "react-router-dom";
 import { useMemo } from "react";
@@ -28,14 +28,13 @@ export const Order = ({ order, status }) => {
   }, []);
 
   const margin = status === "" ? "mt-10" : "";
-  const _id = order._id;
   return (
     <section className={margin}>
       <ul className={styles.items}>
         <Link
           key={order.number}
-          to={`/feed/${_id}`}
-          state={{ background: location }}
+          to={`/profile/orders/${order.number}`}
+          state={{ background: location }} 
           className={styles.order}
         >
           <div className={styles.number}>
@@ -71,7 +70,8 @@ export const Order = ({ order, status }) => {
                   if (index > 0 && index <= 5) {
                     return (
                       <li
-                        key={uuidv4()}
+                        //key={uuidv4()}
+                        key={index}
                         style={{ zIndex: index }}
                         className={styles.imgEl}
                       >
@@ -92,7 +92,8 @@ export const Order = ({ order, status }) => {
                     if (index === 0) {
                       return (
                         <li
-                          key={uuidv4()}
+                          //key={uuidv4()}
+                          key={index}
                           style={{ zIndex: index }}
                           className={`${styles.imgEl} ${styles.last}`}
                         >

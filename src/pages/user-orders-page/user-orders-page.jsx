@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import {
   connect as connectUserFeedTable,
-  disconnect as disconnectUserFeedTable,
+  disconnect as disconnectUserFeedTable, 
 } from "../../services/actions/ws-profile";
 
 import { FEED_URL, ORDERS_URL } from "../../utils/utils";
@@ -36,5 +36,5 @@ export const UserOrdersPage = () => {
         orders && orders.map(order => <Order order={order} key={order._id} />)
       }
     </section>
-  );
+  ); 
 };
