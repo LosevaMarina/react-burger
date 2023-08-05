@@ -43,12 +43,14 @@ export const BurgerConstructor = () => {
 
   const Top = "top";
 
+  const loading = useSelector(state => state.orderDetails.loading);
+
   const orderAmount = useMemo(() => {
     return (
       ingredients.reduce((acc, cur) => {
         if (cur.ingredient.price) {
           return acc + cur.ingredient.price;
-        }
+        } 
         return acc;
       }, 0) + (bunIngredient ? bunIngredient.price * 2 : 0)
     );
@@ -86,7 +88,7 @@ export const BurgerConstructor = () => {
     }
   }
 
-  function handlePlaceOrder() {
+  function handlePlaceOrder() { 
     if (UserAuth) {
      
       const orderIngredientIds = [
@@ -161,7 +163,15 @@ export const BurgerConstructor = () => {
 
       {/*открытие модалки с номером заказа*/}
 
-      {orderDetailsModal && (
+      {orderDetailsModal && loading && (
+        <Modal closeModal={closeOrderDetailsModal}>
+         <p className="text text_type_main-medium m-20">
+            Ваш заказ формируется, минутку...
+          </p>
+        </Modal>
+        
+      )}
+      {orderDetailsModal && !loading && (
         <Modal closeModal={closeOrderDetailsModal}>
           <OrderDetails />
         </Modal>

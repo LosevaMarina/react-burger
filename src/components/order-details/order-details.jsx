@@ -6,7 +6,8 @@ export const OrderDetails = () => {
   //const order = useSelector((store) => store.orderDetails.order);
   //const location = useLocation();
   const order = useSelector(state => state.orderDetails.order);
- 
+  console.log ("order: " + order) 
+ console.log ("order.number: " + order.number)
   return (
     //<Navigate to={`/profile/orders/${order}`} state={{ background: location }} >
 

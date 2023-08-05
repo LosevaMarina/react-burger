@@ -12,6 +12,7 @@ const initialState = {
   makeOrderRequestInProgress: false,
   makeOrderRequestFailed: false,
   openModal: false,
+  loading: false,
 };
 
 export const orderDetailsReducer = (state = initialState, action) => {
@@ -20,6 +21,7 @@ export const orderDetailsReducer = (state = initialState, action) => {
       return {
         ...state,
         makeOrderRequestInProgress: true,
+        loading: true,
       };
     }
     case ORDER_SUCCEED: {
@@ -27,7 +29,9 @@ export const orderDetailsReducer = (state = initialState, action) => {
         ...state,
         makeOrderRequestInProgress: false,
         makeOrderRequestFailed: false,
+        //order: action.order,
         order: action.order,
+        loading: false,
       };
     }
     case ORDER_FAILED: {
@@ -35,7 +39,7 @@ export const orderDetailsReducer = (state = initialState, action) => {
         ...state,
         makeOrderRequestInProgress: false,
         makeOrderRequestFailed: true,
-        order: "",
+        order: { number: action.order }
       };
     }
     case OPEN_ORDER_DETAILS_MODAL: {
