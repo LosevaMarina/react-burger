@@ -18,18 +18,18 @@ export const userFeedReducer = (state = initialState, action) => {
     case WS_USER_FEED_CONNECTING:
       return {
         ...state,
-        status: "CONNECTING...",
+        status: WebsocketStatus.CONNECTING,
       };
     case WS_USER_FEED_OPEN:
       return {
         ...state,
-        status: "ONLINE",
+        status: WebsocketStatus.ONLINE,
         connectingError: "",
       };
     case WS_USER_FEED_DISCONNECT:
       return {
         ...state,
-        status: "OFFLINE",
+        status: WebsocketStatus.OFFLINE,
       };
     case WS_USER_FEED_ERROR:
       return {

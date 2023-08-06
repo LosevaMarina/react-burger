@@ -29,7 +29,6 @@ export const orderDetailsReducer = (state = initialState, action) => {
         ...state,
         makeOrderRequestInProgress: false,
         makeOrderRequestFailed: false,
-        //order: action.order,
         order: action.order,
         loading: false,
       };

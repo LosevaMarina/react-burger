@@ -21,17 +21,16 @@ export const UserOrdersPage = () => {
 
   useEffect(() => {
     dispatch(connectUserFeedTable(ORDERS_URL));
-    dispatch(connectFeedTable(FEED_URL));
+    //dispatch(connectFeedTable(FEED_URL));
     return () => {
       dispatch(disconnectUserFeedTable());
-      dispatch(disconnectFeedTable());
+     // dispatch(disconnectFeedTable());
     };
   }, [dispatch]);
 
 
   return (
     <section className={`${style.list} custom-scroll`}>
-      {/*<Order orders={orders} status="oooo" />*/}
       {
         orders && orders.map(order => <Order order={order} key={order._id} />)
       }
