@@ -1,6 +1,5 @@
 import styles from "./order-feed.module.css";
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
-//import { v4 as uuidv4 } from "uuid";
 import { useSelector } from "react-redux";
 import { Link, useLocation } from "react-router-dom";
 import { useMemo } from "react";
@@ -11,14 +10,14 @@ export const OrderFeed = ({ order, status }) => {
 
   const ingredientsT = order.ingredients; 
 
-  const ingredients = useSelector(
+ const ingredients = useSelector(
     (store) => store.burgerIngredients.ingredients
   );
-
-  const ingredientsInfo = ingredientsT.map((item) =>
+  
+ const ingredientsInfo = ingredientsT.map((item) =>
     ingredients.find((ing) => item == ing._id)
   );
-
+  
 
   const totalPrice = useMemo(() => {
     return ingredientsInfo.reduce((sum, item) => {
@@ -26,6 +25,7 @@ export const OrderFeed = ({ order, status }) => {
     }, 0);
   }, []);
 
+  
   const margin = status === "" ? "mt-10" : "";
   return (
     <section className={margin}>

@@ -53,8 +53,8 @@ export const OrderFeedPage = () => {
       <div className={style.content}>
         <section className={style.list + " custom-scroll"}>
            
-          {
-            orders && orders.map(order => <OrderFeed order={order} key={order.number} />)
+        {
+            orders && orders.map(order => <OrderFeed order={order} key={order._id} />)
           }
 
         </section>

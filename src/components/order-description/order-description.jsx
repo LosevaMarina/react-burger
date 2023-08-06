@@ -16,7 +16,7 @@ export const OrderDescription = () => {
   const { id } = useParams();
 
   useEffect(() => {
-    dispatch(connectUserFeedTable(ORDERS_URL));
+    dispatch(connectUserFeedTable(ORDERS_URL)); 
     //dispatch(connectFeedTable(FEED_URL));
     return () => {
       dispatch(disconnectUserFeedTable());
@@ -30,6 +30,7 @@ export const OrderDescription = () => {
   const order = orders.find((order) => order.number === id);
 
   return (
+    
     <section className={styles.section}>
       {order && <OrderDetailsModal orders={orders} />}
     </section>

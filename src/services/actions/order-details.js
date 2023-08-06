@@ -28,8 +28,8 @@ export const createOrder = (orderItemsId) => {
         if (data && data.success) {
           dispatch({
             type: ORDER_SUCCEED,
-            order: data.order.number.toString(),
-            //order: data.order,
+            //order: data.order.number.toString(),
+            order: data.order.number,
           });
         }
 

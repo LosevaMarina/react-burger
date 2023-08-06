@@ -38,7 +38,6 @@ export const BurgerConstructor = () => {
   const ingredients = useSelector(
     (state) => state.burgerConstructor.ingredients
   );
-  
   const { bunIngredient } = useSelector((state) => state.burgerConstructor);
 
   const Top = "top";
@@ -93,7 +92,7 @@ export const BurgerConstructor = () => {
      
       const orderIngredientIds = [
         bunIngredient._id,
-        ...ingredients.map((ingredient) => ingredient._id),
+        ...ingredients.map((ingredient) => ingredient.ingredient._id),
         bunIngredient._id,
       ];
       dispatch(createOrder(orderIngredientIds));

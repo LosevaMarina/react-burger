@@ -12,7 +12,7 @@ export const OrderDetailsModal = ({ orders }) => {
   const { id } = useParams();
 
   const order = orders.find((order) => order._id === id);
-
+  
   const { name, number, updatedAt, ingredient, status } = order;
 
   const ingredients = useSelector(

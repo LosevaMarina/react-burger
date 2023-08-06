@@ -148,7 +148,7 @@ export const App = () => {
           <Route
             path={`/${routeProfile}/${routeUserOrders}${routeOrderFeedId}`}
             element={
-              <Modal onClose={closeIngredientDetailsModal}>
+              <Modal closeModal={closeIngredientDetailsModal}>
                 <OrderDescriptionInProfile />
               </Modal>
             }
