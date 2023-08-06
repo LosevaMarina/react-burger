@@ -35,26 +35,24 @@ import { ProfileInfoPage } from "../../pages/profile-info-page/profile-info-page
 import { UserOrdersPage } from "../../pages/user-orders-page/user-orders-page";
 import { OrderDescription } from "../../components/order-description/order-description";
 import { OrderDescriptionInProfile } from "../../components/order-description-in-profile/order-description-in-profile";
-import { CHECK_TOKEN, GET_USER } from "../../services/actions/registration-user";
-import {getUser} from "../../utils/utils";
-
-
-
-
+import {
+  CHECK_TOKEN,
+  GET_USER,
+} from "../../services/actions/registration-user";
+import { getUser } from "../../utils/utils";
 
 export const App = () => {
   const dispatch = useDispatch();
-
 
   useEffect(() => {
     dispatch(getIngredients());
     dispatch({ type: CHECK_TOKEN });
     if (localStorage.getItem("accessToken")) {
-      getUser() 
-      .then(res => {
-        dispatch({ type: GET_USER, payload: res })
-      })
-      .catch(err => console.log(err));
+      getUser()
+        .then((res) => {
+          dispatch({ type: GET_USER, payload: res });
+        })
+        .catch((err) => console.log(err));
     }
   }, [dispatch]);
 
@@ -78,6 +76,11 @@ export const App = () => {
         <Route path={routeHome} element={<HomePage />} />
 
         <Route path={routeOrderFeed} element={<OrderFeedPage />} />
+
+        <Route
+          path={`${routeOrderFeed}${routeOrderFeedId}`}
+          element={<OrderDescription />}
+        />
 
         <Route
           path={routeLogin}
@@ -115,6 +118,10 @@ export const App = () => {
         </Route>
 
         <Route
+          path={`/${routeProfile}/${routeUserOrders}${routeOrderFeedId}`}
+          element={<OnlyAuth component={<OrderDescriptionInProfile />} />}
+        />
+        <Route
           path={`${routeIngredient}${routeIngredientId}`}
           element={!background ? <Page /> : null}
         />
@@ -132,6 +139,7 @@ export const App = () => {
               </Modal>
             }
           />
+
           <Route
             path={`${routeOrderFeed}${routeOrderFeedId}`}
             element={

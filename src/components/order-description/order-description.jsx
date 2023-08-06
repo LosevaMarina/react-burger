@@ -1,12 +1,11 @@
 import styles from "./order-description.module.css";
 import { OrderDetailsModal } from "../order-details-modal/order-details-modal";
+import {getOrderCard} from "../../services/actions/order-card";
 import {
-  connect as connectUserFeedTable,
-  disconnect as disconnectUserFeedTable,
-} from "../../services/actions/ws-profile";
-
-import { ORDERS_URL } from "../../utils/utils";
-
+  connect as connectFeedTable,
+  disconnect as disconnectFeedTable,
+} from "../../services/actions/ws-actions";
+import { FEED_URL } from "../../utils/utils";
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect } from "react";
 import { useParams } from "react-router";
@@ -14,25 +13,20 @@ import { useParams } from "react-router";
 export const OrderDescription = () => {
   const dispatch = useDispatch();
   const { id } = useParams();
+  const order = useSelector(store => store.orderCard.order);
 
   useEffect(() => {
-    dispatch(connectUserFeedTable(ORDERS_URL)); 
-    //dispatch(connectFeedTable(FEED_URL));
+    dispatch(connectFeedTable(FEED_URL));
+    dispatch(getOrderCard(id))
     return () => {
-      dispatch(disconnectUserFeedTable());
-      //dispatch(disconnectFeedTable());
+      dispatch(disconnectFeedTable());
     };
   }, [dispatch]);
-
-  const { orders } = useSelector((store) => store.orderFeed.orders);
-
-  //const order = orders.find((order) => order._id === id);
-  const order = orders.find((order) => order.number === id);
 
   return (
     
     <section className={styles.section}>
-      {order && <OrderDetailsModal orders={orders} />}
+      {order && <OrderDetailsModal />}
     </section>
   );
 };

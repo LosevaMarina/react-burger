@@ -8,10 +8,9 @@ import { useParams } from "react-router";
 import { useSelector } from "react-redux";
 import { useMemo } from "react";
 
-export const OrderDetailsModal = ({ orders }) => {
-  const { id } = useParams();
+export const OrderDetailsModal = () => {
 
-  const order = orders.find((order) => order._id === id);
+  const order = useSelector(store => store.orderCard.order);
   
   const { name, number, updatedAt, ingredient, status } = order;
 

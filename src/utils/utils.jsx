@@ -20,7 +20,7 @@ export const getAuthChecked = (state) => state.user.isAuthChecked;
 export const fetchWithRefresh = async (endpoint, options) => {
   try {
     const res = await fetch(`${API_URL}/${endpoint}`, options);
-    return await checkResponse(res);
+    return await checkResponse(res); 
   } catch (err) {
     if (err.message === "jwt expired") {
       //обновляем токен
