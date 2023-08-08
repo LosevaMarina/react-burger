@@ -4,6 +4,10 @@ export const GET_USER_REQUEST = "GET_USER_REQUEST";
 export const GET_USER_SUCCESS = "GET_USER_SUCCESS";
 export const GET_USER_FAILED = "GET_USER_FAILED";
 export const CLEAR_USER = "CLEAR_USER";
+export const GET_USER = "GET_USER";
+
+
+export const CHECK_TOKEN = "CHECK_TOKEN";
 
 export function getUser({ email, password, username }) {
   return function (dispatch) {
@@ -19,7 +23,7 @@ export function getUser({ email, password, username }) {
           });
         } else {
           dispatch({
-            type: GET_USER_FAILED,
+            type: GET_USER_FAILED, 
           });
         }
       })

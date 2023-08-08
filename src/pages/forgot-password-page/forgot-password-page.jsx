@@ -6,6 +6,7 @@ import styles from "../login-page/login-page.module.css";
 import { useNavigate, Link } from "react-router-dom";
 import { useState } from "react";
 import { forgotPassword } from "../../utils/utils";
+import {routeLogin} from "../../utils/data";
 
 const ForgotPasswordPage = () => {
   function useForm(inputValues) {
@@ -69,7 +70,7 @@ const ForgotPasswordPage = () => {
       >
         Вспомнили пароль?
         <span>
-          <Link to="/login" className={styles.links}>
+          <Link to={routeLogin} className={styles.links}>
             Войти
           </Link>
         </span>

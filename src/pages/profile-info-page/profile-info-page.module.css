@@ -1,0 +1,15 @@
+
+.profile {
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+    margin: 0;
+    margin-top: 80px;
+  }
+  
+  .input {
+    display: flex;
+    flex-direction: column;
+    padding: 0 0 24px;
+  }
+  

@@ -8,10 +8,11 @@ import {
 } from "../actions/order-details";
 
 const initialState = {
-  orderId: "",
+  order: 0,
   makeOrderRequestInProgress: false,
   makeOrderRequestFailed: false,
-  openModal: false
+  openModal: false,
+  loading: false,
 };
 
 export const orderDetailsReducer = (state = initialState, action) => {
@@ -20,7 +21,7 @@ export const orderDetailsReducer = (state = initialState, action) => {
       return {
         ...state,
         makeOrderRequestInProgress: true,
-        
+        loading: true,
       };
     }
     case ORDER_SUCCEED: {
@@ -28,7 +29,8 @@ export const orderDetailsReducer = (state = initialState, action) => {
         ...state,
         makeOrderRequestInProgress: false,
         makeOrderRequestFailed: false,
-        orderId: action.orderId,
+        order: action.order,
+        loading: false,
       };
     }
     case ORDER_FAILED: {
@@ -36,13 +38,13 @@ export const orderDetailsReducer = (state = initialState, action) => {
         ...state,
         makeOrderRequestInProgress: false,
         makeOrderRequestFailed: true,
-        orderId: "",
+        order: { number: action.order }
       };
     }
     case OPEN_ORDER_DETAILS_MODAL: {
       return {
         ...state,
-        openModal: true
+        openModal: true,
       };
     }
     case CLOSE_ORDER_DETAILS_MODAL: {

@@ -1,9 +1,14 @@
 export const API_URL = "https://norma.nomoreparties.space/api";
 
+export const FEED_URL = "wss://norma.nomoreparties.space/orders/all";
+const accessToken = localStorage.getItem("accessToken")
+  ? localStorage.getItem("accessToken").slice(7)
+  : "";
+
+export const ORDERS_URL = `wss://norma.nomoreparties.space/orders?token=${accessToken}`;
+
 export const checkResponse = (res) => {
-  return res.ok
-    ? res.json()
-    : res.json().then((err) => Promise.reject(err));
+  return res.ok ? res.json() : res.json().then((err) => Promise.reject(err));
 };
 
 export function request(url, options) {
@@ -12,11 +17,10 @@ export function request(url, options) {
 
 export const getAuthChecked = (state) => state.user.isAuthChecked;
 
-
 export const fetchWithRefresh = async (endpoint, options) => {
   try {
     const res = await fetch(`${API_URL}/${endpoint}`, options);
-    return await checkResponse(res);
+    return await checkResponse(res); 
   } catch (err) {
     if (err.message === "jwt expired") {
       //обновляем токен

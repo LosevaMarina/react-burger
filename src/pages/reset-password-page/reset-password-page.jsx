@@ -92,7 +92,7 @@ const ResetPasswordPage = () => {
       >
         Вспомнили пароль?
         <span>
-          <Link to="/login" className={styles.links}>
+          <Link to={routeLogin} className={styles.links}>
             Войти
           </Link>
         </span>

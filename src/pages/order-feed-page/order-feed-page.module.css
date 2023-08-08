@@ -1,0 +1,69 @@
+.section {
+  margin: 0 auto;
+  padding-top: 40px;
+  max-width: 1240px;
+}
+.content {
+  display: flex;
+  justify-content: flex-start;
+  gap: 60px;
+}
+
+.ordersInfo {
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: column;
+  gap: 60px;
+}
+
+.list {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  height: 756px;
+  width: 580px;
+  overflow-y: scroll;
+}
+.list::-webkit-scrollbar {
+  width: 8px;
+}
+.list::-webkit-scrollbar-track {
+  background: #2f2f37;
+}
+.list::-webkit-scrollbar-thumb {
+  background-color: #8585ad;
+}
+
+.ordersAvailability {
+  display: grid;
+  justify-items: start;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 36px;
+}
+
+.orderNumber {
+  margin-top: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  height: 152px;
+}
+.number {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+.number__color {
+  color: #00cccc;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+.shadow {
+  text-shadow: 0px 0px 16px rgba(51, 51, 255, 0.25),
+    0px 0px 8px rgba(51, 51, 255, 0.25), 0px 4px 32px rgba(51, 51, 255, 0.5);
+}

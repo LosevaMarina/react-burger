@@ -34,7 +34,7 @@ export const LoginPage = () => {
       .then((res) => {
         localStorage.setItem(refreshToken, res.refreshToken);
         localStorage.setItem(accessToken, res.accessToken);
-        //navigate( '/');
+        navigate( '/');
         let pathroute;
         if (location.state === null || location.state.from === null) {
           pathroute = routeHome;

@@ -8,7 +8,7 @@ import { useMatch, NavLink } from "react-router-dom";
 import styles from "./app-header.module.css";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { routeHome, routeProfile } from '../../utils/data';
+import { routeHome, routeProfile, routeOrderFeed, routeUser, routeLogin } from '../../utils/data';
 
 export const AppHeader = () => {
   const isConstructor = !!useMatch({ path: "/", exact: true });
@@ -28,6 +28,17 @@ export const AppHeader = () => {
     }
   }, [isAuthChecked, user]);
 
+
+  const checkUser = () => {
+    if (isAuthChecked) {
+        return `${routeUser}/${routeProfile}`
+    }
+    return routeLogin
+}
+
+
+
+
   return (
     <header className={styles.header}>
       <nav className={styles.content}>
@@ -43,7 +54,7 @@ export const AppHeader = () => {
           </NavLink>
 
           <NavLink
-            to="/feed"
+            to={routeOrderFeed}
             className={({ isActive }) =>
               isActive ? styles.link_active : styles.link
             }
@@ -59,7 +70,7 @@ export const AppHeader = () => {
         </NavLink>
 
         <NavLink
-          to={routeProfile}
+          to={checkUser()}
           className={({ isActive }) =>
             isActive ? styles.link_active : styles.link
           }

@@ -4,10 +4,6 @@ import { AppHeader } from "../app-header/app-header";
 import styles from "../app/app.module.css";
 import { getIngredients } from "../../services/actions/burger-ingredients";
 import { Modal } from "../modal/modal";
-import {
-  CLOSE_MODAL_INGREDIENT,
-  NO_INGREDIENT,
-} from "../../services/actions/ingredient-details";
 import { IngredientDetails } from "../ingredient-details/ingredient-details.jsx";
 import { Routes, Route, useLocation, useNavigate } from "react-router-dom";
 import { HomePage } from "../../pages/home-page/home-page";
@@ -19,13 +15,45 @@ import { RegisterPage } from "../../pages/register-page/register-page";
 import { ProfilePage } from "../../pages/profile-page/profile-page";
 import { Page } from "../page/page";
 import { OnlyAuth, OnlyUnAuth } from "../protected-route/protected-route";
-import { routeHome, routeLogin, routeRegister, routeForgotPassword, routeResetPassword, routeProfile, routeIngredient, routeIngredientId, route404 } from "../../utils/data";
+import {
+  routeHome,
+  routeLogin,
+  routeRegister,
+  routeForgotPassword,
+  routeResetPassword,
+  routeProfile,
+  routeIngredient,
+  routeIngredientId,
+  route404,
+  routeOrderFeed,
+  routeUser,
+  routeUserOrders,
+  routeOrderFeedId,
+} from "../../utils/data";
+import { OrderFeedPage } from "../../pages/order-feed-page/order-feed-page";
+import { ProfileInfoPage } from "../../pages/profile-info-page/profile-info-page";
+import { UserOrdersPage } from "../../pages/user-orders-page/user-orders-page";
+import { OrderDescription } from "../../components/order-description/order-description";
+import { OrderDescriptionInProfile } from "../../components/order-description-in-profile/order-description-in-profile";
+import {
+  CHECK_TOKEN,
+  GET_USER,
+} from "../../services/actions/registration-user";
+import { getUser } from "../../utils/utils";
 
 export const App = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(getIngredients());
+    dispatch({ type: CHECK_TOKEN });
+    if (localStorage.getItem("accessToken")) {
+      getUser()
+        .then((res) => {
+          dispatch({ type: GET_USER, payload: res });
+        })
+        .catch((err) => console.log(err));
+    }
   }, [dispatch]);
 
   const location = useLocation();
@@ -36,9 +64,6 @@ export const App = () => {
   );
 
   function closeIngredientDetailsModal() {
-    dispatch({ type: CLOSE_MODAL_INGREDIENT });
-    dispatch({ type: NO_INGREDIENT });
-
     navigate(-1);
   }
 
@@ -49,6 +74,13 @@ export const App = () => {
 
       <Routes location={background || location}>
         <Route path={routeHome} element={<HomePage />} />
+
+        <Route path={routeOrderFeed} element={<OrderFeedPage />} />
+
+        <Route
+          path={`${routeOrderFeed}${routeOrderFeedId}`}
+          element={<OrderDescription />}
+        />
 
         <Route
           path={routeLogin}
@@ -71,15 +103,27 @@ export const App = () => {
         />
 
         <Route
-          path={routeProfile}
+          path={routeUser}
           element={<OnlyAuth component={<ProfilePage />} />}
-        />
+        >
+          <Route index element={<ProfileInfoPage />} />
+          <Route
+            path={routeProfile}
+            element={<OnlyAuth component={<ProfileInfoPage />} />}
+          />
+          <Route
+            path={routeUserOrders}
+            element={<OnlyAuth component={<UserOrdersPage />} />}
+          />
+        </Route>
 
         <Route
+          path={`/${routeProfile}/${routeUserOrders}${routeOrderFeedId}`}
+          element={<OnlyAuth component={<OrderDescriptionInProfile />} />}
+        />
+        <Route
           path={`${routeIngredient}${routeIngredientId}`}
-          element={!background ?
-            <Page /> : null
-          }
+          element={!background ? <Page /> : null}
         />
 
         <Route path={route404} element={<NotFound404 />} />
@@ -92,6 +136,28 @@ export const App = () => {
             element={
               <Modal closeModal={closeIngredientDetailsModal}>
                 <IngredientDetails />
+              </Modal>
+            }
+          />
+
+          <Route
+            path={`${routeOrderFeed}${routeOrderFeedId}`}
+            element={
+              <OnlyAuth
+                component={
+                  <Modal closeModal={closeIngredientDetailsModal}>
+                    <OrderDescription />
+                  </Modal>
+                }
+              />
+            }
+          />
+
+          <Route
+            path={`/${routeProfile}/${routeUserOrders}${routeOrderFeedId}`}
+            element={
+              <Modal closeModal={closeIngredientDetailsModal}>
+                <OrderDescriptionInProfile />
               </Modal>
             }
           />

@@ -3,15 +3,13 @@ import styles from "../order-details/order-details.module.css";
 //import { Navigate, useLocation } from "react-router-dom";
 
 export const OrderDetails = () => {
-  const { orderId } = useSelector((state) => state.orderDetails);
-  //console.log("удачное оформление заказа " + orderId);
-  //const location = useLocation();
+  const order = useSelector(state => state.orderDetails.order);
   return (
-    //<Navigate to={`/profile/orders/${orderId}`} state={{ background: location }} >
+    //<Navigate to={`/profile/orders/${order}`} state={{ background: location }} >
 
     <div className={styles.container}>
       <h1 className={"text text_type_digits-large" + " " + styles.numberText}>
-        {orderId}
+        {order}
       </h1>
       <p
         className={
@@ -33,6 +31,5 @@ export const OrderDetails = () => {
       </p>
     </div>
     //</Navigate>
-    
   );
 };

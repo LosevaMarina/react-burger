@@ -27,6 +27,7 @@ export const BurgerConstructor = () => {
   const UserAuth = Boolean(
     localStorage.getItem(refreshToken) && localStorage.getItem(accessToken)
   );
+ 
   const navigate = useNavigate();
   const dispatch = useDispatch();
   //const [Modal, setModal] = useState(false);
@@ -37,17 +38,18 @@ export const BurgerConstructor = () => {
   const ingredients = useSelector(
     (state) => state.burgerConstructor.ingredients
   );
-
   const { bunIngredient } = useSelector((state) => state.burgerConstructor);
 
   const Top = "top";
+
+  const loading = useSelector(state => state.orderDetails.loading);
 
   const orderAmount = useMemo(() => {
     return (
       ingredients.reduce((acc, cur) => {
         if (cur.ingredient.price) {
           return acc + cur.ingredient.price;
-        }
+        } 
         return acc;
       }, 0) + (bunIngredient ? bunIngredient.price * 2 : 0)
     );
@@ -85,12 +87,12 @@ export const BurgerConstructor = () => {
     }
   }
 
-  function handlePlaceOrder() {
+  function handlePlaceOrder() { 
     if (UserAuth) {
-      //setModal(true);
+     
       const orderIngredientIds = [
         bunIngredient._id,
-        ...ingredients.map((ingredient) => ingredient._id),
+        ...ingredients.map((ingredient) => ingredient.ingredient._id),
         bunIngredient._id,
       ];
       dispatch(createOrder(orderIngredientIds));
@@ -109,6 +111,7 @@ export const BurgerConstructor = () => {
   }
 
   return (
+    
     <section className={styles.block} ref={dropTargetRef}>
       <ul className={styles.listElements}>
         <li className={styles.element}>
@@ -159,10 +162,19 @@ export const BurgerConstructor = () => {
 
       {/*открытие модалки с номером заказа*/}
 
-      {orderDetailsModal && (
+      {orderDetailsModal && loading && (
+        <Modal closeModal={closeOrderDetailsModal}>
+         <p className="text text_type_main-medium m-20">
+            Ваш заказ формируется, минутку...
+          </p>
+        </Modal>
+        
+      )}
+      {orderDetailsModal && !loading && (
         <Modal closeModal={closeOrderDetailsModal}>
           <OrderDetails />
         </Modal>
+        
       )}
     </section>
   );

@@ -8,7 +8,7 @@
   display: flex;
   justify-content: flex-start;
   gap: 60px;
-  padding-top: 120px;
+  padding-top: 40px;
   margin: 0 20px;
 }
 
@@ -20,6 +20,7 @@
   gap: 60px;
   padding: 0;
   margin: 0;
+  margin-top: 80px;
 }
 
 .link_active {
@@ -44,7 +45,8 @@
   padding: 60px 0 0;
 }
 
-.profile {
+
+/*.profile {
   display: flex;
   flex-direction: column;
   padding: 0;
@@ -56,3 +58,4 @@
   flex-direction: column;
   padding: 0 0 24px;
 }
+*/

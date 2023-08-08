@@ -3,6 +3,11 @@ import {
   GET_USER_SUCCESS,
   GET_USER_FAILED,
   CLEAR_USER,
+
+
+
+  CHECK_TOKEN,
+  GET_USER
 } from "../actions/registration-user";
 
 const initialUserState = {
@@ -42,6 +47,25 @@ export const userReducer = (state = initialUserState, action) => {
         isAuthChecked: true,
       };
     }
+
+
+    case CHECK_TOKEN: {
+      return {
+        ...state,
+        isAuthChecked: true
+      }
+    }
+
+
+    case GET_USER: {
+      return {
+        ...state,
+        user: action.payload.user,
+        isAuthenticated: true
+      }
+    }
+
+
     default: {
       return state;
     }
