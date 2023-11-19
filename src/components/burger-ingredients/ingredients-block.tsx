@@ -1,10 +1,22 @@
-import { forwardRef } from "react";
+import { forwardRef, RefObject, ForwardedRef } from "react";
 import styles from "./burger-ingredients.module.css";
 import PropTypes from "prop-types";
 import { PropTypeingredients } from "../../utils/data";
 import { Ingredient } from "../ingredient/ingredient";
+import { FC } from "react";
+import {IIngredientType} from "../../utils/data";
+import {useTypeSelector} from "../../hooks/use-type-selector";
 
-export const IngredientsBlock = forwardRef(
+
+
+interface IIngredientsBlock {
+  onClick: (ingredient: IIngredientType) => void;
+  ingredients: any[];
+  title: string;
+}
+
+
+export const IngredientsBlock = forwardRef<HTMLDivElement, IIngredientsBlock>(
   ({ title, ingredients, onClick }, ref) => {
     return (
       <>
@@ -26,9 +38,3 @@ export const IngredientsBlock = forwardRef(
     );
   }
 );
-
-IngredientsBlock.propTypes = {
-  title: PropTypes.string.isRequired,
-  ingredients: PropTypes.arrayOf(PropTypeingredients.isRequired).isRequired,
-  onClick: PropTypes.func.isRequired,
-};

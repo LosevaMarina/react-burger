@@ -39,11 +39,22 @@ import {
   CHECK_TOKEN,
   GET_USER,
 } from "../../services/actions/registration-user";
-import { getUser } from "../../utils/utils";
+//import { getUser } from "../../utils/utils";
 import {useTypeSelector} from "../../hooks/use-type-selector";
+//import { useTypeDispatch } from "../../hooks/use-type-dispatch";
+
+
+
+
+
+
 
 export const App = () => {
-  const dispatch = useDispatch();
+  const dispatch: any = useDispatch();
+
+
+  //const dispatch = useTypeDispatch();
+
 
   useEffect(() => {
     dispatch(getIngredients());
@@ -54,9 +65,8 @@ export const App = () => {
           dispatch({ type: GET_USER, payload: res });
         })
         .catch((err) => console.log(err));
-    }
-  }, [dispatch]);*/}
-}, []);
+    }*/}
+  }, [dispatch]);
 
 
 
@@ -83,7 +93,8 @@ export const App = () => {
       <Routes location={background || location}>
         <Route path={routeHome} element={<HomePage />} />
 
-        <Route path={routeOrderFeed} element={<OrderFeedPage />} />
+       {/*} 
+       <Route path={routeOrderFeed} element={<OrderFeedPage />} />
 
         <Route
           path={`${routeOrderFeed}${routeOrderFeedId}`}
@@ -135,7 +146,9 @@ export const App = () => {
         />
 
         <Route path={route404} element={<NotFound404 />} />
+  */}
       </Routes>
+      {/*}
 
       {background && (
         <Routes>
@@ -171,6 +184,7 @@ export const App = () => {
           />
         </Routes>
       )}
+          */}
     </section>
   );
 };

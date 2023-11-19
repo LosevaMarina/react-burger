@@ -1,3 +1,4 @@
+import { type } from "os";
 import PropTypes from "prop-types";
 
 export const PropTypeingredients = PropTypes.shape({
@@ -14,21 +15,21 @@ export const PropTypeingredients = PropTypes.shape({
   uuid: PropTypes.string,
 });
 
-export interface IIngredientType {
-  readonly _id: string;
-  readonly name: string;
-  readonly type: string;
-  readonly proteins: number;
-  readonly fat: number;
-  readonly carbohydrates: number;
-  readonly calories: number;
-  readonly price: number;
-  readonly image: string;
-  //readonly image_mobile?: string;
-  //readonly image_large?: string;
-  //readonly __v: number;
+export type IIngredientType = {
+  _id: string;
+  name: string;
+  type: string;
+  proteins: number;
+  fat: number;
+  carbohydrates: number;
+  calories: number;
+  price: number;
+  image: string;
+  image_mobile: string;
+  image_large: string;
+  __v: number;
   //constructorId?: string;
-  //counter?: number;
+  counter?: number;
 }
 
 

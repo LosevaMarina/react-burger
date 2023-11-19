@@ -5,8 +5,18 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./ingredient.module.css";
 import { Link, useLocation } from "react-router-dom";
+import { IIngredientType} from "../../utils/data";
+import { FC } from "react";
 
-export const Ingredient = ({ ingredient, onClick }) => {
+
+interface IIngredient {
+  ingredient: IIngredientType;
+  onClick: (ingredient: IIngredientType) => void;
+}
+
+
+
+export const Ingredient: FC<IIngredient> = ({ ingredient, onClick }) => {
   const location = useLocation();
   const { image, price, name } = ingredient;
 
@@ -29,9 +39,12 @@ export const Ingredient = ({ ingredient, onClick }) => {
       //сохраняем в свойство background роут, на котором была открыта модалка
       state={{ background: location }}
     >
-      {0 < ingredient.counter && (
+
+     {/* {0 < ingredient.counter && (
         <Counter count={ingredient.counter} size="default" extraClass="m-1" />
-      )}
+     )}
+     */}
+
       <img src={image} alt={name} />
       <div className={styles.price}>
         <p className="text text_type_digits-default">{price}</p>

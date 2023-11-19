@@ -10,49 +10,27 @@ import {
   CLEAR_INGREDIENT_COUNTER,
 } from "../actions/burger-ingredients";
 
-import {IIngredientType} from '../../utils/data';
+import {TIngredientsActions} from '../actions/burger-ingredients';
+import {IIngredientType} from "../../utils/data";
 
-
-
-interface IngredientsRequestAction {
-  type: typeof INGREDIENTS_REQUEST;
-}
-
-interface IngredientsSuccesAction {
-  type: typeof INGREDIENTS_SUCCESS;
-  ingredients: IIngredientType[];
-}
-
-interface IngredientsErrorAction {
-  type: typeof INGREDIENTS_ERROR;
-}
-
-export type TIngredientsAction =
-  | IngredientsRequestAction
-  | IngredientsSuccesAction
-  | IngredientsErrorAction;
-
-
-
-interface IInitialState {
-  ingredients: IIngredientType[];
+type TInitialState = {
+  ingredients: ReadonlyArray<IIngredientType>;
   fetchIngredientsRequest: boolean;
   fetchIngredientsError: boolean;
-}
+};
 
-
-const initialState: IInitialState = {
+const initialState: TInitialState = {
   ingredients: [],
   fetchIngredientsRequest: false,
   fetchIngredientsError: false,
 };
 
-export const burgerIngredientsReducer = (state = initialState, action: TIngredientsAction) => {
+export const burgerIngredientsReducer = (state = initialState, action: TIngredientsActions) => {
   switch (action.type) {
     case INGREDIENTS_REQUEST: {
       return {
         ...state,
-        fetchIngredientsRequest: true,
+        fetchIngredientsError: false,
       };
     }
     case INGREDIENTS_SUCCESS: {
@@ -60,7 +38,7 @@ export const burgerIngredientsReducer = (state = initialState, action: TIngredie
         ...state,
         fetchIngredientsRequest: false,
         fetchIngredientsError: false,
-        ingredients: action.ingredients,
+        ingredients: action.data,
       };
     }
     case INGREDIENTS_ERROR: {
@@ -78,7 +56,6 @@ export const burgerIngredientsReducer = (state = initialState, action: TIngredie
     }
   }
 }
-
 
 
 

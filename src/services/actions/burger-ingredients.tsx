@@ -1,6 +1,7 @@
 import { request, API_URL } from "../../utils/utils";
 import { Dispatch } from "redux";
-import {TIngredientsAction} from "../reducers/burger-ingredients";
+import {IIngredientType} from "../../utils/data";
+import {AppThunk} from "../reducers/index";
 
 export const INGREDIENTS_REQUEST: 'INGREDIENTS_REQUEST' = 'INGREDIENTS_REQUEST';
 export const INGREDIENTS_SUCCESS: 'INGREDIENTS_SUCCESS' = 'INGREDIENTS_SUCCESS';
@@ -14,22 +15,48 @@ export const CLEAR_INGREDIENT_COUNTER: 'CLEAR_INGREDIENT_COUNTER' = 'CLEAR_INGRE
 export const INGREDIENT_CARD: 'INGREDIENT_CARD' = 'INGREDIENT_CARD';
 
 
-export function getIngredients() {
-  return function (dispatch: Dispatch<TIngredientsAction>) {
+export interface IIngredientsRequest {
+  readonly type: typeof INGREDIENTS_REQUEST;
+}
+
+export interface IIngredientsSuccess {
+  readonly type: typeof INGREDIENTS_SUCCESS;
+  readonly data: ReadonlyArray<IIngredientType>;
+}
+
+export interface IIngredientsError {
+  readonly type: typeof INGREDIENTS_ERROR;
+}
+
+export type TIngredientsActions =
+  | IIngredientsRequest
+  | IIngredientsSuccess
+  | IIngredientsError;
+
+
+
+//export const getIngredients: AppThunk = () => {
+ // return function (dispatch) {
+
+
+ export function getIngredients() {
+  return function (dispatch: Dispatch<TIngredientsActions>) {
+
     dispatch({ type: INGREDIENTS_REQUEST });
 
     request(`${API_URL}/ingredients`)
-      .then((res) => {
-        
-      dispatch({
-        type: INGREDIENTS_SUCCESS,
-        ingredients: res.data.map((ingredient: any) => ({
-          ...ingredient,
-          counter: 0,
-        })),
-      });
-        
-      })
+    .then((res) => {
+      if (res && res.success) {
+        dispatch({
+          type: INGREDIENTS_SUCCESS,
+          data: res.data,
+        });
+      } else {
+        dispatch({
+          type: INGREDIENTS_ERROR,
+        });
+      }
+    })
       .catch(() => dispatch(ingredientsError()));
   };
 }
