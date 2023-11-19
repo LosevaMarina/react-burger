@@ -8,6 +8,11 @@ import { userFeedReducer } from "./ws-profile";
 import { orderFeedReducer } from "./ws-reducer";
 import {getOrderCard} from "./order-card";
 
+import store from "../store";
+import { ThunkAction } from "redux-thunk";
+import { Action, ActionCreator } from "redux";
+import {TIngredientsAction} from "./burger-ingredients";
+
 export const rootReducer = combineReducers({
   burgerIngredients: burgerIngredientsReducer,
   ingredientDetails: ingredientDetailsReducer,
@@ -18,3 +23,13 @@ export const rootReducer = combineReducers({
   orderFeed: orderFeedReducer,
   orderCard: getOrderCard
 });
+
+
+export type RootState = ReturnType<typeof rootReducer>;
+
+
+
+export type AppDispatch = typeof store.dispatch;
+export type AppThunk<ReturnType = void> = ActionCreator<
+  ThunkAction<ReturnType, Action, RootState, TIngredientsAction>  
+>;

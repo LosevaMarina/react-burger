@@ -15,6 +15,9 @@ import { refreshToken, accessToken, routeLogin } from "../../utils/data";
 const RegisterPage = () => {
   const [nameValue, setNameValue] = useState("");
   const inputRef = useRef(null);
+  {/*
+  const inputRef = useRef<HTMLDivElement>(null);
+*/}
   const onIconClick = () => {
     setTimeout(() => inputRef.current.focus(), 0);
     alert("Icon Click Callback");

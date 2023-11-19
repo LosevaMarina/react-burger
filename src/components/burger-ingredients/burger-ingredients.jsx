@@ -21,6 +21,13 @@ export const BurgerIngredients = () => {
   const sauceRef = useRef(null);
   const mainRef = useRef(null);
 
+{/*
+  const bunRef = useRef<HTMLDivElement>(null);
+  const sauceRef = useRef<HTMLDivElement>(null);
+  const mainRef = useRef<HTMLDivElement>(null);
+*/}
+
+
   const buns = useMemo(
     () => ingredients.filter((item) => item.type === "bun").map((item) => item),
     [ingredients]

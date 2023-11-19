@@ -7,16 +7,18 @@ import {
 import { useMatch, NavLink } from "react-router-dom";
 import styles from "./app-header.module.css";
 import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+//import { useSelector } from "react-redux";
 import { routeHome, routeProfile, routeOrderFeed, routeUser, routeLogin } from '../../utils/data';
+import {useTypeSelector} from "../../hooks/use-type-selector";
 
 export const AppHeader = () => {
-  const isConstructor = !!useMatch({ path: "/", exact: true });
+  //const isConstructor = !!useMatch({ path: "/", exact: true });
+  const isConstructor = !!useMatch("/");
   const isFeed = !!useMatch("/feed");
   const isProfile = !!useMatch("/profile");
 
-  const isAuthChecked = useSelector((store) => store.user.isAuthChecked);
-  const { user } = useSelector((state) => state.user);
+  const isAuthChecked = useTypeSelector((store) => store.user.isAuthChecked);
+  const { user } = useTypeSelector((state) => state.user);
 
   const [userName, setUserName] = useState("");
 

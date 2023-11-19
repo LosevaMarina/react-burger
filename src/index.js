@@ -8,7 +8,7 @@ import { Provider } from "react-redux";
 import thunk from "redux-thunk";
 import { rootReducer } from "./services/reducers/index";
 import { BrowserRouter } from "react-router-dom";
-import store from "./services/store.js";
+import store from "./services/store";
 
 //const composeEnhancers =
 //  typeof window === "object" && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__

@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { AppHeader } from "../app-header/app-header";
 import styles from "../app/app.module.css";
 import { getIngredients } from "../../services/actions/burger-ingredients";
@@ -33,20 +33,21 @@ import {
 import { OrderFeedPage } from "../../pages/order-feed-page/order-feed-page";
 import { ProfileInfoPage } from "../../pages/profile-info-page/profile-info-page";
 import { UserOrdersPage } from "../../pages/user-orders-page/user-orders-page";
-import { OrderDescription } from "../../components/order-description/order-description";
-import { OrderDescriptionInProfile } from "../../components/order-description-in-profile/order-description-in-profile";
+import { OrderDescription } from "../order-description/order-description";
+import { OrderDescriptionInProfile } from "../order-description-in-profile/order-description-in-profile";
 import {
   CHECK_TOKEN,
   GET_USER,
 } from "../../services/actions/registration-user";
 import { getUser } from "../../utils/utils";
+import {useTypeSelector} from "../../hooks/use-type-selector";
 
 export const App = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(getIngredients());
-    dispatch({ type: CHECK_TOKEN });
+    {/*dispatch({ type: CHECK_TOKEN });
     if (localStorage.getItem("accessToken")) {
       getUser()
         .then((res) => {
@@ -54,18 +55,25 @@ export const App = () => {
         })
         .catch((err) => console.log(err));
     }
-  }, [dispatch]);
+  }, [dispatch]);*/}
+}, []);
+
+
 
   const location = useLocation();
   const background = location.state && location.state.background;
   const navigate = useNavigate();
-  const REQUEST = useSelector(
+  const REQUEST = useTypeSelector(
     (state) => state.orderDetails.makeOrderRequestInProgress
   );
 
   function closeIngredientDetailsModal() {
     navigate(-1);
   }
+
+
+
+
 
   return (
     <section className={styles.block}>
