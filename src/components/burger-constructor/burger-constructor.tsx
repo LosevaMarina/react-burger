@@ -22,6 +22,8 @@ import { Modal } from "../modal/modal";
 import { OrderDetails } from "../order-details/order-details";
 import { CLOSE_ORDER_DETAILS_MODAL } from "../../services/actions/order-details";
 import { refreshToken, accessToken } from "../../utils/data";
+import {useTypeSelector} from "../../hooks/use-type-selector";
+import {IIngredientType} from "../../utils/data";
 
 export const BurgerConstructor = () => {
   const UserAuth = Boolean(
@@ -31,28 +33,30 @@ export const BurgerConstructor = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   //const [Modal, setModal] = useState(false);
-  const orderDetailsModal = useSelector(
+  const orderDetailsModal = useTypeSelector(
     (state) => state.orderDetails.openModal
   );
 
-  const ingredients = useSelector(
+  const ingredients = useTypeSelector(
     (state) => state.burgerConstructor.ingredients
   );
-  const { bunIngredient } = useSelector((state) => state.burgerConstructor);
+
+  const { bunIngredient } = useTypeSelector((state) => state.burgerConstructor);
 
   const Top = "top";
 
-  const loading = useSelector(state => state.orderDetails.loading);
+  const loading = useTypeSelector(state => state.orderDetails.loading);
+
 
   const orderAmount = useMemo(() => {
-    return (
-      ingredients.reduce((acc, cur) => {
-        if (cur.ingredient.price) {
-          return acc + cur.ingredient.price;
-        } 
-        return acc;
-      }, 0) + (bunIngredient ? bunIngredient.price * 2 : 0)
-    );
+    const ingredientsPrice = ingredients
+   
+      ? ingredients.reduce((acc: number , cur) => {
+          return acc + cur.price;
+      }, 0) 
+      : 0;
+     const bunIngredientPrice = bunIngredient ? bunIngredient.price * 2 : 0;
+    return ingredientsPrice + bunIngredientPrice;
   }, [ingredients, bunIngredient]);
 
   const [, dropTargetRef] = useDrop({
@@ -62,7 +66,7 @@ export const BurgerConstructor = () => {
     },
   });
 
-  function handleDrop(ingredient) {
+  function handleDrop(ingredient: any) {
     const { _id, type } = ingredient;
     switch (type) {
       case "bun": {
