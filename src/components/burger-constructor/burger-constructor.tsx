@@ -37,37 +37,43 @@ export const BurgerConstructor = () => {
     (state) => state.orderDetails.openModal
   );
 
-  const ingredients = useTypeSelector(
-    (state) => state.burgerConstructor.ingredients
-  );
+ // const ingredients = useTypeSelector(
+  //  (state) => state.burgerConstructor.ingredients
+  //);
 
-  const { bunIngredient } = useTypeSelector((state) => state.burgerConstructor);
+  const { bunIngredient, ingredients } = useTypeSelector((state) => state.burgerConstructor);
 
   const Top = "top";
 
   const loading = useTypeSelector(state => state.orderDetails.loading);
 
-
   const orderAmount = useMemo(() => {
     const ingredientsPrice = ingredients
-   
       ? ingredients.reduce((acc: number , cur) => {
-          return acc + cur.price;
+          return acc + cur.price
       }, 0) 
       : 0;
-     const bunIngredientPrice = bunIngredient ? bunIngredient.price * 2 : 0;
-    return ingredientsPrice + bunIngredientPrice;
+    // const bunIngredientPrice = bunIngredient ? bunIngredient.price * 2 : 0;
+    return console.log ("ingredientsPrice: " + ingredientsPrice);
+    //ingredientsPrice + bunIngredientPrice;
+    
   }, [ingredients, bunIngredient]);
+
+
+
+
 
   const [, dropTargetRef] = useDrop({
     accept: INGREDIENT_CARD,
-    drop(ingredient) {
+    drop(ingredient: IIngredientType) {
       handleDrop(ingredient);
     },
   });
 
-  function handleDrop(ingredient: any) {
+
+  function handleDrop(ingredient: IIngredientType) {
     const { _id, type } = ingredient;
+    //console.log ("ingredient.type: " + ingredient.type);
     switch (type) {
       case "bun": {
         dispatch({
@@ -87,18 +93,21 @@ export const BurgerConstructor = () => {
         });
         dispatch(addIngredient(ingredient));
         break;
-      }
+      }    
     }
   }
 
+{/*}
   function handlePlaceOrder() { 
     if (UserAuth) {
      
       const orderIngredientIds = [
         bunIngredient._id,
-        ...ingredients.map((ingredient) => ingredient.ingredient._id),
+        ...ingredients.map((ingredient) => ingredient._id),
         bunIngredient._id,
+        
       ];
+      
       dispatch(createOrder(orderIngredientIds));
     } else {
       //перенаправляем на страницу входа
@@ -108,7 +117,28 @@ export const BurgerConstructor = () => {
       localStorage.removeItem(refreshToken);
     }
   }
+*/}
 
+
+function handlePlaceOrder() { 
+  if (UserAuth) {
+   
+    let orderIngredientIds = ingredients.map((ingredient) => ingredient._id);
+    bunIngredient && orderIngredientIds.push(bunIngredient._id, bunIngredient._id);
+    dispatch(createOrder(orderIngredientIds));
+
+  } else {
+    //перенаправляем на страницу входа
+    navigate("/login", { state: { from: { pathname: "/" } } });
+    //обновляем токены
+    localStorage.removeItem(accessToken);
+    localStorage.removeItem(refreshToken);
+  }
+}
+
+
+
+  
   function closeOrderDetailsModal() {
     //setModal(false);
     dispatch({ type: CLOSE_ORDER_DETAILS_MODAL });
