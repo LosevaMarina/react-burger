@@ -28,8 +28,9 @@ export type IIngredientType = {
   image_mobile: string;
   image_large: string;
   __v: number;
-  //constructorId?: string;
+  uuidv4?: string;
   counter?: number;
+  key: string;
 }
 
 

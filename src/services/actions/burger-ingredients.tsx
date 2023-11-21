@@ -67,13 +67,7 @@ const ingredientsError = () => ({
   type: INGREDIENTS_ERROR,
 });
 
-
-
-
-
-
-{/*
-export const removeIngredientCounter = (_id) => ({
+export const removeIngredientCounter = (_id: number) => ({
   type: REMOVE_INGREDIENT_COUNTER,
   _id: _id,
 });
@@ -85,7 +79,7 @@ export const clearIngredientCounter = () => ({
 
 
 
-
+{/*
 
 
 import { request, API_URL } from "../../utils/utils";
@@ -102,9 +96,6 @@ export const INGREDIENTS_ERROR = "INGREDIENTS_ERROR";
 
 export const CLEAR_INGREDIENT_COUNTER = "CLEAR_INGREDIENT_COUNTER";
 export const INGREDIENT_CARD = "INGREDIENT_CARD";
-
-
-
 
 export const getIngredients = () => (dispatch) => {
   dispatch({ type: INGREDIENTS_REQUEST });

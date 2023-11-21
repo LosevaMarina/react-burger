@@ -6,7 +6,7 @@ import {
   OPEN_MODAL_INGREDIENT,
   selectIngredient,
 } from "../../services/actions/ingredient-details";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import {useTypeSelector} from "../../hooks/use-type-selector";
 import {IIngredientType} from "../../utils/data";
 
@@ -30,10 +30,10 @@ export const BurgerIngredients = () => {
 
 
   const buns = useMemo(
-    () => ingredients.filter((item) => item.type === "bun").map((item) => item),
+    () => ingredients.filter((item) => item.type === "bun").map((item) => item), 
     [ingredients]
   );
-
+  
   const sauces = useMemo(
     () =>
       ingredients.filter((item) => item.type === "sauce").map((item) => item),

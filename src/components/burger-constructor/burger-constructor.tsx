@@ -7,7 +7,7 @@ import styles from "./burger-constructor.module.css";
 import { useDrop } from "react-dnd";
 import { IngredientsCard } from "../ingredients-card/ingredients-card";
 import { BunCard } from "../bun-card/bun-card";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import {
   INGREDIENT_CARD,
   ADD_BUN_COUNTER,
@@ -37,8 +37,8 @@ export const BurgerConstructor = () => {
     (state) => state.orderDetails.openModal
   );
 
- // const ingredients = useTypeSelector(
-  //  (state) => state.burgerConstructor.ingredients
+  //const ingredient = useTypeSelector(
+   // (state) => state.burgerConstructor.ingredients
   //);
 
   const { bunIngredient, ingredients } = useTypeSelector((state) => state.burgerConstructor);
@@ -48,31 +48,33 @@ export const BurgerConstructor = () => {
   const loading = useTypeSelector(state => state.orderDetails.loading);
 
   const orderAmount = useMemo(() => {
-    const ingredientsPrice = ingredients
-      ? ingredients.reduce((acc: number , cur) => {
-          return acc + cur.price
-      }, 0) 
-      : 0;
-    // const bunIngredientPrice = bunIngredient ? bunIngredient.price * 2 : 0;
-    return console.log ("ingredientsPrice: " + ingredientsPrice);
-    //ingredientsPrice + bunIngredientPrice;
-    
+    return (
+      ingredients.reduce((acc: number, cur: any = {}) => {
+        
+        if (cur.ingredient.price) {
+          return acc + cur.ingredient.price;
+        } 
+        return acc;
+      }, 0) + (bunIngredient ? bunIngredient.price * 2 : 0)
+    );
   }, [ingredients, bunIngredient]);
 
-
-
-
+  
+ // function func (ingredient: IIngredientType) { 
+ //   console.log ("ingredient.price" + ingredient.price);
+ // }
 
   const [, dropTargetRef] = useDrop({
     accept: INGREDIENT_CARD,
     drop(ingredient: IIngredientType) {
       handleDrop(ingredient);
+     // func(ingredient);
     },
   });
 
 
   function handleDrop(ingredient: IIngredientType) {
-    const { _id, type } = ingredient;
+    const { _id, type, price } = ingredient;
     //console.log ("ingredient.type: " + ingredient.type);
     switch (type) {
       case "bun": {
@@ -97,35 +99,13 @@ export const BurgerConstructor = () => {
     }
   }
 
-{/*}
-  function handlePlaceOrder() { 
-    if (UserAuth) {
-     
-      const orderIngredientIds = [
-        bunIngredient._id,
-        ...ingredients.map((ingredient) => ingredient._id),
-        bunIngredient._id,
-        
-      ];
-      
-      dispatch(createOrder(orderIngredientIds));
-    } else {
-      //перенаправляем на страницу входа
-      navigate("/login", { state: { from: { pathname: "/" } } });
-      //обновляем токены
-      localStorage.removeItem(accessToken);
-      localStorage.removeItem(refreshToken);
-    }
-  }
-*/}
-
 
 function handlePlaceOrder() { 
   if (UserAuth) {
    
     let orderIngredientIds = ingredients.map((ingredient) => ingredient._id);
     bunIngredient && orderIngredientIds.push(bunIngredient._id, bunIngredient._id);
-    dispatch(createOrder(orderIngredientIds));
+    //dispatch(createOrder(orderIngredientIds));
 
   } else {
     //перенаправляем на страницу входа
@@ -135,9 +115,6 @@ function handlePlaceOrder() {
     localStorage.removeItem(refreshToken);
   }
 }
-
-
-
   
   function closeOrderDetailsModal() {
     //setModal(false);
@@ -162,6 +139,7 @@ function handlePlaceOrder() {
         </li>
 
         <IngredientsCard ingredients={ingredients} />
+
 
         <li className={styles.element}>
           {bunIngredient && (
