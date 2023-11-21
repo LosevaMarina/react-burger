@@ -32,8 +32,8 @@ export const IngredientCard: FC<IIngredientCard> = ({ item, index }) => {
   const dispatch = useDispatch();
   //const ref = useRef(null);
   
-  const ref = useRef<HTMLDivElement>(null);
-
+  //const ref = useRef<HTMLDivElement>(null);
+  const ref = useRef<HTMLLIElement>(null);
 
   const [{ isDragging }, dragRef] = useDrag({
     type: CONSTRUCTOR_CARD,
