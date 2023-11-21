@@ -4,13 +4,22 @@ import {
   OPEN_MODAL_INGREDIENT,
   CLOSE_MODAL_INGREDIENT,
 } from "../actions/ingredient-details";
+import {IIngredientType} from "../../utils/data";
+import {TIngredientDetailsActions} from "../actions/ingredient-details"
 
-const initialState = {
+
+type TInitialState = {
+  ingredient: IIngredientType | null;
+  openModal: boolean;
+}
+
+
+const initialState: TInitialState = {
   ingredient: null,
   openModal: false,
 };
 
-export const ingredientDetailsReducer = (state = initialState, action) => {
+export const ingredientDetailsReducer = (state = initialState, action: TIngredientDetailsActions) => {
   switch (action.type) {
     case INGREDIENT: {
       return {

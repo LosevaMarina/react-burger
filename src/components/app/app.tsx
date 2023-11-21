@@ -4,7 +4,7 @@ import { AppHeader } from "../app-header/app-header";
 import styles from "../app/app.module.css";
 import { getIngredients } from "../../services/actions/burger-ingredients";
 import { Modal } from "../modal/modal";
-import { IngredientDetails } from "../ingredient-details/ingredient-details.jsx";
+import { IngredientDetails } from "../ingredient-details/ingredient-details";
 import { Routes, Route, useLocation, useNavigate } from "react-router-dom";
 import { HomePage } from "../../pages/home-page/home-page";
 import { LoginPage } from "../../pages/login-page/login-page";
@@ -72,6 +72,7 @@ export const App = () => {
 
   const location = useLocation();
   const background = location.state && location.state.background;
+  //console.log ("background: " + background)
   const navigate = useNavigate();
   const REQUEST = useTypeSelector(
     (state) => state.orderDetails.makeOrderRequestInProgress
@@ -92,8 +93,9 @@ export const App = () => {
 
       <Routes location={background || location}>
         <Route path={routeHome} element={<HomePage />} />
+        
 
-       {/*} 
+  {/*}      
        <Route path={routeOrderFeed} element={<OrderFeedPage />} />
 
         <Route
@@ -148,7 +150,6 @@ export const App = () => {
         <Route path={route404} element={<NotFound404 />} />
   */}
       </Routes>
-      {/*}
 
       {background && (
         <Routes>
@@ -160,7 +161,8 @@ export const App = () => {
               </Modal>
             }
           />
-
+    
+{/*}  
           <Route
             path={`${routeOrderFeed}${routeOrderFeedId}`}
             element={
@@ -182,9 +184,10 @@ export const App = () => {
               </Modal>
             }
           />
+    */}      
         </Routes>
       )}
-          */}
+          
     </section>
   );
 };
