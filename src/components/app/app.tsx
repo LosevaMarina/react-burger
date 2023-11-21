@@ -142,13 +142,17 @@ export const App = () => {
           path={`/${routeProfile}/${routeUserOrders}${routeOrderFeedId}`}
           element={<OnlyAuth component={<OrderDescriptionInProfile />} />}
         />
+        
+        */}
+
+        
         <Route
           path={`${routeIngredient}${routeIngredientId}`}
           element={!background ? <Page /> : null}
         />
 
         <Route path={route404} element={<NotFound404 />} />
-  */}
+  
       </Routes>
 
       {background && (
