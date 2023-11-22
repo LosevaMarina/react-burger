@@ -1,3 +1,4 @@
+import {useTypeSelector} from "../hooks/use-type-selector";
 export const API_URL = "https://norma.nomoreparties.space/api";
 
 export const FEED_URL = "wss://norma.nomoreparties.space/orders/all";
@@ -14,10 +15,6 @@ export const checkResponse = (res: Response) => {
 export function request(url: string, options?: RequestInit) {
   return fetch(url).then((res) => checkResponse(res));
 }
-
-
-//export const getAuthChecked = (state) => state.user.isAuthChecked;
-
 
 
 
@@ -161,6 +158,25 @@ export const getUser = () => {
 
 
 */}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

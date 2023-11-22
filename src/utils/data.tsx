@@ -52,7 +52,11 @@ export interface IOrderFeedAnswer {
   totalToday: number;
 }
 
-
+export type TOrder = {
+  number: number;
+  name: string;
+  success: boolean;
+}
 
 export const routeHome = "/";
 

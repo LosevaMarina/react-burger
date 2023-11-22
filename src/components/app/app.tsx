@@ -74,6 +74,9 @@ export const App = () => {
   const background = location.state && location.state.background;
   //console.log ("background: " + background)
   const navigate = useNavigate();
+  //const REQUEST = useTypeSelector(
+   // (state) => state.orderDetails
+  //);
   const REQUEST = useTypeSelector(
     (state) => state.orderDetails.makeOrderRequestInProgress
   );

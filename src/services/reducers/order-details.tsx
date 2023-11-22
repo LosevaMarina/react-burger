@@ -1,4 +1,4 @@
-import { Ingredient } from "../../components/ingredient/ingredient";
+import { TOrderDetailsActions } from "../actions/order-details";
 import {
   ORDER_REQUEST,
   ORDER_SUCCEED,
@@ -6,16 +6,26 @@ import {
   OPEN_ORDER_DETAILS_MODAL,
   CLOSE_ORDER_DETAILS_MODAL,
 } from "../actions/order-details";
+import {TOrder} from "../../utils/data";
 
-const initialState = {
-  order: 0,
+export type TinitialState = {
+  order: TOrder | null;
+  makeOrderRequestInProgress: boolean;
+  makeOrderRequestFailed: boolean;
+  openModal: boolean;
+  loading: false
+};
+
+const initialState: TinitialState = {
+  order: null,
+  //order: 0,
   makeOrderRequestInProgress: false,
   makeOrderRequestFailed: false,
   openModal: false,
   loading: false,
 };
 
-export const orderDetailsReducer = (state = initialState, action) => {
+export const orderDetailsReducer = (state = initialState, action:TOrderDetailsActions) => {
   switch (action.type) {
     case ORDER_REQUEST: {
       return {

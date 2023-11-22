@@ -3,16 +3,24 @@ import {
     GET_ORDER_CARD_SUCCESS,
     GET_ORDER_CARD_FAILED,
   } from "../actions/order-card";
-  
-  
-  const initialIngredients = {
+  import {IOrderInterface} from "../../utils/data";
+  import {TAnyOrderAction} from "../actions/order-card";
+
+
+  interface IInitialIngredients {
+    order: IOrderInterface | null;
+    orderRequest: boolean;
+    orderFailed: boolean;
+  }
+
+  const initialIngredients: IInitialIngredients = {
     order: null,
     orderRequest: false,
     orderFailed: false
   }
   
   
-  export const getOrderCard = (state = initialIngredients, action) => {
+  export const getOrderCard = (state = initialIngredients, action: TAnyOrderAction): IInitialIngredients => {
     switch (action.type) {
       case GET_ORDER_CARD_REQUEST: {
         return {
@@ -25,7 +33,7 @@ import {
           ...state,
           orderFailed: false,
           order: action.order,
-          oredrRequest: false
+          orderRequest: false
         };
       }
       case GET_ORDER_CARD_FAILED: {

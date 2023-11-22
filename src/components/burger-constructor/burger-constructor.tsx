@@ -24,6 +24,7 @@ import { CLOSE_ORDER_DETAILS_MODAL } from "../../services/actions/order-details"
 import { refreshToken, accessToken } from "../../utils/data";
 import {useTypeSelector} from "../../hooks/use-type-selector";
 import {IIngredientType} from "../../utils/data";
+import React from "react";
 
 export const BurgerConstructor = () => {
   const UserAuth = Boolean(
@@ -32,10 +33,12 @@ export const BurgerConstructor = () => {
  
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  //const [Modal, setModal] = useState(false);
-  const orderDetailsModal = useTypeSelector(
-    (state) => state.orderDetails.openModal
-  );
+  const [Modalin, setModalin] = React.useState(false);
+  
+  //const orderDetailsModal = useTypeSelector(
+   // (state) => state.orderDetails.openModal
+ // );
+ // console.log ("orderDetailsModal: " + orderDetailsModal);
 
   //const ingredient = useTypeSelector(
    // (state) => state.burgerConstructor.ingredients
@@ -45,7 +48,8 @@ export const BurgerConstructor = () => {
 
   const Top = "top";
 
-  const loading = useTypeSelector(state => state.orderDetails.loading);
+ // const loading = useTypeSelector(state => state.orderDetails.loading);
+
 
   const orderAmount = useMemo(() => {
     return (
@@ -60,22 +64,16 @@ export const BurgerConstructor = () => {
   }, [ingredients, bunIngredient]);
 
   
- // function func (ingredient: IIngredientType) { 
- //   console.log ("ingredient.price" + ingredient.price);
- // }
-
   const [, dropTargetRef] = useDrop({
     accept: INGREDIENT_CARD,
     drop(ingredient: IIngredientType) {
       handleDrop(ingredient);
-     // func(ingredient);
     },
   });
 
 
   function handleDrop(ingredient: IIngredientType) {
     const { _id, type, price } = ingredient;
-    //console.log ("ingredient.type: " + ingredient.type);
     switch (type) {
       case "bun": {
         dispatch({
@@ -99,13 +97,13 @@ export const BurgerConstructor = () => {
     }
   }
 
-
+{/*}
 function handlePlaceOrder() { 
   if (UserAuth) {
    
-    let orderIngredientIds = ingredients.map((ingredient) => ingredient._id);
+    let orderIngredientIds: string[] = ingredients.map((ingredient) => ingredient._id);
     bunIngredient && orderIngredientIds.push(bunIngredient._id, bunIngredient._id);
-    //dispatch(createOrder(orderIngredientIds));
+    dispatch(createOrder(orderIngredientIds));
 
   } else {
     //перенаправляем на страницу входа
@@ -120,6 +118,30 @@ function handlePlaceOrder() {
     //setModal(false);
     dispatch({ type: CLOSE_ORDER_DETAILS_MODAL });
   }
+*/}
+
+
+const handlePlaceOrder = () => {
+  if (UserAuth) {
+    let orderIngredientIds = ingredients.map((item) => item._id);
+    bunIngredient && orderIngredientIds.push(bunIngredient._id, bunIngredient._id);
+
+console.log ("orderIngredientIds: " + orderIngredientIds);
+
+    dispatch(createOrder(orderIngredientIds));
+    //так как ожидание модального окна получилось слишком длительным, я убрала асинхронную конструкцию. Пока идёт ответ сервера, пользователь видит надпись "wait"
+    setModalin(true);
+  } else {
+    navigate("/login");
+  }
+};
+
+const closeOrderDetailsModal = () => {
+  setModalin(false);
+  dispatch({ type: CLOSE_ORDER_DETAILS_MODAL });
+};
+
+
 
   return (
     
@@ -174,6 +196,25 @@ function handlePlaceOrder() {
 
       {/*открытие модалки с номером заказа*/}
 
+      {Modalin && (
+        <Modal closeModal={closeOrderDetailsModal}>
+         <p className="text text_type_main-medium m-20">
+            Ваш заказ формируется, минутку...
+          </p>
+        </Modal>
+        
+      )}
+      {Modalin && (
+        <Modal closeModal={closeOrderDetailsModal}>
+          <OrderDetails />
+        </Modal>
+        
+      )}
+
+
+
+
+{/*}
       {orderDetailsModal && loading && (
         <Modal closeModal={closeOrderDetailsModal}>
          <p className="text text_type_main-medium m-20">
@@ -188,6 +229,8 @@ function handlePlaceOrder() {
         </Modal>
         
       )}
+
+      */}
     </section>
   );
 };
