@@ -6,14 +6,22 @@ import {
   WS_USER_FEED_OPEN,
 } from "../actions/ws-profile";
 import { WebsocketStatus } from "../../utils/order";
+import {IOrderInterface } from "../../utils/data";
+import {TWsUserOrderFeedActions} from "../actions/ws-profile"
 
-const initialState = {
+interface IInitialState {
+  status: string;
+  orders: IOrderInterface[];
+  connectingError: string;
+}
+
+const initialState: IInitialState = {
   status: " ",
   orders: [],
   connectingError: "",
 };
 
-export const userFeedReducer = (state = initialState, action) => {
+export const userFeedReducer = (state = initialState, action: TWsUserOrderFeedActions) => {
   switch (action.type) {
     case WS_USER_FEED_CONNECTING:
       return {

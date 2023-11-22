@@ -33,6 +33,24 @@ export type IIngredientType = {
   key: string;
 }
 
+type TStatusOrder = "done" | "created" | "pending";
+
+export interface IOrderInterface {
+  name: string;
+  ingredients: string[];
+  _id: string;
+  status: TStatusOrder;
+  number: number;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface IOrderFeedAnswer {
+  success: boolean;
+  orders: IOrderInterface[];
+  total: number;
+  totalToday: number;
+}
 
 
 

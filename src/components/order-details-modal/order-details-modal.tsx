@@ -7,29 +7,32 @@ import {
 import { useParams } from "react-router";
 import { useSelector } from "react-redux";
 import { useMemo } from "react";
+import {useTypeSelector} from "../../hooks/use-type-selector";
 
 export const OrderDetailsModal = () => {
-
-  const order = useSelector(store => store.orderCard.order);
+ 
+  const order = useTypeSelector(store => store.orderCard.order);
   
   const { name, number, updatedAt, ingredient, status } = order;
 
-  const ingredients = useSelector(
+  const ingredients = useTypeSelector(
     (state) => state.burgerIngredients.ingredients
   );
 
   const ingredientsInfo =
     order &&
-    order.ingredients.map((item) => ingredients.find((ing) => item == ing._id));
+    order.ingredients.map((item:any) => ingredients.find((ing) => item == ing._id));
+
 
   const totalPrice = useMemo(() => {
     return (
       ingredientsInfo &&
-      ingredientsInfo.reduce((sum, item) => {
+      ingredientsInfo.reduce((sum:number, item:any) => {
         return item ? sum + item.price : sum;
       }, 0)
     );
   }, [ingredientsInfo]);
+
 
   const setTextColor = () => {
     if (status === "done") {
@@ -41,21 +44,23 @@ export const OrderDetailsModal = () => {
     }
   };
 
-  let uniqueIngredients;
+  let uniqueIngredients: any[] | undefined;
+ //let uniqueIngredients;
   const arrayWithCounters =
     ingredientsInfo &&
-    ingredientsInfo.map((a) => {
+    ingredientsInfo.map((a:any) => {
       const counter = ingredientsInfo.filter(
-        (item) => item._id === a._id
+        (item:any) => item._id === a._id
       ).length;
       return { ...a, counter: counter };
     });
 
   if (order) {
+    //const set: Set<unknown>
     const set = new Set(order.ingredients);
     const uniqueId = [...set];
     uniqueIngredients = uniqueId.map((item) =>
-      arrayWithCounters.find((ing) => item == ing._id)
+      arrayWithCounters.find((ing:any) => item == ing._id)
     );
   }
 
@@ -71,7 +76,7 @@ export const OrderDetailsModal = () => {
       <p className="text text_type_main-medium pb-6">Состав:</p>
       <ul className={`custom-scroll ${styles.cart_list}`}>
         {order &&
-          uniqueIngredients.map((item, index) => (
+          uniqueIngredients?.map((item, index) => (
             <IngredientOrder key={index} card={item} />
           ))}
       </ul>

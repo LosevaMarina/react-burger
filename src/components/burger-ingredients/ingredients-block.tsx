@@ -1,11 +1,7 @@
-import { forwardRef, RefObject, ForwardedRef } from "react";
+import { forwardRef } from "react";
 import styles from "./burger-ingredients.module.css";
-import PropTypes from "prop-types";
-import { PropTypeingredients } from "../../utils/data";
 import { Ingredient } from "../ingredient/ingredient";
-import { FC } from "react";
 import {IIngredientType} from "../../utils/data";
-import {useTypeSelector} from "../../hooks/use-type-selector";
 
 
 

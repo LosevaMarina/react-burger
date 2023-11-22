@@ -5,15 +5,25 @@ import {
   WS_ORDER_FEED_ERROR,
   WS_ORDER_FEED_MESSAGE,
 } from "../actions/ws-actions";
-import { WebsocketStatus } from "../../utils/order";
 
-const initialState = {
+import { WebsocketStatus } from "../../utils/order";
+import {IOrderInterface} from "../../utils/data";
+import {TWsOrderFeedActions} from "../actions/ws-actions";
+
+
+type TInitialState = {
+  status: string;
+  orders: IOrderInterface[];
+  connectingError: string;
+}
+
+const initialState: TInitialState = {
   status: WebsocketStatus.OFFLINE,
   orders: [],
   connectingError: "",
 };
 
-export const orderFeedReducer = (state = initialState, action) => {
+export const orderFeedReducer = (state = initialState, action: TWsOrderFeedActions) => {
   switch (action.type) {
     case WS_ORDER_FEED_CONNECTING:
       return {

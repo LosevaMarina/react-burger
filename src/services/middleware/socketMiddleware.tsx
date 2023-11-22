@@ -1,13 +1,35 @@
-export const socketMiddleware = (wsActions) => {
-  return store => {
-      let socket = null;
+import { Middleware, Dispatch, AnyAction } from "@reduxjs/toolkit";
+import { TWsActions} from "../actions/ws-actions";
+import {TWsOrderFeedActions } from "../actions/ws-actions";
+import { TWsUserOrderFeedActions } from "../actions/ws-profile";
 
-      return next => action => {
+export type TWsActionTypes = {
+    wsConnect: string;
+    wsDisconnect: string;
+    wsSendMessage?: string;
+    wsConnecting: string;
+    onOpen: string;
+    onClose: string;
+    onError: string;
+    onMessage: string;
+  };
+
+export const socketMiddleware: any = (wsActions: TWsActions): Middleware => {
+  return (store: {
+    dispatch: (type: TWsOrderFeedActions | TWsUserOrderFeedActions) => void;
+}) => {
+    let socket: WebSocket | null = null;
+
+
+
+
+        return (next: Dispatch<AnyAction>) =>
+        (action: TWsOrderFeedActions | TWsUserOrderFeedActions) => {
           const { dispatch } = store;
           const { type } = action;
           const {
               wsConnect,
-              wsSendMessage,
+              //wsSendMessage,
               onOpen,
               onClose,
               onError,
@@ -33,7 +55,7 @@ export const socketMiddleware = (wsActions) => {
                   console.log ("ERROR")
               };
 
-              socket.onmessage = event => {
+              socket.onmessage = (event: MessageEvent) => {
                   const { data } = event;
                   const parsedData = JSON.parse(data);
                   console.log ("MESSAGE")
@@ -45,9 +67,9 @@ export const socketMiddleware = (wsActions) => {
                   console.log ("CLOSE")
               };
 
-              if (type === wsSendMessage) {
-                  socket.send(JSON.stringify(action.payload));
-              }
+              //if (type === wsSendMessage) {
+             //     socket.send(JSON.stringify(action.payload));
+            //  }
 
               if (type === wsDisconnect) {
                   socket.close();

@@ -1,7 +1,13 @@
 import style from "./ingredient-order.module.css";
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
+import { FC } from "react";
 
-export const IngredientOrder = ({ card }) => {
+type TIngredientOrder = {
+  card: any;
+}
+
+
+export const IngredientOrder: FC<TIngredientOrder> =  ({ card }) => {
   return (
     <div className={style.container}>
       <div className={style.ingredient}>
@@ -15,3 +21,4 @@ export const IngredientOrder = ({ card }) => {
     </div>
   )
 }
+

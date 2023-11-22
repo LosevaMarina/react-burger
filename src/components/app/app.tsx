@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import { AppHeader } from "../app-header/app-header";
 import styles from "../app/app.module.css";
 import { getIngredients } from "../../services/actions/burger-ingredients";
-import { Modal } from "../modal/modal";
+import  {Modal}  from "../modal/modal";
 import { IngredientDetails } from "../ingredient-details/ingredient-details";
 import { Routes, Route, useLocation, useNavigate } from "react-router-dom";
 import { HomePage } from "../../pages/home-page/home-page";
