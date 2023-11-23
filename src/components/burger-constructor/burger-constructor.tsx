@@ -99,29 +99,6 @@ export const BurgerConstructor = () => {
   }
 
 
-function handlePlaceOrder() { 
-  if (UserAuth) {
-   
-    let orderIngredientIds = ingredients.map((ingredient) => ingredient._id);
-
-    bunIngredient && orderIngredientIds.push(bunIngredient._id, bunIngredient._id);
-
-    dispatch(createOrder(orderIngredientIds));
-    console.log ("orderIngredientIds[1]: " + orderIngredientIds[0] + " , " + orderIngredientIds[1] + " , " + orderIngredientIds[2] + " , " + orderIngredientIds[3]);
-  } else {
-    //перенаправляем на страницу входа
-    navigate("/login", { state: { from: { pathname: "/" } } });
-    //обновляем токены
-    localStorage.removeItem(accessToken);
-    localStorage.removeItem(refreshToken);
-  }
-}
-  
-  function closeOrderDetailsModal() {
-    //setModal(false);
-    dispatch({ type: CLOSE_ORDER_DETAILS_MODAL });
-  }
-
 
 {/*}
 const handlePlaceOrder = () => {
@@ -143,6 +120,49 @@ const closeOrderDetailsModal = () => {
   dispatch({ type: CLOSE_ORDER_DETAILS_MODAL });
 };
 */}
+
+
+const ingredientsId = ingredients.map(item => item._id);
+    const bunId = bun?._id;
+    const allFoodIds = [bunId, ...ingredientsId, bunId];
+
+
+
+
+    
+
+function handlePlaceOrder() { 
+  if (UserAuth) {
+    const ingredientsId = ingredients.map(item => item.ingredient._id);
+    const bunId = bun?._id;
+    const allFoodIds = [bunId, ...ingredientsId, bunId];
+
+
+    const orderIngredientIds: any[] = [
+      bunIngredient._id,
+      ...ingredients.map((ingredient) => ingredient.ingredient._id),
+      bunIngredient._id,
+    ];
+    dispatch(createOrder(orderIngredientIds));
+  } else {
+    //перенаправляем на страницу входа
+    navigate("/login", { state: { from: { pathname: "/" } } });
+    //обновляем токены
+    localStorage.removeItem(accessToken);
+    localStorage.removeItem(refreshToken);
+  }
+}
+
+function closeOrderDetailsModal() {
+  //setModal(false);
+  dispatch({ type: CLOSE_ORDER_DETAILS_MODAL });
+}
+
+
+
+
+
+
 
 
   return (
