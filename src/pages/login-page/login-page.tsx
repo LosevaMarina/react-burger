@@ -13,10 +13,10 @@ import { routeHome, routeRegister, routeForgotPassword } from '../../utils/data'
 import { refreshToken, accessToken } from "../../utils/data";
 
 export const LoginPage = () => {
-  function useForm(inputValues) {
+  function useForm(inputValues:any) {
     const [values, setValues] = useState(inputValues);
 
-    const handleChange = (event) => {
+    const handleChange = (event:any) => {
       const { value, name } = event.target;
       setValues({ ...values, [name]: value });
     };
@@ -27,10 +27,13 @@ export const LoginPage = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const location = useLocation();
+  //const [email, setEmail] = useState('')
 
-  const handleSubmit = (e) => {
+  //const [password, setPassword] = useState('')
+
+  const handleSubmit = (e: React.SyntheticEvent) => {
     e.preventDefault();
-    login({ email: values.email, password: values.password })
+    login(values, values.password)
       .then((res) => {
         localStorage.setItem(refreshToken, res.refreshToken);
         localStorage.setItem(accessToken, res.accessToken);
@@ -61,7 +64,9 @@ export const LoginPage = () => {
           name={"email"}
           isIcon={false}
           onChange={handleChange}
+          //onChange={e => setEmail(e.target.value)}
           value={values.email}
+          //value={email}
         />
       </div>
       <div className={styles.input}>
@@ -69,7 +74,9 @@ export const LoginPage = () => {
           name={"password"}
           extraClass="mb-2"
           onChange={handleChange}
+          //onChange={e => setPassword(e.target.value)}
           value={values.password}
+          //value={password}
         />
       </div>
 

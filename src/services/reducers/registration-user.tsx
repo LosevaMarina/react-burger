@@ -4,19 +4,28 @@ import {
   GET_USER_FAILED,
   CLEAR_USER,
 
-
-
   CHECK_TOKEN,
   GET_USER
 } from "../actions/registration-user";
 
-const initialUserState = {
+import {TUserActions} from "../actions/registration-user";
+
+  interface IInitialUserState {
+    user: { email: string; name: string } | null;
+    isAuthChecked: boolean;
+    userFailed: boolean;
+    password: string;
+  }
+
+  
+const initialUserState: IInitialUserState = {
   user: null,
   isAuthChecked: true,
   userFailed: false,
+  password: ""
 };
 
-export const userReducer = (state = initialUserState, action) => {
+export const userReducer = (state = initialUserState, action: TUserActions) => {
   switch (action.type) {
     case GET_USER_REQUEST: {
       return {
@@ -27,7 +36,8 @@ export const userReducer = (state = initialUserState, action) => {
     case GET_USER_SUCCESS: {
       return {
         ...state,
-        user: action.user,
+        //user: action.user,
+        user: action.payload.user,
         isAuthChecked: true,
         userFailed: false,
       };

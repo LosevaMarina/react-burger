@@ -8,12 +8,14 @@ import {
 } from "../../services/actions/ws-actions";
 import { FEED_URL } from "../../utils/utils";
 import {OrderFeed} from "../../components/order-feed/order-feed";
+import {useTypeSelector} from "../../hooks/use-type-selector";
+import { IOrderInterface} from "../../utils/data";
 
 export const OrderFeedPage = () => {
   const dispatch = useDispatch(); 
   
 
-  const { orders, total, totalToday } = useSelector(store => store.orderFeed.orders);
+  const { orders, total, totalToday } = useTypeSelector(store => store.orderFeed);
 
 
 
@@ -39,7 +41,7 @@ export const OrderFeedPage = () => {
   const pending =
     orders &&
     orders
-      .map((item) => {
+      .map((item: IOrderInterface) => {
         if (item.status === "pending") {
           return item.number;
         }
@@ -54,7 +56,7 @@ export const OrderFeedPage = () => {
         <section className={style.list + " custom-scroll"}>
            
         {
-            orders && orders.map(order => <OrderFeed order={order} key={order._id} />)
+            orders && orders.map((order: IOrderInterface) => <OrderFeed order={order} key={order._id} status="" />)
           }
 
         </section>

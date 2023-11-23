@@ -1,19 +1,33 @@
 import styles from "./order.module.css";
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 //import { v4 as uuidv4 } from "uuid";
-import { useSelector } from "react-redux";
 import { Link, useLocation } from "react-router-dom";
-import { useMemo } from "react";
+import { useMemo,FC } from "react";
 import { FormattedDate } from "@ya.praktikum/react-developer-burger-ui-components";
+import {useTypeSelector} from "../../hooks/use-type-selector"
+import {IOrderInterface, IIngredientType} from "../../utils/data";
 
-export const Order = ({ order, status }) => {
+interface IOrder {
+  order: IOrderInterface;
+  status: string;
+}
+
+
+
+
+
+export const Order:FC<IOrder> = ({ order, status }) => {
   const location = useLocation();
 
   const ingredientsT = order.ingredients;
 
-  const ingredients = useSelector(
+  const ingredients = useTypeSelector(
     (store) => store.burgerIngredients.ingredients
   );
+
+  function findIngredient(ingredient: string | IIngredientType) {
+    return ingredients.find((item) => item._id === ingredient) as IIngredientType;
+  }
 
   const ingredientsInfo = ingredientsT.map((item) =>
     ingredients.find((ing) => item == ing._id)
@@ -76,13 +90,8 @@ export const Order = ({ order, status }) => {
                         className={styles.imgEl}
                       >
                         <img
-                          src={
-                            ingredients.find((el) => el._id === ingredient)
-                              .image_mobile
-                          }
-                          alt={
-                            ingredients.find((el) => el._id === ingredient).name
-                          }
+                          src={findIngredient(ingredient)?.image_mobile}
+                          alt={findIngredient(ingredient)?.name}
                           className={styles.image}
                         />
                       </li>
@@ -101,14 +110,8 @@ export const Order = ({ order, status }) => {
                             +{order.ingredients.length - 5}
                           </p>
                           <img
-                            src={
-                              ingredients.find((el) => el._id === ingredient)
-                                .image_mobile
-                            }
-                            alt={
-                              ingredients.find((el) => el._id === ingredient)
-                                .name
-                            }
+                            src={findIngredient(ingredient)?.image_mobile}
+                            alt={findIngredient(ingredient)?.name}
                             className={styles.image}
                           />
                         </li>
@@ -129,3 +132,6 @@ export const Order = ({ order, status }) => {
   );
 };
 
+
+
+//ingredients.find((el) => el._id === ingredient).image_mobile

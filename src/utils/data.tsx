@@ -25,7 +25,7 @@ export type IIngredientType = {
   calories: number;
   price: number;
   image: string;
-  image_mobile: string;
+  image_mobile?: string;
   image_large: string;
   __v: number;
   uuidv4?: string;
@@ -52,11 +52,59 @@ export interface IOrderFeedAnswer {
   totalToday: number;
 }
 
-export type TOrder = {
-  number: number;
-  name: string;
-  success: boolean;
+//export type TOrder = {
+ // number: number;
+  //name: string;
+  //success: boolean;
+//}
+
+
+
+export interface IUser {
+  email: string | undefined;
+  name: string | undefined;
 }
+
+export interface IUserWithPass extends IUser {
+  password: string | undefined;
+}
+
+
+export interface IUserResponse {
+  status?: string;
+  success?: boolean;
+  user: IUserWithPass;
+  accessToken: string;
+  refreshToken: string;
+}
+
+export type TTokenResponse = Omit<IUserResponse, "user">;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+export type THeaders = {
+  "Content-Type": string;
+  authorization: string | undefined;
+};
 
 export const routeHome = "/";
 

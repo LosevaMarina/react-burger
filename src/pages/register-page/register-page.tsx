@@ -7,42 +7,39 @@ import {
 import styles from "../login-page/login-page.module.css";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { useState, useRef } from "react";
+import { useState, useRef, MouseEvent } from "react";
 import { createUser } from "../../utils/utils";
 import { GET_USER_SUCCESS } from "../../services/actions/registration-user";
 import { refreshToken, accessToken, routeLogin } from "../../utils/data";
 
 const RegisterPage = () => {
   const [nameValue, setNameValue] = useState("");
-  const inputRef = useRef(null);
-  {/*
-  const inputRef = useRef<HTMLDivElement>(null);
-*/}
+  //const inputRef = useRef(null);
+  
+  const inputRef = useRef<HTMLInputElement>(null);
+
   const onIconClick = () => {
-    setTimeout(() => inputRef.current.focus(), 0);
+    //setTimeout(() => inputRef.current.focus(), 0);
+    setTimeout(() => inputRef.current && inputRef.current.focus(), 0);
     alert("Icon Click Callback");
   };
 
   const [emailValue, setEmailValue] = useState("");
-  const onChangeEmail = (e) => {
-    setEmailValue(e.target.value);
-  };
+  //const onChangeEmail = (e: MouseEvent<HTMLFormElement>) => {
+   // setEmailValue(e.target.value);
+  //};
 
   const [passwordValue, setPasswordValue] = useState("");
-  const onChangePassword = (e) => {
-    setPasswordValue(e.target.value);
-  };
+ // const onChangePassword = (e: React.FormEvent) => {
+ //   setPasswordValue(e.target.value);
+ // };
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: MouseEvent<HTMLFormElement>) => {
     e.preventDefault();
-    createUser({
-      email: emailValue,
-      password: passwordValue,
-      username: nameValue,
-    })
+    createUser(emailValue, passwordValue, nameValue)
       .then((res) => {
         localStorage.setItem(refreshToken, res.refreshToken);
         localStorage.setItem(accessToken, res.accessToken);
@@ -81,7 +78,7 @@ const RegisterPage = () => {
         <EmailInput
           name={"email"}
           isIcon={false}
-          onChange={onChangeEmail}
+          onChange={(e) => setEmailValue(e.target.value)}
           value={emailValue}
         />
       </div>
@@ -89,7 +86,7 @@ const RegisterPage = () => {
         <PasswordInput
           name={"password"}
           extraClass="mb-2"
-          onChange={onChangePassword}
+          onChange={(e) => setPasswordValue(e.target.value)}
           value={passwordValue}
         />
       </div>

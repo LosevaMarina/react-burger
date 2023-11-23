@@ -15,15 +15,19 @@ type TInitialState = {
   status: string;
   orders: IOrderInterface[];
   connectingError: string;
+  total: number,
+  totalToday: number,
 }
 
 const initialState: TInitialState = {
   status: WebsocketStatus.OFFLINE,
   orders: [],
   connectingError: "",
+  total: 0,
+  totalToday: 0,
 };
 
-export const orderFeedReducer = (state = initialState, action: TWsOrderFeedActions) => {
+export const orderFeedReducer = (state = initialState, action: TWsOrderFeedActions): TInitialState => {
   switch (action.type) {
     case WS_ORDER_FEED_CONNECTING:
       return {
@@ -49,7 +53,9 @@ export const orderFeedReducer = (state = initialState, action: TWsOrderFeedActio
     case WS_ORDER_FEED_MESSAGE:
       return {
         ...state,
-        orders: action.payload,
+        orders: action.payload.orders,
+        total: action.payload.total,
+        totalToday: action.payload.totalToday,
       };
     default:
       return state;

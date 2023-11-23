@@ -7,10 +7,10 @@ import {
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 
-import { useState, useEffect } from "react";
+import { SyntheticEvent} from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { logout, updateUser, getUser } from "../../utils/utils";
+import { logout} from "../../utils/utils";
 import { CLEAR_USER } from "../../services/actions/registration-user";
 import { routeProfile, routeLogin, routeUserOrders } from '../../utils/data';
 import { refreshToken, accessToken } from "../../utils/data";
@@ -20,7 +20,8 @@ const ProfilePage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const exit = (e) => {
+  //const exit = (e: any) => {
+  const exit = (e: SyntheticEvent) => {
     e.preventDefault();
     logout()
       .then((res) => {
@@ -66,12 +67,13 @@ const ProfilePage = () => {
 
           <NavLink
             to={routeLogin}
+            onClick={exit}
             className={({ isActive }) =>
               isActive
                 ? `${styles.link_active} + text_type_main-medium text_color_inactive text`
                 : `${styles.link} + text_type_main-medium text_color_inactive text`
             }
-            onClick={exit}
+            
           >
             Выход
           </NavLink>

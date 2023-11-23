@@ -1,8 +1,7 @@
 import { request, API_URL } from "../../utils/utils";
 import { clearIngredientCounter } from "./burger-ingredients";
 import { accessToken } from "../../utils/data";
-import {AppDispatch} from "../reducers/index";
-import {TOrder} from "../../utils/data";
+import {IOrderInterface} from "../../utils/data";
 import { Dispatch } from "redux";
 
 export const CLEAR_CONSTRUCTOR: "CLEAR_CONSTRUCTOR" = "CLEAR_CONSTRUCTOR";
@@ -14,25 +13,24 @@ export const CLOSE_ORDER_DETAILS_MODAL: "CLOSE_ORDER_DETAILS_MODAL" = "CLOSE_ORD
 
 
 export interface IOrderRequestAction {
-  readonly type: typeof ORDER_REQUEST;
+  type: typeof ORDER_REQUEST;
 }
 
 export interface IOrderSuccessAction {
-  readonly type: typeof ORDER_SUCCEED;
-  readonly order: Readonly<TOrder>;
+ type: typeof ORDER_SUCCEED;
+  order: IOrderInterface;
 }
 
 export interface IOrderFailedAction {
-  readonly type: typeof ORDER_FAILED;
-  readonly order: {number: Readonly<TOrder>}
+  type: typeof ORDER_FAILED;
 }
 
 export interface IOrderOpenDetailsModalAction {
-  readonly type: typeof OPEN_ORDER_DETAILS_MODAL;
+  type: typeof OPEN_ORDER_DETAILS_MODAL;
 }
 
 export interface IOrderCloseDetailsModalAction {
-  readonly type: typeof CLOSE_ORDER_DETAILS_MODAL;
+  type: typeof CLOSE_ORDER_DETAILS_MODAL;
 }
 
 
@@ -43,8 +41,8 @@ export type TOrderDetailsActions =
 | IOrderOpenDetailsModalAction
 | IOrderCloseDetailsModalAction;
 
-export const createOrder = (orderItemsId: string[]) => {
-  return (dispatch: Dispatch<TOrderDetailsActions>) => {
+export function createOrder (orderItemsId: string[]) {
+  return function (dispatch: Dispatch<TOrderDetailsActions>) {
     dispatch({
       type: ORDER_REQUEST,
     });

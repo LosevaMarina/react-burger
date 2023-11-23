@@ -1,7 +1,7 @@
 import { request, API_URL } from "../../utils/utils";
 import { Dispatch } from "redux";
 import {IIngredientType} from "../../utils/data";
-import {AppThunk} from "../reducers/index";
+//import {AppThunk} from "../reducers/index";
 
 export const INGREDIENTS_REQUEST: 'INGREDIENTS_REQUEST' = 'INGREDIENTS_REQUEST';
 export const INGREDIENTS_SUCCESS: 'INGREDIENTS_SUCCESS' = 'INGREDIENTS_SUCCESS';

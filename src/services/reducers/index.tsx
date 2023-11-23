@@ -27,10 +27,10 @@ export const rootReducer = combineReducers({
 
 export type RootState = ReturnType<typeof rootReducer>;
 
-type TApplicationActions = TTodoActions;
+//type TApplicationActions = TTodoActions;
 
-export type AppDispatch = typeof store.dispatch;
+//export type AppDispatch = typeof store.dispatch;
 
-export type AppThunk<ReturnType = void> = ActionCreator<
-  ThunkAction<ReturnType, Action, RootState, TApplicationActions>  
->;
+//export type AppThunk<ReturnType = void> = ActionCreator<
+//  ThunkAction<ReturnType, Action, RootState, TApplicationActions>  
+//>;

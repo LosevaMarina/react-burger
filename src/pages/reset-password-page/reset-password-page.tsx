@@ -5,12 +5,12 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "../login-page/login-page.module.css";
 import { Link, useNavigate, useLocation } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useState, useEffect, FormEvent } from "react";
 import { resetPassword } from "../../utils/utils";
 import { routeLogin, routeForgotPassword } from "../../utils/data";
 
 const ResetPasswordPage = () => {
-  function useForm(inputValues) {
+ {/*} function useForm(inputValues) {
     const [values, setValues] = useState(inputValues);
 
     const handleChange = (event) => {
@@ -19,15 +19,19 @@ const ResetPasswordPage = () => {
     };
     return { values, handleChange, setValues };
   }
+*/}
 
-  const { values, handleChange } = useForm({ password: "", code: "" });
+  //const { values, handleChange } = useForm({ password: "", code: "" });
+  const [password, setPassword] = useState("");
+  const [code, setCode] = useState("");
+
 
   const navigate = useNavigate();
   let state = useLocation();
 
-  const createNewPassword = (e) => {
+  const createNewPassword = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    resetPassword(values.password, values.code)
+    resetPassword(password, code)
       .then((res) => {
         if (res && res.success) {
           navigate(routeLogin);
@@ -60,8 +64,10 @@ const ResetPasswordPage = () => {
           placeholder={"Введите новый пароль"}
           name={"password"}
           extraClass="mb-2"
-          onChange={handleChange}
-          value={values.password}
+          //onChange={handleChange}
+          onChange={(e) => setPassword(e.target.value)}
+          //value={values.password}
+          value={password}
         />
       </div>
       <div className={styles.input}>
@@ -73,8 +79,9 @@ const ResetPasswordPage = () => {
           errorText={"Ошибка"}
           size={"default"}
           extraClass="mb-2"
-          value={values.code}
-          onChange={handleChange}
+          value={code}
+          //onChange={handleChange}
+          onChange={(e) => setCode(e.target.value)}
         />
       </div>
       <div className={styles.input}>

@@ -39,10 +39,9 @@ import {
   CHECK_TOKEN,
   GET_USER,
 } from "../../services/actions/registration-user";
-//import { getUser } from "../../utils/utils";
+import { getUser } from "../../utils/utils";
 import {useTypeSelector} from "../../hooks/use-type-selector";
 //import { useTypeDispatch } from "../../hooks/use-type-dispatch";
-
 
 
 
@@ -58,14 +57,14 @@ export const App = () => {
 
   useEffect(() => {
     dispatch(getIngredients());
-    {/*dispatch({ type: CHECK_TOKEN });
+    dispatch({ type: CHECK_TOKEN });
     if (localStorage.getItem("accessToken")) {
       getUser()
         .then((res) => {
           dispatch({ type: GET_USER, payload: res });
         })
         .catch((err) => console.log(err));
-    }*/}
+    }
   }, [dispatch]);
 
 
@@ -77,9 +76,9 @@ export const App = () => {
   //const REQUEST = useTypeSelector(
    // (state) => state.orderDetails
   //);
-  const REQUEST = useTypeSelector(
-    (state) => state.orderDetails.makeOrderRequestInProgress
-  );
+  //const REQUEST = useTypeSelector(
+   // (state) => state.orderDetails.makeOrderRequestInProgress
+  //);
 
   function closeIngredientDetailsModal() {
     navigate(-1);
@@ -92,13 +91,13 @@ export const App = () => {
   return (
     <section className={styles.block}>
       <AppHeader />
-      {REQUEST && <div className={styles.note}>загрузка...</div>}
+      {/*{REQUEST && <div className={styles.note}>загрузка...</div>}*/}
 
       <Routes location={background || location}>
         <Route path={routeHome} element={<HomePage />} />
         
 
-  {/*}      
+   
        <Route path={routeOrderFeed} element={<OrderFeedPage />} />
 
         <Route
@@ -146,8 +145,6 @@ export const App = () => {
           element={<OnlyAuth component={<OrderDescriptionInProfile />} />}
         />
         
-        */}
-
         
         <Route
           path={`${routeIngredient}${routeIngredientId}`}
@@ -169,7 +166,7 @@ export const App = () => {
             }
           />
     
-{/*}  
+
           <Route
             path={`${routeOrderFeed}${routeOrderFeedId}`}
             element={
@@ -191,7 +188,7 @@ export const App = () => {
               </Modal>
             }
           />
-    */}      
+
         </Routes>
       )}
           

@@ -9,7 +9,7 @@ import { forgotPassword } from "../../utils/utils";
 import {routeLogin} from "../../utils/data";
 
 const ForgotPasswordPage = () => {
-  function useForm(inputValues) {
+  {/*function useForm(inputValues) {
     const [values, setValues] = useState(inputValues);
 
     const handleChange = (event) => {
@@ -17,14 +17,15 @@ const ForgotPasswordPage = () => {
       setValues({ ...values, [name]: value });
     };
     return { values, handleChange, setValues };
-  }
+  }*/}
+  const [email, setEmail] = useState("");
 
-  const { values, handleChange } = useForm({ email: "" });
+  //const { values, handleChange } = useForm({ email: "" });
   const navigate = useNavigate();
 
-  const restorePassword = (e) => {
+  const restorePassword = (e: React.SyntheticEvent) => {
     e.preventDefault();
-    forgotPassword(values.email)
+    forgotPassword(email)
       .then((res) => {
         if (res && res.success) {
           navigate("/reset-password", { state: { checkForgetToReset: true } });
@@ -47,9 +48,11 @@ const ForgotPasswordPage = () => {
           placeholder="Укажите E-mail"
           name={"email"}
           isIcon={false}
-          onChange={handleChange}
+          //onChange={handleChange}
+          onChange={(e) => setEmail(e.target.value)}
           //value={values.email || " "}
-          value={values.email}
+          //value={values.email}
+          value={email}
           extraClass="mt-6"
         />
       </div>

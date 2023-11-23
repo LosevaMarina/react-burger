@@ -1,16 +1,23 @@
 import styles from "./order-feed.module.css";
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
-import { useSelector } from "react-redux";
+//import { useSelector } from "react-redux";
 import { Link, useLocation } from "react-router-dom";
-import { useMemo } from "react";
+import { useMemo, FC } from "react";
 import { FormattedDate } from "@ya.praktikum/react-developer-burger-ui-components";
+import {IOrderInterface, IIngredientType} from "../../utils/data"
+import {useTypeSelector} from "../../hooks/use-type-selector";
 
-export const OrderFeed = ({ order, status }) => {
+interface IOrderFeed {
+  order: IOrderInterface;
+  status: string
+}
+
+export const OrderFeed: FC<IOrderFeed> = ({ order, status }) => {
   const location = useLocation();
 
-  const ingredientsT = order.ingredients; 
+  const ingredientsT: string[] = order.ingredients; 
 
- const ingredients = useSelector(
+ const ingredients = useTypeSelector(
     (store) => store.burgerIngredients.ingredients
   );
   
@@ -27,6 +34,13 @@ export const OrderFeed = ({ order, status }) => {
 
   
   const margin = status === "" ? "mt-10" : "";
+
+
+  function findIngredient(ingredient: string | IIngredientType) {
+    return ingredients.find((item) => item._id === ingredient) as IIngredientType;
+  }
+
+
   return (
     <section className={margin}>
       <ul className={styles.items}>
@@ -59,13 +73,8 @@ export const OrderFeed = ({ order, status }) => {
                         className={styles.imgEl}
                       >
                         <img
-                          src={
-                            ingredients.find((el) => el._id === ingredient)
-                              .image_mobile
-                          }
-                          alt={
-                            ingredients.find((el) => el._id === ingredient).name
-                          }
+                          src={findIngredient(ingredient)?.image_mobile}
+                          alt={findIngredient(ingredient)?.name}
                           className={styles.image}
                         />
                       </li>
@@ -84,14 +93,8 @@ export const OrderFeed = ({ order, status }) => {
                             +{order.ingredients.length - 5}
                           </p>
                           <img
-                            src={
-                              ingredients.find((el) => el._id === ingredient)
-                                .image_mobile
-                            }
-                            alt={
-                              ingredients.find((el) => el._id === ingredient)
-                                .name
-                            }
+                            src={findIngredient(ingredient)?.image_mobile}
+                            alt={findIngredient(ingredient)?.name}
                             className={styles.image}
                           />
                         </li>

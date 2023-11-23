@@ -35,20 +35,21 @@ export const BurgerConstructor = () => {
   const dispatch = useDispatch();
   const [Modalin, setModalin] = React.useState(false);
   
-  //const orderDetailsModal = useTypeSelector(
-   // (state) => state.orderDetails.openModal
- // );
- // console.log ("orderDetailsModal: " + orderDetailsModal);
+  const orderDetailsModal = useTypeSelector(
+    (state) => state.orderDetails.openModal
+ );
+  console.log ("orderDetailsModal: " + orderDetailsModal);
 
   //const ingredient = useTypeSelector(
    // (state) => state.burgerConstructor.ingredients
   //);
 
+
   const { bunIngredient, ingredients } = useTypeSelector((state) => state.burgerConstructor);
 
   const Top = "top";
 
- // const loading = useTypeSelector(state => state.orderDetails.loading);
+  const loading = useTypeSelector(state => state.orderDetails.loading);
 
 
   const orderAmount = useMemo(() => {
@@ -97,14 +98,16 @@ export const BurgerConstructor = () => {
     }
   }
 
-{/*}
+
 function handlePlaceOrder() { 
   if (UserAuth) {
    
-    let orderIngredientIds: string[] = ingredients.map((ingredient) => ingredient._id);
-    bunIngredient && orderIngredientIds.push(bunIngredient._id, bunIngredient._id);
-    dispatch(createOrder(orderIngredientIds));
+    let orderIngredientIds = ingredients.map((ingredient) => ingredient._id);
 
+    bunIngredient && orderIngredientIds.push(bunIngredient._id, bunIngredient._id);
+
+    dispatch(createOrder(orderIngredientIds));
+    console.log ("orderIngredientIds[1]: " + orderIngredientIds[0] + " , " + orderIngredientIds[1] + " , " + orderIngredientIds[2] + " , " + orderIngredientIds[3]);
   } else {
     //перенаправляем на страницу входа
     navigate("/login", { state: { from: { pathname: "/" } } });
@@ -118,9 +121,9 @@ function handlePlaceOrder() {
     //setModal(false);
     dispatch({ type: CLOSE_ORDER_DETAILS_MODAL });
   }
-*/}
 
 
+{/*}
 const handlePlaceOrder = () => {
   if (UserAuth) {
     let orderIngredientIds = ingredients.map((item) => item._id);
@@ -129,7 +132,6 @@ const handlePlaceOrder = () => {
 console.log ("orderIngredientIds: " + orderIngredientIds);
 
     dispatch(createOrder(orderIngredientIds));
-    //так как ожидание модального окна получилось слишком длительным, я убрала асинхронную конструкцию. Пока идёт ответ сервера, пользователь видит надпись "wait"
     setModalin(true);
   } else {
     navigate("/login");
@@ -140,7 +142,7 @@ const closeOrderDetailsModal = () => {
   setModalin(false);
   dispatch({ type: CLOSE_ORDER_DETAILS_MODAL });
 };
-
+*/}
 
 
   return (
@@ -214,7 +216,6 @@ const closeOrderDetailsModal = () => {
 
 
 
-{/*}
       {orderDetailsModal && loading && (
         <Modal closeModal={closeOrderDetailsModal}>
          <p className="text text_type_main-medium m-20">
@@ -230,7 +231,6 @@ const closeOrderDetailsModal = () => {
         
       )}
 
-      */}
     </section>
   );
 };

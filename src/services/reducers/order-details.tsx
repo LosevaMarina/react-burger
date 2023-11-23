@@ -6,26 +6,26 @@ import {
   OPEN_ORDER_DETAILS_MODAL,
   CLOSE_ORDER_DETAILS_MODAL,
 } from "../actions/order-details";
-import {TOrder} from "../../utils/data";
+import {IOrderInterface} from "../../utils/data";
 
 export type TinitialState = {
-  order: TOrder | null;
+  //order: {number: string }| null | IOrderInterface
+  order: null | IOrderInterface,
   makeOrderRequestInProgress: boolean;
   makeOrderRequestFailed: boolean;
   openModal: boolean;
-  loading: false
+  loading: boolean
 };
 
 const initialState: TinitialState = {
   order: null,
-  //order: 0,
   makeOrderRequestInProgress: false,
   makeOrderRequestFailed: false,
   openModal: false,
   loading: false,
 };
 
-export const orderDetailsReducer = (state = initialState, action:TOrderDetailsActions) => {
+export const orderDetailsReducer = (state = initialState, action:TOrderDetailsActions): TinitialState => {
   switch (action.type) {
     case ORDER_REQUEST: {
       return {
@@ -48,7 +48,6 @@ export const orderDetailsReducer = (state = initialState, action:TOrderDetailsAc
         ...state,
         makeOrderRequestInProgress: false,
         makeOrderRequestFailed: true,
-        order: { number: action.order }
       };
     }
     case OPEN_ORDER_DETAILS_MODAL: {
