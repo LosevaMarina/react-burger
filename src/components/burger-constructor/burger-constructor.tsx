@@ -44,8 +44,12 @@ export const BurgerConstructor = () => {
    // (state) => state.burgerConstructor.ingredients
   //);
 
+  const { ingredients, bunIngredient } = useTypeSelector(state => ({
+    bunIngredient: state.burgerConstructor.bunIngredient,
+    ingredients: state.burgerConstructor.ingredients,
+}));
 
-  const { bunIngredient, ingredients } = useTypeSelector((state) => state.burgerConstructor);
+  //const {ingredients, bunIngredient} = useTypeSelector((state) => state.burgerConstructor);
 
   const Top = "top";
 
@@ -100,15 +104,17 @@ export const BurgerConstructor = () => {
 
 
 
-{/*}
 const handlePlaceOrder = () => {
   if (UserAuth) {
-    let orderIngredientIds = ingredients.map((item) => item._id);
-    bunIngredient && orderIngredientIds.push(bunIngredient._id, bunIngredient._id);
+    //let orderIngredientIds = ingredients.map((item) => item._id);
+   // bunIngredient && orderIngredientIds.push(bunIngredient._id, bunIngredient._id);
 
-console.log ("orderIngredientIds: " + orderIngredientIds);
+//console.log ("orderIngredientIds: " + orderIngredientIds);
+const ingredientsId = ingredients.map(item => item._id);
+    const bunId = bunIngredient?._id;
+    const allFoodIds = [bunId, ...ingredientsId, bunId]
 
-    dispatch(createOrder(orderIngredientIds));
+    dispatch(createOrder(allFoodIds));
     setModalin(true);
   } else {
     navigate("/login");
@@ -119,48 +125,6 @@ const closeOrderDetailsModal = () => {
   setModalin(false);
   dispatch({ type: CLOSE_ORDER_DETAILS_MODAL });
 };
-*/}
-
-
-const ingredientsId = ingredients.map(item => item._id);
-    const bunId = bun?._id;
-    const allFoodIds = [bunId, ...ingredientsId, bunId];
-
-
-
-
-    
-
-function handlePlaceOrder() { 
-  if (UserAuth) {
-    const ingredientsId = ingredients.map(item => item.ingredient._id);
-    const bunId = bun?._id;
-    const allFoodIds = [bunId, ...ingredientsId, bunId];
-
-
-    const orderIngredientIds: any[] = [
-      bunIngredient._id,
-      ...ingredients.map((ingredient) => ingredient.ingredient._id),
-      bunIngredient._id,
-    ];
-    dispatch(createOrder(orderIngredientIds));
-  } else {
-    //перенаправляем на страницу входа
-    navigate("/login", { state: { from: { pathname: "/" } } });
-    //обновляем токены
-    localStorage.removeItem(accessToken);
-    localStorage.removeItem(refreshToken);
-  }
-}
-
-function closeOrderDetailsModal() {
-  //setModal(false);
-  dispatch({ type: CLOSE_ORDER_DETAILS_MODAL });
-}
-
-
-
-
 
 
 

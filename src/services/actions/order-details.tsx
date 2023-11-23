@@ -41,6 +41,10 @@ export type TOrderDetailsActions =
 | IOrderOpenDetailsModalAction
 | IOrderCloseDetailsModalAction;
 
+
+
+
+
 export function createOrder (orderItemsId: string[]) {
   return function (dispatch: Dispatch<TOrderDetailsActions>) {
     dispatch({
@@ -90,5 +94,23 @@ export function createOrder (orderItemsId: string[]) {
       });
   };
 };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 

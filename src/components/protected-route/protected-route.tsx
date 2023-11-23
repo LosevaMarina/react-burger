@@ -19,7 +19,7 @@ const Protected: FC<IProtected> = ({ onlyUnAuth = false, component }) => {
 
   const location = useLocation();
   const user = useTypeSelector((state) => state.user.user);
-
+  console.log ("user: "+ user);
   if (!isAuthChecked) {
     return null;
   }
@@ -27,6 +27,7 @@ const Protected: FC<IProtected> = ({ onlyUnAuth = false, component }) => {
   if (onlyUnAuth && user) {
     //авторизация выполнена
     const { from } = location.state || { from: { pathname: "/" } };
+    console.log ("авторизация выполнена!!!!!!!!!!!!!!!!!!!!! ");
     return <Navigate to={from} />;
   }
 

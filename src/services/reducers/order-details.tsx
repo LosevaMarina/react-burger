@@ -10,7 +10,7 @@ import {IOrderInterface} from "../../utils/data";
 
 export type TinitialState = {
   //order: {number: string }| null | IOrderInterface
-  order: null | IOrderInterface,
+  order:  IOrderInterface | null,
   makeOrderRequestInProgress: boolean;
   makeOrderRequestFailed: boolean;
   openModal: boolean;

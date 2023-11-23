@@ -20,7 +20,7 @@ import {TUserActions} from "../actions/registration-user";
   
 const initialUserState: IInitialUserState = {
   user: null,
-  isAuthChecked: true,
+  isAuthChecked: false,
   userFailed: false,
   password: ""
 };
