@@ -100,14 +100,11 @@ export const BurgerConstructor = () => {
           type: ADD_INGREDIENT_COUNTER,
           _id: _id,
         });
-
         //dispatch(addIngredient(ingredient));
         dispatch({
           type: ADD_INGREDIENT,
           ingredient: { ...ingredient, constructorId: key },
         });
-        //console.log ("ingredient: " + ingredient);
-        //console.log ("constructorId: " + ingredient.constructorId + ",  " + key);
         break;
       }    
     }
@@ -125,16 +122,7 @@ const handlePlaceOrder = () => {
 
 console.log ("orderIngredientIds: " + orderIngredientIds);
 
-
-
-//const ingredientsId = ingredients.map(item => item._id);
- ///   const bunId = bunIngredient?._id;
-  //  const allFoodIds = [bunId, ...ingredientsId, bunId]
-  //  console.log ("allFoodIds тип: " + typeof  allFoodIds);
-   // console.log ("allFoodIds : " +  allFoodIds);
-    //let burger = ingredients.map((item) => item._id);
- //   console.log ("burger : " + burger);
-    dispatch(createOrder(allFoodIds));
+    dispatch(createOrder(orderIngredientIds));
     setModalin(true);
     console.log ('setModalin: ' + setModalin)
 //  } else {
@@ -202,7 +190,7 @@ const closeOrderDetailsModal = () => {
       </div>
 
       {/*открытие модалки с номером заказа*/}
-{/*
+
       {Modalin && (
         <Modal closeModal={closeOrderDetailsModal}>
          <p className="text text_type_main-medium m-20">
@@ -218,9 +206,9 @@ const closeOrderDetailsModal = () => {
         
       )}
 
-*/}
 
 
+{/*
       {orderDetailsModal && loading && (
         <Modal closeModal={closeOrderDetailsModal}>
          <p className="text text_type_main-medium m-20">
@@ -235,7 +223,7 @@ const closeOrderDetailsModal = () => {
         </Modal>
         
       )}
-
+*/}
     </section>
   );
 };
