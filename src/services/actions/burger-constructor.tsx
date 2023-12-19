@@ -39,7 +39,7 @@ interface SortIngredientAction {
 interface RemoveIngredientAction {
   type: typeof REMOVE_INGREDIENT;
   ingredients: IIngredientType;
-  insex: number;
+  index: number;
 }
 
 

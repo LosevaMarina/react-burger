@@ -60,6 +60,7 @@ export const orderDetailsReducer = (state = initialState, action:TOrderDetailsAc
       return {
         ...state,
         openModal: false,
+        
       };
     }
     default: {

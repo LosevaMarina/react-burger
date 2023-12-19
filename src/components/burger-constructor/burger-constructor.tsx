@@ -13,7 +13,7 @@ import {
   ADD_BUN_COUNTER,
   ADD_INGREDIENT_COUNTER,
 } from "../../services/actions/burger-ingredients";
-import { ADD_BUN } from "../../services/actions/burger-constructor";
+import { ADD_BUN, ADD_INGREDIENT } from "../../services/actions/burger-constructor";
 import { createOrder } from "../../services/actions/order-details";
 import { addIngredient } from "../../services/actions/burger-constructor";
 import { useNavigate } from "react-router-dom";
@@ -25,6 +25,7 @@ import { refreshToken, accessToken } from "../../utils/data";
 import {useTypeSelector} from "../../hooks/use-type-selector";
 import {IIngredientType} from "../../utils/data";
 import React from "react";
+import { v4 as uuidv4 } from "uuid";
 
 export const BurgerConstructor = () => {
   const UserAuth = Boolean(
@@ -49,7 +50,9 @@ export const BurgerConstructor = () => {
     ingredients: state.burgerConstructor.ingredients,
 }));
 
-  //const {ingredients, bunIngredient} = useTypeSelector((state) => state.burgerConstructor);
+//const {ingredients, bunIngredient} = useTypeSelector((state) => state.burgerConstructor);
+
+  
 
   const Top = "top";
 
@@ -60,8 +63,8 @@ export const BurgerConstructor = () => {
     return (
       ingredients.reduce((acc: number, cur: any = {}) => {
         
-        if (cur.ingredient.price) {
-          return acc + cur.ingredient.price;
+        if (cur.price) {
+          return acc + cur.price;
         } 
         return acc;
       }, 0) + (bunIngredient ? bunIngredient.price * 2 : 0)
@@ -78,7 +81,8 @@ export const BurgerConstructor = () => {
 
 
   function handleDrop(ingredient: IIngredientType) {
-    const { _id, type, price } = ingredient;
+    const { _id, type } = ingredient;
+    const key = uuidv4();
     switch (type) {
       case "bun": {
         dispatch({
@@ -87,7 +91,7 @@ export const BurgerConstructor = () => {
         });
         dispatch({
           type: ADD_BUN,
-          bunIngredient: ingredient,
+          bunIngredient: { ...ingredient, constructorId: key },
         });
         break;
       }
@@ -96,7 +100,14 @@ export const BurgerConstructor = () => {
           type: ADD_INGREDIENT_COUNTER,
           _id: _id,
         });
-        dispatch(addIngredient(ingredient));
+
+        //dispatch(addIngredient(ingredient));
+        dispatch({
+          type: ADD_INGREDIENT,
+          ingredient: { ...ingredient, constructorId: key },
+        });
+        //console.log ("ingredient: " + ingredient);
+        //console.log ("constructorId: " + ingredient.constructorId + ",  " + key);
         break;
       }    
     }
@@ -105,20 +116,30 @@ export const BurgerConstructor = () => {
 
 
 const handlePlaceOrder = () => {
-  if (UserAuth) {
-    //let orderIngredientIds = ingredients.map((item) => item._id);
-   // bunIngredient && orderIngredientIds.push(bunIngredient._id, bunIngredient._id);
+ // if (UserAuth) {
+    let orderIngredientIds = ingredients.map((item) => item._id);
+    console.log ("ингредиенты: " + orderIngredientIds);
 
-//console.log ("orderIngredientIds: " + orderIngredientIds);
-const ingredientsId = ingredients.map(item => item._id);
-    const bunId = bunIngredient?._id;
-    const allFoodIds = [bunId, ...ingredientsId, bunId]
 
+    bunIngredient && orderIngredientIds.push(bunIngredient._id, bunIngredient._id);
+
+console.log ("orderIngredientIds: " + orderIngredientIds);
+
+
+
+//const ingredientsId = ingredients.map(item => item._id);
+ ///   const bunId = bunIngredient?._id;
+  //  const allFoodIds = [bunId, ...ingredientsId, bunId]
+  //  console.log ("allFoodIds тип: " + typeof  allFoodIds);
+   // console.log ("allFoodIds : " +  allFoodIds);
+    //let burger = ingredients.map((item) => item._id);
+ //   console.log ("burger : " + burger);
     dispatch(createOrder(allFoodIds));
     setModalin(true);
-  } else {
-    navigate("/login");
-  }
+    console.log ('setModalin: ' + setModalin)
+//  } else {
+//    navigate("/login");
+//  }
 };
 
 const closeOrderDetailsModal = () => {
@@ -181,7 +202,7 @@ const closeOrderDetailsModal = () => {
       </div>
 
       {/*открытие модалки с номером заказа*/}
-
+{/*
       {Modalin && (
         <Modal closeModal={closeOrderDetailsModal}>
          <p className="text text_type_main-medium m-20">
@@ -197,7 +218,7 @@ const closeOrderDetailsModal = () => {
         
       )}
 
-
+*/}
 
 
       {orderDetailsModal && loading && (

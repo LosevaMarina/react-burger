@@ -67,10 +67,11 @@ export function createOrder (orderItemsId: string[]) {
             type: ORDER_SUCCEED,
             //order: data.order.number.toString(),
             //order: data.order.number,
+            
             order: data.order
           });
         }
-
+        
         dispatch({
           type: OPEN_ORDER_DETAILS_MODAL,
 
@@ -86,7 +87,7 @@ export function createOrder (orderItemsId: string[]) {
       .catch((err) => {
         dispatch({
           type: ORDER_FAILED,
-          order: err
+          //order: err
         });
         console.log(
           `Произошла ошибка открытия модалки с номером заказа: ${err}`

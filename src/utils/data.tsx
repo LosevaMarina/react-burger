@@ -28,9 +28,10 @@ export type IIngredientType = {
   image_mobile?: string;
   image_large: string;
   __v: number;
-  uuidv4?: string;
+  //uuidv4?: string;
   counter?: number;
   key: string;
+  constructorId?: string;
 }
 
 type TStatusOrder = "done" | "created" | "pending";

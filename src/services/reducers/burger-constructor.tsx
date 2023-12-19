@@ -39,7 +39,7 @@ export const burgerConstructorReducer = (state = initialState, action: TBurgerCo
 
     case REMOVE_INGREDIENT: {
       const ingredientsArray = [...state.ingredients];
-      ingredientsArray.splice(action.insex, 1);
+      ingredientsArray.splice(action.index, 1);
       return {
         ...state,
         ingredients: ingredientsArray
