@@ -14,7 +14,7 @@ interface IGetOrderCardRequestAction {
 
 interface IGetOrderCardSuccesAction {
   type: typeof GET_ORDER_CARD_SUCCESS
-  order: IOrderInterface;
+  order: IOrderInterface; 
 }
 
   interface IGetOrderCardFailedAction {
@@ -51,9 +51,9 @@ return function (dispatch: Dispatch<TAnyOrderAction>) {
           })
         }
       })
-        .catch(err => console.log(err));
+        .catch(err => console.log(err + "ОШИБКА ОТКРЫТИЯ КАРТОЧКИ ЗАКАЗА"));
     }
-    
+     
   }
   
   

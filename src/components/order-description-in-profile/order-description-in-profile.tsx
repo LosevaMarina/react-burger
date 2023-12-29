@@ -13,8 +13,8 @@ import {useTypeSelector} from "../../hooks/use-type-selector";
 
 export const OrderDescriptionInProfile = () => {
   const dispatch = useDispatch();
-  //const { id } = useParams();
-  const { id } = useParams<string>();
+  const { id } = useParams();
+  //const { id } = useParams<string>();
   const order = useTypeSelector(store => store.orderCard.order);
 
   useEffect(() => {

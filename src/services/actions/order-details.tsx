@@ -36,11 +36,10 @@ export interface IOrderCloseDetailsModalAction {
 
 export type TOrderDetailsActions =
 | IOrderRequestAction
-| IOrderSuccessAction
+| IOrderSuccessAction 
 | IOrderFailedAction
 | IOrderOpenDetailsModalAction
 | IOrderCloseDetailsModalAction;
-
 
 
 
@@ -66,9 +65,9 @@ export function createOrder (orderItemsId: string[]) {
           dispatch({
             type: ORDER_SUCCEED,
             //order: data.order.number.toString(),
-            //order: data.order.number,
+            order: data.order.number,
             
-            order: data.order
+            //order: data.order
           });
         }
         

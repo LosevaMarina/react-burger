@@ -41,7 +41,6 @@ import {
 } from "../../services/actions/registration-user";
 import { getUser } from "../../utils/utils";
 import {useTypeSelector} from "../../hooks/use-type-selector";
-//import { useTypeDispatch } from "../../hooks/use-type-dispatch";
 
 
 
@@ -74,11 +73,11 @@ export const App = () => {
   //console.log ("background: " + background)
   const navigate = useNavigate();
   //const REQUEST = useTypeSelector(
-   // (state) => state.orderDetails
+  //  (state) => state.orderDetails
   //);
-  //const REQUEST = useTypeSelector(
-   // (state) => state.orderDetails.makeOrderRequestInProgress
-  //);
+  const REQUEST = useTypeSelector(
+    (state) => state.orderDetails.makeOrderRequestInProgress
+  );
 
   function closeIngredientDetailsModal() {
     navigate(-1);
@@ -91,7 +90,7 @@ export const App = () => {
   return (
     <section className={styles.block}>
       <AppHeader />
-      {/*{REQUEST && <div className={styles.note}>загрузка...</div>}*/}
+      {REQUEST && <div className={styles.note}>загрузка...</div>}
 
       <Routes location={background || location}>
         <Route path={routeHome} element={<HomePage />} />

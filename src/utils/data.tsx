@@ -15,9 +15,9 @@ export const PropTypeingredients = PropTypes.shape({
   uuid: PropTypes.string,
 });
 
-export type IIngredientType = {
-  _id: string;
-  name: string;
+export interface IIngredientType {
+ _id: string;
+ name: string;
   type: string;
   proteins: number;
   fat: number;
@@ -26,13 +26,15 @@ export type IIngredientType = {
   price: number;
   image: string;
   image_mobile?: string;
-  image_large: string;
+  image_large?: string;
   __v: number;
   //uuidv4?: string;
   counter?: number;
-  key: string;
+ // key: string;
   constructorId?: string;
 }
+
+
 
 type TStatusOrder = "done" | "created" | "pending";
 

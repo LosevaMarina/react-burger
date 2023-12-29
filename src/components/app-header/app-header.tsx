@@ -7,7 +7,6 @@ import {
 import { useMatch, NavLink } from "react-router-dom";
 import styles from "./app-header.module.css";
 import { useEffect, useState } from "react";
-//import { useSelector } from "react-redux";
 import { routeHome, routeProfile, routeOrderFeed, routeUser, routeLogin } from '../../utils/data';
 import {useTypeSelector} from "../../hooks/use-type-selector";
 

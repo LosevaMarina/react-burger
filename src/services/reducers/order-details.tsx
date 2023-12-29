@@ -14,15 +14,15 @@ export type TinitialState = {
   makeOrderRequestInProgress: boolean;
   makeOrderRequestFailed: boolean;
   openModal: boolean;
-  loading: boolean
+  //loading: boolean
 };
 
 const initialState: TinitialState = {
   order: null,
   makeOrderRequestInProgress: false,
-  makeOrderRequestFailed: false,
+  makeOrderRequestFailed: false, 
   openModal: false,
-  loading: false,
+  //loading: false,
 };
 
 export const orderDetailsReducer = (state = initialState, action:TOrderDetailsActions): TinitialState => {
@@ -31,7 +31,7 @@ export const orderDetailsReducer = (state = initialState, action:TOrderDetailsAc
       return {
         ...state,
         makeOrderRequestInProgress: true,
-        loading: true,
+        //loading: true,
       };
     }
     case ORDER_SUCCEED: {
@@ -40,7 +40,7 @@ export const orderDetailsReducer = (state = initialState, action:TOrderDetailsAc
         makeOrderRequestInProgress: false,
         makeOrderRequestFailed: false,
         order: action.order,
-        loading: false,
+        //loading: false,
       };
     }
     case ORDER_FAILED: {

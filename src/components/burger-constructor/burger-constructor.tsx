@@ -20,12 +20,15 @@ import { useNavigate } from "react-router-dom";
 
 import { Modal } from "../modal/modal";
 import { OrderDetails } from "../order-details/order-details";
-import { CLOSE_ORDER_DETAILS_MODAL } from "../../services/actions/order-details";
+//import { CLOSE_ORDER_DETAILS_MODAL } from "../../services/actions/order-details";
 import { refreshToken, accessToken } from "../../utils/data";
 import {useTypeSelector} from "../../hooks/use-type-selector";
 import {IIngredientType} from "../../utils/data";
 import React from "react";
 import { v4 as uuidv4 } from "uuid";
+import type {} from 'redux-thunk/extend-redux';
+
+
 
 export const BurgerConstructor = () => {
   const UserAuth = Boolean(
@@ -39,11 +42,6 @@ export const BurgerConstructor = () => {
   const orderDetailsModal = useTypeSelector(
     (state) => state.orderDetails.openModal
  );
-  console.log ("orderDetailsModal: " + orderDetailsModal);
-
-  //const ingredient = useTypeSelector(
-   // (state) => state.burgerConstructor.ingredients
-  //);
 
   const { ingredients, bunIngredient } = useTypeSelector(state => ({
     bunIngredient: state.burgerConstructor.bunIngredient,
@@ -56,7 +54,7 @@ export const BurgerConstructor = () => {
 
   const Top = "top";
 
-  const loading = useTypeSelector(state => state.orderDetails.loading);
+  //const loading = useTypeSelector(state => state.orderDetails.loading);
 
 
   const orderAmount = useMemo(() => {
@@ -70,6 +68,7 @@ export const BurgerConstructor = () => {
       }, 0) + (bunIngredient ? bunIngredient.price * 2 : 0)
     );
   }, [ingredients, bunIngredient]);
+
 
   
   const [, dropTargetRef] = useDrop({
@@ -114,11 +113,17 @@ export const BurgerConstructor = () => {
 
 const handlePlaceOrder = () => {
  // if (UserAuth) {
-    let orderIngredientIds = ingredients.map((item) => item._id);
+
+ const orderIngredientIds = [
+  bunIngredient,
+  ...ingredients.map((item) => item._id),
+  bunIngredient,
+];
+    //let orderIngredientIds = ingredients.map((item) => item._id);
     console.log ("ингредиенты: " + orderIngredientIds);
 
 
-    bunIngredient && orderIngredientIds.push(bunIngredient._id, bunIngredient._id);
+   // bunIngredient && orderIngredientIds.push(bunIngredient._id, bunIngredient._id);
 
 console.log ("orderIngredientIds: " + orderIngredientIds);
 
@@ -132,7 +137,7 @@ console.log ("orderIngredientIds: " + orderIngredientIds);
 
 const closeOrderDetailsModal = () => {
   setModalin(false);
-  dispatch({ type: CLOSE_ORDER_DETAILS_MODAL });
+  //dispatch({ type: CLOSE_ORDER_DETAILS_MODAL });
 };
 
 
@@ -206,9 +211,9 @@ const closeOrderDetailsModal = () => {
         
       )}
 
-
-
 {/*
+
+
       {orderDetailsModal && loading && (
         <Modal closeModal={closeOrderDetailsModal}>
          <p className="text text_type_main-medium m-20">
@@ -224,6 +229,9 @@ const closeOrderDetailsModal = () => {
         
       )}
 */}
+
+
+
     </section>
   );
 };

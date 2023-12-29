@@ -30,7 +30,7 @@ import {
       }
       case GET_ORDER_CARD_SUCCESS: {
         return {
-          ...state,
+          ...state, 
           orderFailed: false,
           order: action.order,
           orderRequest: false

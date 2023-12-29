@@ -10,11 +10,13 @@ import { useSelector, useDispatch } from "react-redux";
 import { useEffect } from "react";
 import { useParams } from "react-router";
 import {useTypeSelector} from "../../hooks/use-type-selector";
+
  
 export const OrderDescription = () => {
   const dispatch = useDispatch();
   //const { id } = useParams();
   const { id } = useParams<string>();
+  
   console.log ("id ====== "+ id);
   const order = useTypeSelector(store => store.orderCard.order);
 
@@ -27,7 +29,7 @@ export const OrderDescription = () => {
   }, [dispatch]);
 
   return (
-    
+     
     <section className={styles.section}>
       {order && <OrderDetailsModal />}
     </section>

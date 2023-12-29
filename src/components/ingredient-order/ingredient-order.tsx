@@ -1,9 +1,10 @@
 import style from "./ingredient-order.module.css";
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { FC } from "react";
+import {IIngredientType} from "../../utils/data";
 
 type TIngredientOrder = {
-  card: any;
+  card: IIngredientType;
 }
 
 
@@ -22,3 +23,4 @@ export const IngredientOrder: FC<TIngredientOrder> =  ({ card }) => {
   )
 }
 
+ 

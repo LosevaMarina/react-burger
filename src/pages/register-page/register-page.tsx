@@ -7,12 +7,12 @@ import {
 import styles from "../login-page/login-page.module.css";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { useState, useRef, MouseEvent } from "react";
+import { useState, useRef, MouseEvent, FC } from "react";
 import { createUser } from "../../utils/utils";
 import { GET_USER_SUCCESS } from "../../services/actions/registration-user";
 import { refreshToken, accessToken, routeLogin } from "../../utils/data";
 
-const RegisterPage = () => {
+const RegisterPage: FC = () => {
   const [nameValue, setNameValue] = useState("");
   //const inputRef = useRef(null);
   
@@ -41,8 +41,8 @@ const RegisterPage = () => {
     e.preventDefault();
     createUser(emailValue, passwordValue, nameValue)
       .then((res) => {
-        localStorage.setItem(refreshToken, res.refreshToken);
-        localStorage.setItem(accessToken, res.accessToken);
+        //localStorage.setItem(refreshToken, res.refreshToken);
+        //localStorage.setItem(accessToken, res.accessToken);
         navigate("/");
         dispatch({
           type: GET_USER_SUCCESS,
