@@ -14,15 +14,16 @@ import {useTypeSelector} from "../../hooks/use-type-selector";
  
 export const OrderDescription = () => {
   const dispatch = useDispatch();
-  //const { id } = useParams();
-  const { id } = useParams<string>();
+  const {id} = useParams<string>();
+ //const {id}  = useParams();
   
   console.log ("id ====== "+ id);
   const order = useTypeSelector(store => store.orderCard.order);
 
   useEffect(() => {
     dispatch(connectFeedTable(FEED_URL));
-    dispatch(getOrderCard(id))
+    //dispatch(getOrderCard(id))
+    id && dispatch(getOrderCard(id));
     return () => {
       dispatch(disconnectFeedTable());
     };

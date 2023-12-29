@@ -114,7 +114,7 @@ export const BurgerConstructor = () => {
 const handlePlaceOrder = () => {
  // if (UserAuth) {
 
- const orderIngredientIds = [
+ const orderIngredientIds: any = [
   bunIngredient,
   ...ingredients.map((item) => item._id),
   bunIngredient,
