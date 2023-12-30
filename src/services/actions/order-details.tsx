@@ -33,13 +33,17 @@ export interface IOrderCloseDetailsModalAction {
   type: typeof CLOSE_ORDER_DETAILS_MODAL;
 }
 
+export interface IClearConstructor {
+  type: typeof CLEAR_CONSTRUCTOR;
+}
 
 export type TOrderDetailsActions =
 | IOrderRequestAction
 | IOrderSuccessAction 
 | IOrderFailedAction
 | IOrderOpenDetailsModalAction
-| IOrderCloseDetailsModalAction;
+| IOrderCloseDetailsModalAction
+| IClearConstructor;
 
 
 
@@ -65,21 +69,20 @@ export function createOrder (orderItemsId: string[]) {
           dispatch({
             type: ORDER_SUCCEED,
             //order: data.order.number.toString(),
-            order: data.order.number,
+            //order: data.order.number,
             
-            //order: data.order
+            order: data.order
           });
-        }
-        
+        }        
         dispatch({
           type: OPEN_ORDER_DETAILS_MODAL,
 
         });
-        //dispatch({
-       //   type: CLEAR_CONSTRUCTOR,
-      //  });
-      //  dispatch(clearIngredientCounter());
-     // 
+        dispatch({
+          type: CLEAR_CONSTRUCTOR,
+        });
+        //dispatch(clearIngredientCounter());
+      
     }
 )
 

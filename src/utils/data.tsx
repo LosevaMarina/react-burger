@@ -29,7 +29,7 @@ export interface IIngredientType {
   image_large?: string;
   __v: number;
   //uuidv4?: string;
-  counter?: number;
+  counter: number;
  // key: string;
   constructorId?: string;
 }
@@ -62,7 +62,6 @@ export interface IOrderFeedAnswer {
 //}
 
 
-
 export interface IUser {
   email: string | undefined;
   name: string | undefined;
@@ -83,31 +82,12 @@ export interface IUserResponse {
 
 export type TTokenResponse = Omit<IUserResponse, "user">;
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 export type THeaders = {
   "Content-Type": string;
   authorization: string | undefined;
 };
+
+
 
 export const routeHome = "/";
 
@@ -127,6 +107,17 @@ export const route404 = "*";
 
 export const refreshToken = "refreshToken";
 export const accessToken = "accessToken";
+
+
+
+
+
+
+
+
+
+
+
 
 
 

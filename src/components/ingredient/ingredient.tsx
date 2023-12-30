@@ -40,10 +40,10 @@ export const Ingredient: FC<IIngredient> = ({ ingredient, onClick }) => {
       state={{ background: location }}
     >
 
-     {/* {0 < ingredient.counter && (
+     {0 < ingredient.counter && (
         <Counter count={ingredient.counter} size="default" extraClass="m-1" />
      )}
-     */}
+    
 
       <img src={image} alt={name} />
       <div className={styles.price}>

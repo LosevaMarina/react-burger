@@ -28,10 +28,33 @@ export interface IIngredientsError {
   readonly type: typeof INGREDIENTS_ERROR;
 }
 
+export interface IAddIngredientCounter {
+  readonly type: typeof ADD_INGREDIENT_COUNTER;
+  readonly _id: string;
+}
+
+export interface IRemoveIngredientCounter {
+  readonly type: typeof REMOVE_INGREDIENT_COUNTER;
+  readonly _id: string;
+}
+
+export interface IAddBunCounter {
+  readonly type: typeof ADD_BUN_COUNTER;
+  readonly _id: string;
+}
+
+export interface IClearIngredientCounter {
+  readonly type: typeof CLEAR_INGREDIENT_COUNTER;
+}
+
 export type TIngredientsActions =
   | IIngredientsRequest
   | IIngredientsSuccess
-  | IIngredientsError;
+  | IIngredientsError
+  | IAddIngredientCounter
+  | IRemoveIngredientCounter
+  | IAddBunCounter
+  | IClearIngredientCounter;
 
 
 
@@ -49,31 +72,34 @@ export type TIngredientsActions =
       if (res && res.success) {
         dispatch({
           type: INGREDIENTS_SUCCESS,
-          data: res.data,
-        });
+          //data: res.data,
+          data: res.data.map((ingredient: IIngredientType) => ({
+            ...ingredient,
+            counter: 0,
+        }))
+        
+      })
       } else {
         dispatch({
           type: INGREDIENTS_ERROR,
         });
       }
     })
-      .catch(() => dispatch(ingredientsError()));
+      .catch(() => dispatch(({
+        type: INGREDIENTS_ERROR,
+      })));
   };
 }
 
 
 
-const ingredientsError = () => ({
-  type: INGREDIENTS_ERROR,
-});
-
-export const removeIngredientCounter = (_id: number) => ({
+export const removeIngredientCounter = (_id: string): IRemoveIngredientCounter => ({
   type: REMOVE_INGREDIENT_COUNTER,
-  _id: _id,
+  _id,
 });
 
-export const clearIngredientCounter = () => ({
+
+
+export const clearIngredientCounter = (): IClearIngredientCounter => ({
   type: CLEAR_INGREDIENT_COUNTER,
 });
-
-
