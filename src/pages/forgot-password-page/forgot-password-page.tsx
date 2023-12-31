@@ -9,15 +9,6 @@ import { forgotPassword } from "../../utils/utils";
 import {routeLogin} from "../../utils/data";
 
 const ForgotPasswordPage = () => {
-  {/*function useForm(inputValues) {
-    const [values, setValues] = useState(inputValues);
-
-    const handleChange = (event) => {
-      const { value, name } = event.target;
-      setValues({ ...values, [name]: value });
-    };
-    return { values, handleChange, setValues };
-  }*/}
   const [email, setEmail] = useState("");
 
   //const { values, handleChange } = useForm({ email: "" });
@@ -50,8 +41,6 @@ const ForgotPasswordPage = () => {
           isIcon={false}
           //onChange={handleChange}
           onChange={(e) => setEmail(e.target.value)}
-          //value={values.email || " "}
-          //value={values.email}
           value={email}
           extraClass="mt-6"
         />

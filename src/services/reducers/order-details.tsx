@@ -48,6 +48,7 @@ export const orderDetailsReducer = (state = initialState, action:TOrderDetailsAc
         ...state,
         makeOrderRequestInProgress: false,
         makeOrderRequestFailed: true,
+        
       };
     }
     case OPEN_ORDER_DETAILS_MODAL: {

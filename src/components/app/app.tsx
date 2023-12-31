@@ -49,8 +49,6 @@ import {useTypeSelector} from "../../hooks/use-type-selector";
 
 export const App = () => {
   const dispatch: any = useDispatch();
-
-
   //const dispatch = useTypeDispatch();
 
 
@@ -70,7 +68,6 @@ export const App = () => {
 
   const location = useLocation();
   const background = location.state && location.state.background;
-  //console.log ("background: " + background)
   const navigate = useNavigate();
   //const REQUEST = useTypeSelector(
   //  (state) => state.orderDetails

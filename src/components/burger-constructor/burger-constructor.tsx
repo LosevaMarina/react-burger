@@ -13,71 +13,64 @@ import {
   ADD_BUN_COUNTER,
   ADD_INGREDIENT_COUNTER,
 } from "../../services/actions/burger-ingredients";
-import { ADD_BUN, ADD_INGREDIENT } from "../../services/actions/burger-constructor";
+import {
+  ADD_BUN,
+  ADD_INGREDIENT,
+} from "../../services/actions/burger-constructor";
 import { createOrder } from "../../services/actions/order-details";
-import { addIngredient } from "../../services/actions/burger-constructor";
 import { useNavigate } from "react-router-dom";
 
 import { Modal } from "../modal/modal";
 import { OrderDetails } from "../order-details/order-details";
 //import { CLOSE_ORDER_DETAILS_MODAL } from "../../services/actions/order-details";
 import { refreshToken, accessToken } from "../../utils/data";
-import {useTypeSelector} from "../../hooks/use-type-selector";
-import {IIngredientType} from "../../utils/data";
+import { useTypeSelector } from "../../hooks/use-type-selector";
+import { IIngredientType } from "../../utils/data";
 import React from "react";
 import { v4 as uuidv4 } from "uuid";
-import type {} from 'redux-thunk/extend-redux';
-
-
+import type {} from "redux-thunk/extend-redux";
 
 export const BurgerConstructor = () => {
   const UserAuth = Boolean(
     localStorage.getItem(refreshToken) && localStorage.getItem(accessToken)
   );
- 
+
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [Modalin, setModalin] = React.useState(false);
-  
-  const orderDetailsModal = useTypeSelector(
-    (state) => state.orderDetails.openModal
- );
 
-  const { ingredients, bunIngredient } = useTypeSelector(state => ({
+  //const orderDetailsModal = useTypeSelector(
+  //  (state) => state.orderDetails.openModal
+  //);
+
+  const { ingredients, bunIngredient } = useTypeSelector((state) => ({
     bunIngredient: state.burgerConstructor.bunIngredient,
     ingredients: state.burgerConstructor.ingredients,
-}));
+  }));
 
-//const {ingredients, bunIngredient} = useTypeSelector((state) => state.burgerConstructor);
-
-  
+  //const {ingredients, bunIngredient} = useTypeSelector((state) => state.burgerConstructor);
 
   const Top = "top";
 
   //const loading = useTypeSelector(state => state.orderDetails.loading);
 
-
   const orderAmount = useMemo(() => {
     return (
       ingredients.reduce((acc: number, cur: any = {}) => {
-        
         if (cur.price) {
           return acc + cur.price;
-        } 
+        }
         return acc;
       }, 0) + (bunIngredient ? bunIngredient.price * 2 : 0)
     );
   }, [ingredients, bunIngredient]);
 
-
-  
   const [, dropTargetRef] = useDrop({
     accept: INGREDIENT_CARD,
     drop(ingredient: IIngredientType) {
       handleDrop(ingredient);
     },
   });
-
 
   function handleDrop(ingredient: IIngredientType) {
     const { _id, type } = ingredient;
@@ -105,46 +98,33 @@ export const BurgerConstructor = () => {
           ingredient: { ...ingredient, constructorId: key },
         });
         break;
-      }    
+      }
     }
   }
 
+  const handlePlaceOrder = () => {
+    if (UserAuth) {
+      const orderIngredientIds: any = [
+        bunIngredient,
+        ...ingredients.map((item) => item._id),
+        bunIngredient,
+      ];
+      //let orderIngredientIds = ingredients.map((item) => item._id);
+      // console.log ("ингредиенты: " + orderIngredientIds);
 
+      dispatch(createOrder(orderIngredientIds));
+      setModalin(true);
+    } else {
+      navigate("/login");
+    }
+  };
 
-const handlePlaceOrder = () => {
- // if (UserAuth) {
-
- const orderIngredientIds: any = [
-  bunIngredient,
-  ...ingredients.map((item) => item._id),
-  bunIngredient,
-];
-    //let orderIngredientIds = ingredients.map((item) => item._id);
-    console.log ("ингредиенты: " + orderIngredientIds);
-
-
-   // bunIngredient && orderIngredientIds.push(bunIngredient._id, bunIngredient._id);
-
-console.log ("orderIngredientIds: " + orderIngredientIds);
-
-    dispatch(createOrder(orderIngredientIds));
-    setModalin(true);
-    console.log ('setModalin: ' + setModalin)
-//  } else {
-//    navigate("/login");
-//  }
-};
-
-const closeOrderDetailsModal = () => {
-  setModalin(false);
-  //dispatch({ type: CLOSE_ORDER_DETAILS_MODAL });
-};
-
-
-
+  const closeOrderDetailsModal = () => {
+    setModalin(false);
+    //dispatch({ type: CLOSE_ORDER_DETAILS_MODAL });
+  };
 
   return (
-    
     <section className={styles.block} ref={dropTargetRef}>
       <ul className={styles.listElements}>
         <li className={styles.element}>
@@ -161,7 +141,6 @@ const closeOrderDetailsModal = () => {
         </li>
 
         <IngredientsCard ingredients={ingredients} />
-
 
         <li className={styles.element}>
           {bunIngredient && (
@@ -198,40 +177,16 @@ const closeOrderDetailsModal = () => {
 
       {Modalin && (
         <Modal closeModal={closeOrderDetailsModal}>
-         <p className="text text_type_main-medium m-20">
+          <p className="text text_type_main-medium m-20">
             Ваш заказ формируется, минутку...
           </p>
         </Modal>
-        
       )}
       {Modalin && (
         <Modal closeModal={closeOrderDetailsModal}>
           <OrderDetails />
         </Modal>
-        
       )}
-
-{/*
-
-
-      {orderDetailsModal && loading && (
-        <Modal closeModal={closeOrderDetailsModal}>
-         <p className="text text_type_main-medium m-20">
-            Ваш заказ формируется, минутку...
-          </p>
-        </Modal>
-        
-      )}
-      {orderDetailsModal && !loading && (
-        <Modal closeModal={closeOrderDetailsModal}>
-          <OrderDetails />
-        </Modal>
-        
-      )}
-*/}
-
-
-
     </section>
   );
 };

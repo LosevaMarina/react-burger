@@ -1,6 +1,6 @@
 import styles from "./bun-card.module.css";
 
-export const BunCard = ( style: any ) => {
+export const BunCard = ( style: string | any ) => {
   return (
     
     <div

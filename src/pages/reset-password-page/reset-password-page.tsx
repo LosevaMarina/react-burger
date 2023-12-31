@@ -10,16 +10,6 @@ import { resetPassword } from "../../utils/utils";
 import { routeLogin, routeForgotPassword } from "../../utils/data";
 
 const ResetPasswordPage = () => {
- {/*} function useForm(inputValues) {
-    const [values, setValues] = useState(inputValues);
-
-    const handleChange = (event) => {
-      const { value, name } = event.target;
-      setValues({ ...values, [name]: value });
-    };
-    return { values, handleChange, setValues };
-  }
-*/}
 
   //const { values, handleChange } = useForm({ password: "", code: "" });
   const [password, setPassword] = useState("");

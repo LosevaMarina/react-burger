@@ -1,4 +1,4 @@
-import { type } from "os";
+//import { type } from "os";
 import PropTypes from "prop-types";
 
 export const PropTypeingredients = PropTypes.shape({
@@ -28,9 +28,7 @@ export interface IIngredientType {
   image_mobile?: string;
   image_large?: string;
   __v: number;
-  //uuidv4?: string;
   counter: number;
- // key: string;
   constructorId?: string;
 }
 
@@ -55,11 +53,6 @@ export interface IOrderFeedAnswer {
   totalToday: number;
 }
 
-//export type TOrder = {
- // number: number;
-  //name: string;
-  //success: boolean;
-//}
 
 
 export interface IUser {
@@ -86,6 +79,8 @@ export type THeaders = {
   "Content-Type": string;
   authorization: string | undefined;
 };
+
+
 
 
 

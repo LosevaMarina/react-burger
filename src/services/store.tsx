@@ -1,7 +1,6 @@
 import { rootReducer } from "./reducers/index";
 import { legacy_createStore as createStore, applyMiddleware } from "redux";
 import thunk from "redux-thunk";
-//import { composeWithDevTools } from "@redux-devtools/extension";
 import { composeWithDevTools } from "redux-devtools-extension";
 import { compose } from "redux";
 import ReduxThunk from 'redux-thunk';
@@ -48,9 +47,6 @@ const ordersProfileMiddlware = socketMiddleware({
 
 const store = createStore(
   rootReducer,
-  /*composeWithDevTools(
-    applyMiddleware(thunk, ordersMiddlware, ordersProfileMiddlware)
-  )*/
   compose(applyMiddleware(ReduxThunk, ordersMiddlware, ordersProfileMiddlware)
 )
 )

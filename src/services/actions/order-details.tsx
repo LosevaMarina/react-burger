@@ -1,5 +1,5 @@
 import { request, API_URL } from "../../utils/utils";
-import { clearIngredientCounter } from "./burger-ingredients";
+//import { clearIngredientCounter } from "./burger-ingredients";
 import { accessToken } from "../../utils/data";
 import {IOrderInterface} from "../../utils/data";
 import { Dispatch } from "redux";
@@ -68,10 +68,9 @@ export function createOrder (orderItemsId: string[]) {
         if (data && data.success) {
           dispatch({
             type: ORDER_SUCCEED,
-            //order: data.order.number.toString(),
+            order: data.order.number.toString(),
             //order: data.order.number,
-            
-            order: data.order
+            //order: data.order
           });
         }        
         dispatch({

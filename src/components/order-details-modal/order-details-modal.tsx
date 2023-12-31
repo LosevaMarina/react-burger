@@ -14,7 +14,6 @@ export const OrderDetailsModal = () => {
  
   const order = useTypeSelector(store => store.orderCard.order);
   
-  //const { name, number, updatedAt, ingredient, status } = order;
 
   const ingredients = useTypeSelector(
     (state) => state.burgerIngredients.ingredients
@@ -34,17 +33,6 @@ export const OrderDetailsModal = () => {
     );
   }, [ingredientsInfo]);
 
-{/*}
-  const setTextColor = () => {
-    if (status === "done") {
-      return `text text_type_main-default pb-15 ${styles.done}`;
-    } else if (status === "created") {
-      return `text text_type_main-default pb-15 ${styles.created}`;
-    } else if (status === "pending") {
-      return `text text_type_main-default pb-15 ${styles.created}`;
-    }
-  };
-*/}
 
 const arrayWithCounters: any =
 ingredientsInfo?.map((a) => {
@@ -69,12 +57,6 @@ const removeDuplicates = () => {
 
 
   let uniqueIngredients: |(IIngredientType | null | undefined)[] | undefined = removeDuplicates();
- //let uniqueIngredients;
-
-
-
-
- 
 
 
   return (

@@ -3,17 +3,6 @@ import { TWsActions} from "../actions/ws-actions";
 import {TWsOrderFeedActions } from "../actions/ws-actions";
 import { TWsUserOrderFeedActions } from "../actions/ws-profile";
 
-{/*export type TWsActionTypes = {
-    wsConnect: string;
-    wsDisconnect: string;
-    wsSendMessage?: string;
-    wsConnecting: string;
-    onOpen: string;
-    onClose: string;
-    onError: string;
-    onMessage: string;
-  };*/}
-
 export const socketMiddleware: any = (wsActions: TWsActions): Middleware => {
   return (store: {
     dispatch: (type: TWsOrderFeedActions | TWsUserOrderFeedActions) => void;

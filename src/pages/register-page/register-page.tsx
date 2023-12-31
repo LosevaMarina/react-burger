@@ -41,18 +41,21 @@ const RegisterPage: FC = () => {
     e.preventDefault();
     createUser(emailValue, passwordValue, nameValue)
       .then((res) => {
-        //localStorage.setItem(refreshToken, res.refreshToken);
-        //localStorage.setItem(accessToken, res.accessToken);
+        localStorage.setItem(refreshToken, res.refreshToken);
+        localStorage.setItem(accessToken, res.accessToken);
         navigate("/");
         dispatch({
           type: GET_USER_SUCCESS,
           user: res.user,
         });
-      })
+      }) 
       .catch((err) => {
-        console.log(`Произошла ошибка регистрации пользователя: ${err}`);
+        console.log(`Произошла ошибка регистрации пользователя: ${err} nameValue: ${nameValue}  passwordValue: ${passwordValue}  nameValue: ${nameValue}`);
+
       });
   };
+
+  
 
 
 
