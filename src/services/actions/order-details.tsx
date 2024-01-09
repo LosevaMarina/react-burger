@@ -1,5 +1,5 @@
 import { request, API_URL } from "../../utils/utils";
-//import { clearIngredientCounter } from "./burger-ingredients";
+import { clearIngredientCounter } from "./burger-ingredients";
 import { accessToken } from "../../utils/data";
 import {IOrderInterface} from "../../utils/data";
 import { AppDispatch, AppThunk } from "../types/index"
@@ -81,7 +81,7 @@ export type TOrderDetailsActions =
         dispatch({
           type: CLEAR_CONSTRUCTOR,
         });
-        //dispatch(clearIngredientCounter());
+        dispatch(clearIngredientCounter());
       
     }
 )

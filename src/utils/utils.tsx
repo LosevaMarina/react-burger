@@ -1,4 +1,5 @@
 import { TTokenResponse, THeaders } from "./data";
+import {IUserResponse} from "./data";
 export const API_URL = "https://norma.nomoreparties.space/api";
 
 export const FEED_URL = "wss://norma.nomoreparties.space/orders/all";
@@ -31,20 +32,20 @@ export const refreshToken = (): Promise<TTokenResponse>  => {
 };
 
 
-//interface IOptions {
-//  method: "GET" | "POST" | "PATCH" | "DELETE";
-//  headers: {
- //   "Content-Type": string;
- //   authorization?: string;
- // };
-  //body?: string;
-//}
+interface IOptions {
+  method: "GET" | "POST" | "PATCH" | "DELETE";
+  headers: {
+   "Content-Type": string;
+    authorization?: string | any;
+ };
+  body?: string;
+}
 
-//export const fetchWithRefresh = async (endpoint: string, options: IOptions): Promise<IUserResponse> => {
-  export const fetchWithRefresh = async (
-    options: any,
-    endpoint?: object | null
-  ) => {
+export const fetchWithRefresh = async (endpoint: string, options: IOptions): Promise<IUserResponse> => {
+ // export const fetchWithRefresh = async (
+ //   options: any,
+ //   endpoint?: object | null
+ // ) => {
   try {
     const res = await fetch(`${API_URL}/${endpoint}`, options);
     return await checkResponse(res); 
@@ -54,7 +55,7 @@ export const refreshToken = (): Promise<TTokenResponse>  => {
       const refreshData = await refreshToken();
       if (!refreshData.success) {
         return Promise.reject(refreshData);
-      }
+      } 
       localStorage.setItem("refreshToken", refreshData.refreshToken);
       localStorage.setItem("accessToken", refreshData.accessToken);
       options.headers.authorization = refreshData.accessToken;

@@ -8,6 +8,7 @@ import { userFeedReducer } from "./ws-profile";
 import { orderFeedReducer } from "./ws-reducer";
 import {getOrderCard} from "./order-card";
 
+
 export const rootReducer = combineReducers({
   burgerIngredients: burgerIngredientsReducer,
   ingredientDetails: ingredientDetailsReducer,
@@ -20,4 +21,4 @@ export const rootReducer = combineReducers({
 });
 
 
-export type RootState = ReturnType<typeof rootReducer>;
+

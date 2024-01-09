@@ -1,5 +1,3 @@
-
-import { useSelector } from "react-redux";
 import { FC, ReactElement } from "react";
 import { Navigate, useLocation } from "react-router-dom";
 //import { getAuthChecked } from "../../utils/utils";
@@ -15,11 +13,11 @@ const Protected: FC<IProtected> = ({ onlyUnAuth = false, component }) => {
   //проверка токена произведена
   const isAuthChecked = useAppSelector((store) => store.user.isAuthChecked);
 
- // console.log ("проверка токена произведена: isAuthChecked: "+ isAuthChecked);
+  console.log ("проверка токена произведена: isAuthChecked: "+ isAuthChecked);
 
   const location = useLocation();
   const user = useAppSelector((state) => state.user.user);
-  //console.log ("user: "+ user);
+  console.log ("user: "+ user);
   if (!isAuthChecked) {
     return null;
   }
@@ -27,7 +25,7 @@ const Protected: FC<IProtected> = ({ onlyUnAuth = false, component }) => {
   if (onlyUnAuth && user) {
     //авторизация выполнена
     const { from } = location.state || { from: { pathname: "/" } };
-    //console.log ("авторизация выполнена!!!!!!!!!!!!!!!!!!!!! ");
+    console.log ("авторизация выполнена!!!!!!!!!!!!!!!!!!!!! ");
     return <Navigate to={from} />;
   }
 

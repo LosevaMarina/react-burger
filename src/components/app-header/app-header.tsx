@@ -16,8 +16,8 @@ export const AppHeader = () => {
   const isFeed = !!useMatch("/feed");
   const isProfile = !!useMatch("/profile");
 
-  const isAuthChecked = useAppSelector((store) => store.user.isAuthChecked);
-  //console.log ("isAuthChecked: " + isAuthChecked)
+  const isAuthChecked = useAppSelector((state) => state.user.isAuthChecked);
+  console.log ("isAuthChecked: " + isAuthChecked)
   const { user } = useAppSelector((state) => state.user);
 
   const [userName, setUserName] = useState("");
