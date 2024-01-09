@@ -8,11 +8,6 @@ import { userFeedReducer } from "./ws-profile";
 import { orderFeedReducer } from "./ws-reducer";
 import {getOrderCard} from "./order-card";
 
-import store from "../store";
-import { ThunkAction } from "redux-thunk";
-import { Action, ActionCreator } from "redux";
-import {TTodoActions} from "../actions/index";
-
 export const rootReducer = combineReducers({
   burgerIngredients: burgerIngredientsReducer,
   ingredientDetails: ingredientDetailsReducer,

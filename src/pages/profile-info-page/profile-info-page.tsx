@@ -2,13 +2,13 @@ import styles from './profile-info-page.module.css';
 import { Button, EmailInput, Input, PasswordInput } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useState } from "react";
 import { updateUser } from "../../utils/utils";
-import {useTypeSelector} from "../../hooks/use-type-selector"
+import { useAppSelector } from "../../hooks/hooks";
 
 
 export const ProfileInfoPage = () => {
 
-    const user = useTypeSelector((state) => state.user.user);
-    const password = useTypeSelector((state) => state.user.password);
+    const user = useAppSelector((state) => state.user.user);
+    const password = useAppSelector((state) => state.user.password);
     console.log("user: " +user + ", password: "+ password)
 
     const [isChangeInput, setChangeInput] = useState(false);

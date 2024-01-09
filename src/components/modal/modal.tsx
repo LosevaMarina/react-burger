@@ -14,7 +14,7 @@ type TModal = {
 export const Modal: FC<TModal> = (props) => {
 
   useEffect(() => {
-    const closeESC = (e: any) => {
+    const closeESC = (e: KeyboardEvent) => {
       if (e.key === "Escape") {
         props.closeModal();
       }

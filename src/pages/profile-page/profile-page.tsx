@@ -6,18 +6,17 @@ import {
   PasswordInput,
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-
 import { SyntheticEvent} from "react";
-import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { logout} from "../../utils/utils";
 import { CLEAR_USER } from "../../services/actions/registration-user";
 import { routeProfile, routeLogin, routeUserOrders } from '../../utils/data';
 import { refreshToken, accessToken } from "../../utils/data";
+import { useAppDispatch } from "../../hooks/hooks";
 
 const ProfilePage = () => {
 
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
   //const exit = (e: any) => {

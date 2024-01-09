@@ -1,5 +1,4 @@
 import { useEffect } from "react";
-import { useDispatch } from "react-redux";
 import { AppHeader } from "../app-header/app-header";
 import styles from "../app/app.module.css";
 import { getIngredients } from "../../services/actions/burger-ingredients";
@@ -40,7 +39,7 @@ import {
   GET_USER,
 } from "../../services/actions/registration-user";
 import { getUser } from "../../utils/utils";
-import {useTypeSelector} from "../../hooks/use-type-selector";
+import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
 
 
 
@@ -48,8 +47,7 @@ import {useTypeSelector} from "../../hooks/use-type-selector";
 
 
 export const App = () => {
-  const dispatch: any = useDispatch();
-  //const dispatch = useTypeDispatch();
+  const dispatch = useAppDispatch();
 
 
   useEffect(() => {
@@ -72,7 +70,7 @@ export const App = () => {
   //const REQUEST = useTypeSelector(
   //  (state) => state.orderDetails
   //);
-  const REQUEST = useTypeSelector(
+  const REQUEST = useAppSelector(
     (state) => state.orderDetails.makeOrderRequestInProgress
   );
 

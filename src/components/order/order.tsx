@@ -4,7 +4,7 @@ import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components
 import { Link, useLocation } from "react-router-dom";
 import { useMemo,FC } from "react";
 import { FormattedDate } from "@ya.praktikum/react-developer-burger-ui-components";
-import {useTypeSelector} from "../../hooks/use-type-selector"
+import { useAppSelector } from "../../hooks/hooks";
 import {IOrderInterface, IIngredientType} from "../../utils/data";
 
 interface IOrder {
@@ -21,7 +21,7 @@ export const Order:FC<IOrder> = ({ order, status }) => {
 
   const ingredientsT = order.ingredients;
 
-  const ingredients = useTypeSelector(
+  const ingredients = useAppSelector(
     (store) => store.burgerIngredients.ingredients
   );
 

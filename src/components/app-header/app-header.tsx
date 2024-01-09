@@ -8,7 +8,7 @@ import { useMatch, NavLink } from "react-router-dom";
 import styles from "./app-header.module.css";
 import { useEffect, useState } from "react";
 import { routeHome, routeProfile, routeOrderFeed, routeUser, routeLogin } from '../../utils/data';
-import {useTypeSelector} from "../../hooks/use-type-selector";
+import { useAppSelector } from "../../hooks/hooks";
 
 export const AppHeader = () => {
   //const isConstructor = !!useMatch({ path: "/", exact: true });
@@ -16,9 +16,9 @@ export const AppHeader = () => {
   const isFeed = !!useMatch("/feed");
   const isProfile = !!useMatch("/profile");
 
-  const isAuthChecked = useTypeSelector((store) => store.user.isAuthChecked);
+  const isAuthChecked = useAppSelector((store) => store.user.isAuthChecked);
   //console.log ("isAuthChecked: " + isAuthChecked)
-  const { user } = useTypeSelector((state) => state.user);
+  const { user } = useAppSelector((state) => state.user);
 
   const [userName, setUserName] = useState("");
 

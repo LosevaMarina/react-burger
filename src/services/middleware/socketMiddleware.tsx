@@ -3,15 +3,11 @@ import { TWsActions} from "../actions/ws-actions";
 import {TWsOrderFeedActions } from "../actions/ws-actions";
 import { TWsUserOrderFeedActions } from "../actions/ws-profile";
 
-export const socketMiddleware: any = (wsActions: TWsActions): Middleware => {
+export const socketMiddleware = (wsActions: TWsActions): Middleware => {
   return (store: {
     dispatch: (type: TWsOrderFeedActions | TWsUserOrderFeedActions) => void;
 }) => {
     let socket: WebSocket | null = null;
- 
-
-
-
         return (next: Dispatch<AnyAction>) =>
         (action: TWsOrderFeedActions | TWsUserOrderFeedActions) => {
           const { dispatch } = store;
@@ -23,7 +19,7 @@ export const socketMiddleware: any = (wsActions: TWsActions): Middleware => {
               onClose,
               onError,
               onMessage,
-              wsConnecting,
+              wsConnecting, 
               wsDisconnect,
           } = wsActions;
 

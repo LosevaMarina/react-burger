@@ -6,17 +6,16 @@ import {
   OPEN_MODAL_INGREDIENT,
   selectIngredient,
 } from "../../services/actions/ingredient-details";
-import { useDispatch } from "react-redux";
-import {useTypeSelector} from "../../hooks/use-type-selector";
+import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
 import {IIngredientType} from "../../utils/data";
 
 
 
 
 export const BurgerIngredients = () => {
-  const { ingredients } = useTypeSelector((state) => state.burgerIngredients);
+  const { ingredients } = useAppSelector((state) => state.burgerIngredients);
 
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   const [current, setCurrent] = useState<string>("bun");
 

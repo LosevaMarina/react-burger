@@ -1,9 +1,9 @@
 import styles from "../order-details/order-details.module.css";
 //import { Navigate, useLocation } from "react-router-dom";
-import {useTypeSelector} from "../../hooks/use-type-selector";
+import { useAppSelector } from "../../hooks/hooks";
 
 export const OrderDetails = () => {
-  const order = useTypeSelector(state => state.orderDetails.order);
+  const order = useAppSelector(state => state.orderDetails.order);
   return (
     //<Navigate to={`/profile/orders/${order}`} state={{ background: location }} >
 

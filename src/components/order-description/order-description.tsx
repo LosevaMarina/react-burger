@@ -6,16 +6,15 @@ import {
   disconnect as disconnectFeedTable,
 } from "../../services/actions/ws-actions";
 import { FEED_URL } from "../../utils/utils";
-import { useSelector, useDispatch } from "react-redux";
 import { useEffect } from "react";
 import { useParams } from "react-router";
-import {useTypeSelector} from "../../hooks/use-type-selector";
+import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
 
  
 export const OrderDescription = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const {id} = useParams<string>();
-  const order = useTypeSelector(store => store.orderCard.order);
+  const order = useAppSelector(store => store.orderCard.order);
 
   useEffect(() => {
     dispatch(connectFeedTable(FEED_URL));

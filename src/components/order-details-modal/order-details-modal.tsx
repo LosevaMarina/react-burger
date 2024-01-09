@@ -4,18 +4,16 @@ import {
   FormattedDate,
   CurrencyIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { useParams } from "react-router";
-import { useSelector } from "react-redux";
 import { useMemo } from "react";
 import {IIngredientType} from "../../utils/data";
-import {useTypeSelector} from "../../hooks/use-type-selector";
+import { useAppSelector } from "../../hooks/hooks";
 
 export const OrderDetailsModal = () => {
  
-  const order = useTypeSelector(store => store.orderCard.order);
+  const order = useAppSelector(store => store.orderCard.order);
   
 
-  const ingredients = useTypeSelector(
+  const ingredients = useAppSelector(
     (state) => state.burgerIngredients.ingredients
   );
 

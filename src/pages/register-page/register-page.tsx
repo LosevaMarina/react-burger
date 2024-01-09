@@ -6,11 +6,11 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "../login-page/login-page.module.css";
 import { Link, useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
 import { useState, useRef, MouseEvent, FC } from "react";
 import { createUser } from "../../utils/utils";
 import { GET_USER_SUCCESS } from "../../services/actions/registration-user";
 import { refreshToken, accessToken, routeLogin } from "../../utils/data";
+import { useAppDispatch } from "../../hooks/hooks";
 
 const RegisterPage: FC = () => {
   const [nameValue, setNameValue] = useState("");
@@ -35,7 +35,7 @@ const RegisterPage: FC = () => {
  // };
 
   const navigate = useNavigate();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   const handleSubmit = (e: MouseEvent<HTMLFormElement>) => {
     e.preventDefault();

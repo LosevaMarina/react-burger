@@ -1,5 +1,5 @@
 import { request, API_URL } from "../../utils/utils";
-import { Dispatch } from "redux";
+import { AppDispatch, AppThunk } from "../types/index";
 import {IIngredientType} from "../../utils/data";
 
 export const INGREDIENTS_REQUEST: 'INGREDIENTS_REQUEST' = 'INGREDIENTS_REQUEST';
@@ -56,13 +56,8 @@ export type TIngredientsActions =
   | IClearIngredientCounter;
 
 
-
-//export const getIngredients: AppThunk = () => {
- // return function (dispatch) {
-
-
- export function getIngredients() {
-  return function (dispatch: Dispatch<TIngredientsActions>) {
+export const getIngredients: AppThunk = () => {
+  return function (dispatch: AppDispatch) {
 
     dispatch({ type: INGREDIENTS_REQUEST });
 

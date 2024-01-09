@@ -5,17 +5,16 @@ import {
   disconnect as disconnectUserFeedTable,
 } from "../../services/actions/ws-profile";
 import { ORDERS_URL } from "../../utils/utils";
-import { useDispatch } from "react-redux";
 import { useEffect } from "react";
 import { useParams } from "react-router";
 import {getOrderCard} from "../../services/actions/order-card";
-import {useTypeSelector} from "../../hooks/use-type-selector";
+import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
 
 export const OrderDescriptionInProfile = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const { id } = useParams();
   //const { id } = useParams<string>();
-  const order = useTypeSelector(store => store.orderCard.order);
+  const order = useAppSelector(store => store.orderCard.order);
 
   useEffect(() => {
     dispatch(connectUserFeedTable(ORDERS_URL));

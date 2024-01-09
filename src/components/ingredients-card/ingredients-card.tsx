@@ -1,6 +1,4 @@
 import styles from "./ingredients-card.module.css";
-import PropTypes from "prop-types";
-import { PropTypeingredients } from "../../utils/data";
 import { IngredientCard } from "../ingredient-card/ingredient-card";
 import { FillingCard } from "../filling-card/filling-card";
 import {IIngredientType} from "../../utils/data";

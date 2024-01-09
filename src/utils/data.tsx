@@ -1,19 +1,4 @@
-//import { type } from "os";
-import PropTypes from "prop-types";
 
-export const PropTypeingredients = PropTypes.shape({
-  _id: PropTypes.string,
-  name: PropTypes.string,
-  type: PropTypes.string,
-  proteins: PropTypes.number,
-  fat: PropTypes.number,
-  carbohydrates: PropTypes.number,
-  calories: PropTypes.number,
-  price: PropTypes.number,
-  image: PropTypes.string,
-  order: PropTypes.object,
-  uuid: PropTypes.string,
-});
 
 export interface IIngredientType {
  _id: string;

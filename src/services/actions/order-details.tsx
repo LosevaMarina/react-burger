@@ -2,8 +2,7 @@ import { request, API_URL } from "../../utils/utils";
 //import { clearIngredientCounter } from "./burger-ingredients";
 import { accessToken } from "../../utils/data";
 import {IOrderInterface} from "../../utils/data";
-import { Dispatch } from "redux";
-
+import { AppDispatch, AppThunk } from "../types/index"
 export const CLEAR_CONSTRUCTOR: "CLEAR_CONSTRUCTOR" = "CLEAR_CONSTRUCTOR";
 export const ORDER_REQUEST: "ORDER_REQUEST" = "ORDER_REQUEST";
 export const ORDER_SUCCEED: "ORDER_SUCCEED" = "ORDER_SUCCEED";
@@ -48,8 +47,10 @@ export type TOrderDetailsActions =
 
 
 
-export function createOrder (orderItemsId: string[]) {
-  return function (dispatch: Dispatch<TOrderDetailsActions>) {
+//export function createOrder (orderItemsId: string[]) {
+//  return function (dispatch: Dispatch<TOrderDetailsActions>) {
+  export const createOrder: AppThunk = (orderItemsId: string[]) => {
+    return function (dispatch: AppDispatch) {
     dispatch({
       type: ORDER_REQUEST,
     });

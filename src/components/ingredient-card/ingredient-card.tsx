@@ -1,6 +1,6 @@
 import { useRef } from "react";
 import { FC } from "react";
-import { useDispatch } from "react-redux";
+import { useAppDispatch } from "../../hooks/hooks";
 import { useDrag, useDrop } from "react-dnd";
 import {
   CONSTRUCTOR_CARD,
@@ -29,7 +29,7 @@ type DragObject = {
 export const IngredientCard: FC<IIngredientCard> = ({ item, index }) => {
   const { name, price, image, _id } = item;
 
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   //const ref = useRef(null);
   
   //const ref = useRef<HTMLDivElement>(null);

@@ -1,6 +1,7 @@
 import { request, API_URL } from "../../utils/utils";
 import {IOrderInterface} from "../../utils/data";
-import { Dispatch } from "redux";
+import { AppDispatch, AppThunk } from "../types/index"
+
 
 export const GET_ORDER_CARD_REQUEST: "GET_ORDER_CARD_REQUEST" = 'GET_ORDER_CARD_REQUEST';
 export const GET_ORDER_CARD_SUCCESS: "GET_ORDER_CARD_SUCCESS" = 'GET_ORDER_CARD_SUCCESS';
@@ -25,7 +26,7 @@ interface IGetOrderCardSuccesAction {
 
 
 export type TAnyOrderAction =
-  | IGetOrderCardRequestAction
+  | IGetOrderCardRequestAction 
   | IGetOrderCardSuccesAction
   | IGetOrderCardFailedAction;
 
@@ -34,8 +35,10 @@ export type TAnyOrderAction =
 
 
 
-export function getOrderCard (number: string) {
-return function (dispatch: Dispatch<TAnyOrderAction>) {
+//export function getOrderCard (number: string) {
+//return function (dispatch: Dispatch<TAnyOrderAction>) {
+  export const getOrderCard: AppThunk = (number: string) => {
+    return function (dispatch: AppDispatch) {
     dispatch({ type: GET_ORDER_CARD_REQUEST });
 
     request(`${API_URL}/orders/${number}`)

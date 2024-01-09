@@ -1,6 +1,4 @@
 import style from "./order-feed-page.module.css";
-
-import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import {
   connect as connectFeedTable,
@@ -8,14 +6,14 @@ import {
 } from "../../services/actions/ws-actions";
 import { FEED_URL } from "../../utils/utils";
 import {OrderFeed} from "../../components/order-feed/order-feed";
-import {useTypeSelector} from "../../hooks/use-type-selector";
+import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
 import { IOrderInterface} from "../../utils/data";
 
 export const OrderFeedPage = () => {
-  const dispatch = useDispatch(); 
+  const dispatch = useAppDispatch(); 
   
 
-  const { orders, total, totalToday } = useTypeSelector(store => store.orderFeed);
+  const { orders, total, totalToday } = useAppSelector(store => store.orderFeed);
 
 
 

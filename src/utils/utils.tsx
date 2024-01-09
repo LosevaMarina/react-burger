@@ -1,4 +1,3 @@
-import {useTypeSelector} from "../hooks/use-type-selector";
 import { TTokenResponse, THeaders } from "./data";
 export const API_URL = "https://norma.nomoreparties.space/api";
 
@@ -9,7 +8,7 @@ const accessToken: string | undefined = localStorage.getItem("accessToken")
   : "";
 
 export const ORDERS_URL = `wss://norma.nomoreparties.space/orders?token=${accessToken}`;
-
+//export const ORDERS_URL = "wss://norma.nomoreparties.space/orders";
 export const checkResponse = (res: Response) => {
   return res.ok ? res.json() : res.json().then((err) => Promise.reject(err));
 };
@@ -20,7 +19,7 @@ export function request(url: string, options?: RequestInit) {
 
 
 export const refreshToken = (): Promise<TTokenResponse>  => {
-  return request(`${API_URL}/auth/token`, {
+  return request(`${API_URL}/auth/token`, { 
     method: "POST",
     body: JSON.stringify({
       token: localStorage.getItem("refreshToken"),

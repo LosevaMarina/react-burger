@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import { FC, ReactElement } from "react";
 import { Navigate, useLocation } from "react-router-dom";
 //import { getAuthChecked } from "../../utils/utils";
-import {useTypeSelector} from "../../hooks/use-type-selector"
+import { useAppSelector } from "../../hooks/hooks";
 
 interface IProtected {
   onlyUnAuth?: boolean;
@@ -13,12 +13,12 @@ interface IProtected {
 
 const Protected: FC<IProtected> = ({ onlyUnAuth = false, component }) => {
   //проверка токена произведена
-  const isAuthChecked = useTypeSelector((store) => store.user.isAuthChecked);
+  const isAuthChecked = useAppSelector((store) => store.user.isAuthChecked);
 
  // console.log ("проверка токена произведена: isAuthChecked: "+ isAuthChecked);
 
   const location = useLocation();
-  const user = useTypeSelector((state) => state.user.user);
+  const user = useAppSelector((state) => state.user.user);
   //console.log ("user: "+ user);
   if (!isAuthChecked) {
     return null;

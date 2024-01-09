@@ -7,7 +7,6 @@ import styles from "./burger-constructor.module.css";
 import { useDrop } from "react-dnd";
 import { IngredientsCard } from "../ingredients-card/ingredients-card";
 import { BunCard } from "../bun-card/bun-card";
-import { useDispatch } from "react-redux";
 import {
   INGREDIENT_CARD,
   ADD_BUN_COUNTER,
@@ -24,7 +23,7 @@ import { Modal } from "../modal/modal";
 import { OrderDetails } from "../order-details/order-details";
 //import { CLOSE_ORDER_DETAILS_MODAL } from "../../services/actions/order-details";
 import { refreshToken, accessToken } from "../../utils/data";
-import { useTypeSelector } from "../../hooks/use-type-selector";
+import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
 import { IIngredientType } from "../../utils/data";
 import React from "react";
 import { v4 as uuidv4 } from "uuid";
@@ -36,14 +35,14 @@ export const BurgerConstructor = () => {
   );
 
   const navigate = useNavigate();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const [Modalin, setModalin] = React.useState(false);
 
   //const orderDetailsModal = useTypeSelector(
   //  (state) => state.orderDetails.openModal
   //);
 
-  const { ingredients, bunIngredient } = useTypeSelector((state) => ({
+  const { ingredients, bunIngredient } = useAppSelector((state) => ({
     bunIngredient: state.burgerConstructor.bunIngredient,
     ingredients: state.burgerConstructor.ingredients,
   }));

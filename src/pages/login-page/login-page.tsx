@@ -6,7 +6,7 @@ import {
 import styles from "./login-page.module.css";
 import { useLocation, useNavigate, Link } from "react-router-dom";
 import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useAppDispatch } from "../../hooks/hooks";
 import { login } from "../../utils/utils";
 import { GET_USER_SUCCESS } from "../../services/actions/registration-user";
 import { routeHome, routeRegister, routeForgotPassword } from '../../utils/data';
@@ -25,7 +25,7 @@ export const LoginPage = () => {
 
   const { values, handleChange } = useForm({ email: "", password: "" });
   const navigate = useNavigate();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const location = useLocation();
   //const [email, setEmail] = useState('')
 
