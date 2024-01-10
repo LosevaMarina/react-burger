@@ -1,4 +1,4 @@
-import { TTokenResponse, THeaders } from "./data";
+import { THeaders } from "./data";
 import {IUserResponse} from "./data";
 export const API_URL = "https://norma.nomoreparties.space/api";
 
@@ -19,7 +19,7 @@ export function request(url: string, options?: RequestInit) {
 }
 
 
-export const refreshToken = (): Promise<TTokenResponse>  => {
+export const refreshToken = () => {
   return request(`${API_URL}/auth/token`, { 
     method: "POST",
     body: JSON.stringify({
@@ -47,7 +47,7 @@ export const fetchWithRefresh = async (endpoint: string, options: IOptions): Pro
  //   endpoint?: object | null
  // ) => {
   try {
-    const res = await fetch(`${API_URL}/${endpoint}`, options);
+    const res = await request(`${API_URL}/${endpoint}`, options);
     return await checkResponse(res); 
   } catch (err:any) {
     if (err.message === "jwt expired") {
@@ -88,7 +88,9 @@ export const fetchWithRefresh = async (endpoint: string, options: IOptions): Pro
 export const createUser = ( email:string,
   password:string,
   username:string) => {
-  return request(`${API_URL}/auth/register`, {
+ // return request(`${API_URL}/auth/register`, {
+    return fetch(`${API_URL}/auth/register`, {
+
     method: "POST",
     body: JSON.stringify({
       email: email, 
@@ -96,13 +98,10 @@ export const createUser = ( email:string,
       name: username,
     }),
     headers: {
-      "Content-Type": "application/json; charset=UTF-8",
+      "Content-Type": "application/json",
     },
   });
 };
-
- 
-
 
 
 
@@ -173,3 +172,4 @@ export const forgotPassword = (value: string) => {
     },
   });
 };
+

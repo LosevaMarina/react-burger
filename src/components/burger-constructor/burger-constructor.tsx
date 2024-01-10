@@ -46,7 +46,7 @@ export const BurgerConstructor = () => {
     bunIngredient: state.burgerConstructor.bunIngredient,
     ingredients: state.burgerConstructor.ingredients,
   }));
-
+  //const { ingredientid } = useAppSelector(state => state.orderDetails)
   //const {ingredients, bunIngredient} = useTypeSelector((state) => state.burgerConstructor);
 
   const Top = "top";
@@ -102,20 +102,16 @@ export const BurgerConstructor = () => {
   }
 
   const handlePlaceOrder = () => {
-    if (UserAuth) {
-      const orderIngredientIds: any = [
-        bunIngredient,
-        ...ingredients.map((item) => item._id),
-        bunIngredient,
-      ];
+   // if (UserAuth) {
+      const orderIngredientIds = [ingredients.map((item) => item._id)];
       //let orderIngredientIds = ingredients.map((item) => item._id);
-      // console.log ("ингредиенты: " + orderIngredientIds);
+      console.log ("ингредиенты: " + orderIngredientIds);
 
       dispatch(createOrder(orderIngredientIds));
       setModalin(true);
-    } else {
-      navigate("/login");
-    }
+    //} else {
+      //navigate("/login");
+    //}
   };
 
   const closeOrderDetailsModal = () => {

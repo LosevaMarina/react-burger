@@ -49,7 +49,7 @@ export type TOrderDetailsActions =
 
 //export function createOrder (orderItemsId: string[]) {
 //  return function (dispatch: Dispatch<TOrderDetailsActions>) {
-  export const createOrder: AppThunk = (orderItemsId: string[]) => {
+  export const createOrder: AppThunk = (orderItemsId: string) => {
     return function (dispatch: AppDispatch) {
     dispatch({
       type: ORDER_REQUEST,
@@ -63,7 +63,7 @@ export type TOrderDetailsActions =
       } as HeadersInit,
       body: JSON.stringify({
         ingredients: orderItemsId,
-      }),
+      }), 
     })
       .then((data) => {
         if (data && data.success) {
@@ -78,9 +78,9 @@ export type TOrderDetailsActions =
           type: OPEN_ORDER_DETAILS_MODAL,
 
         });
-        dispatch({
-          type: CLEAR_CONSTRUCTOR,
-        });
+        //dispatch({
+        //  type: CLEAR_CONSTRUCTOR,
+        //});
         dispatch(clearIngredientCounter());
       
     }

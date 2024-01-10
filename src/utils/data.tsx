@@ -1,5 +1,3 @@
-
-
 export interface IIngredientType {
  _id: string;
  name: string;
@@ -15,9 +13,8 @@ export interface IIngredientType {
   __v: number;
   counter: number;
   constructorId?: string;
+  key: string
 }
-
-
 
 type TStatusOrder = "done" | "created" | "pending";
 

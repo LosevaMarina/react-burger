@@ -6,11 +6,10 @@ import {
   OPEN_ORDER_DETAILS_MODAL,
   CLOSE_ORDER_DETAILS_MODAL,
 } from "../actions/order-details";
-import {IOrderInterface} from "../../utils/data";
 
 export type TinitialState = {
   //order: {number: string }| null | IOrderInterface
-  order:  IOrderInterface | null,
+  order:  number,
   makeOrderRequestInProgress: boolean;
   makeOrderRequestFailed: boolean;
   openModal: boolean;
@@ -18,7 +17,7 @@ export type TinitialState = {
 };
 
 const initialState: TinitialState = {
-  order: null,
+  order: 0,
   makeOrderRequestInProgress: false,
   makeOrderRequestFailed: false, 
   openModal: false,
@@ -39,7 +38,7 @@ export const orderDetailsReducer = (state = initialState, action:TOrderDetailsAc
         ...state,
         makeOrderRequestInProgress: false,
         makeOrderRequestFailed: false,
-        order: action.order,
+        order: action.order.number,
         //loading: false,
       };
     }

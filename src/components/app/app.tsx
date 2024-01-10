@@ -50,15 +50,23 @@ export const App = () => {
   const dispatch = useAppDispatch();
 
 
+
+    //временная запись
+    //localStorage.removeItem("accessToken");
+
+
   useEffect(() => {
     dispatch(getIngredients());
+
     dispatch({ type: CHECK_TOKEN });
+    const accessToken = localStorage.getItem("accessToken")
+    console.log ("accessToken: " + accessToken)
     if (localStorage.getItem("accessToken")) {
       getUser()
         .then((res) => {
           dispatch({ type: GET_USER, payload: res });
         })
-        .catch((err) => console.log(err));
+        .catch((err) => console.log(err + "ошибка загагрузки страницы"));
     }
   }, [dispatch]);
 
