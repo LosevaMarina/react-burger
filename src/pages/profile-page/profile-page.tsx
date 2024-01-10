@@ -22,7 +22,7 @@ const ProfilePage = () => {
   //const exit = (e: any) => {
   const exit = (e: SyntheticEvent) => {
     e.preventDefault();
-    logout()
+    logout(localStorage.getItem("refreshToken"))
       .then((res) => {
         dispatch({
           type: CLEAR_USER,

@@ -60,6 +60,8 @@ const RegisterPage: FC = () => {
   };
 
 
+
+
   return (
     <form className={styles.content} onSubmit={handleSubmit}>
       <h1 className={`${styles.title} text text_type_main-medium`}>
