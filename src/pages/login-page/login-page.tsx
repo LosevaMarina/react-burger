@@ -36,7 +36,7 @@ export const LoginPage = () => {
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    {/*login(values.email, values.password)
+    login({ email: values.email, password: values.password })
       .then((res) => {
         localStorage.setItem(refreshToken, res.refreshToken);
         localStorage.setItem(accessToken, res.accessToken);
@@ -57,17 +57,15 @@ export const LoginPage = () => {
       .catch((err) => {
         console.log(`Произошла ошибка: ${err}`);
       });
-    */}
+    
+{/*
+    
+dispatch(userLogin (values))   
+if (isAuthChecked)
+navigate(routeHome)    */}
+      }
 
     
-dispatch(
-    userLogin (values, () => {
-      if (isAuthChecked) 
-        navigate(routeHome);
-      
-      })
-)
-    }
   
   
 

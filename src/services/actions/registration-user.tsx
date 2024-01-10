@@ -84,4 +84,7 @@ export type TUserActions =
             dispatch(getUserSuccess(res))
         })
         .catch(err => dispatch(getUserFailed()))
+        //.catch(err => console.log ("ошибка: " + err))
 }
+
+
