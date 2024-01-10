@@ -3,14 +3,14 @@ import styles from "../order-details/order-details.module.css";
 import { useAppSelector } from "../../hooks/hooks";
 
 export const OrderDetails = () => {
-  const order = useAppSelector(state => state.orderDetails.order);
+  const order = useAppSelector(state => state.orderDetails);
   return (
     //<Navigate to={`/profile/orders/${order}`} state={{ background: location }} >
 
     <div className={styles.container}>
       <h1 className={"text text_type_digits-large" + " " + styles.numberText}>
-     {/* {order && order.number}*/}
-      {order}
+      {/* {order && order.number}*/}
+     {order}
       </h1>
       <p
         className={

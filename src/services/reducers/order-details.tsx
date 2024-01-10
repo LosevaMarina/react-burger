@@ -24,7 +24,7 @@ const initialState: TinitialState = {
   //loading: false,
 };
 
-export const orderDetailsReducer = (state = initialState, action:TOrderDetailsActions): TinitialState => {
+export const orderDetailsReducer = (state:TinitialState = initialState, action:TOrderDetailsActions) => {
   switch (action.type) {
     case ORDER_REQUEST: {
       return {
@@ -38,7 +38,7 @@ export const orderDetailsReducer = (state = initialState, action:TOrderDetailsAc
         ...state,
         makeOrderRequestInProgress: false,
         makeOrderRequestFailed: false,
-        order: action.order.number,
+        order: action.order,
         //loading: false,
       };
     }

@@ -120,13 +120,24 @@ export const updateUser = (
 
 
 
-export const postOrder = (burger: string[]) => {
-  return fetchWithRefresh("POST", `${API_URL}/orders`, { ingredients: burger });
+function postOrder (data: string) {
+  return fetchWithRefresh("POST", `${API_URL}/orders`, { ingredients: data });
 };
 
-
-
-
+{/*
+function postOrder(data: string) {
+  return fetch(`${API_URL}/orders`, {
+      method: 'POST',
+      headers: {
+          'Content-Type': 'application/json',
+         // authorization: token
+      },
+      body: JSON.stringify({
+          ingredients: data
+      })
+  })
+}
+*/}
 
 export const refreshToken = () => {
   return fetch(`${API_URL}/auth/token`, {
@@ -173,7 +184,7 @@ export const fetchWithRefresh = async (
   }
 };
 
-export { api };
+export { api, postOrder };
 
 
 

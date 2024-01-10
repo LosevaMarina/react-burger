@@ -1,7 +1,7 @@
 import { request, API_URL } from "../../utils/utils";
 import { clearIngredientCounter } from "./burger-ingredients";
 import { accessToken } from "../../utils/data";
-import {IOrderInterface} from "../../utils/data";
+import {IIngredientType} from "../../utils/data";
 import { AppDispatch, AppThunk } from "../types/index"
 import {postOrder} from "../../utils/utils";
 
@@ -21,7 +21,7 @@ export interface IOrderRequestAction {
 
 export interface IOrderSuccessAction {
  type: typeof ORDER_SUCCEED;
-  order: IOrderInterface;
+  order: IIngredientType;
 }
 
 export interface IOrderFailedAction {
@@ -53,7 +53,7 @@ export type TOrderDetailsActions =
 
 
 
-export const createOrder: AppThunk = (orderItemsId: string[]) => {
+export const createOrder: AppThunk = (orderItemsId: string) => {
   return function (dispatch: AppDispatch) {
     dispatch({
       type: ORDER_REQUEST,

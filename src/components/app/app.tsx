@@ -74,10 +74,10 @@ export const App = () => {
   const location = useLocation();
   const background = location.state && location.state.background;
   const navigate = useNavigate();
-  const REQUEST = useAppSelector(
-    (state) => state.orderDetails.makeOrderRequestInProgress
+  const makeOrderRequestInProgress = useAppSelector(
+    (state) => state.orderDetails
   );
-  console.log ("REQUEST: "+REQUEST);
+  console.log ("REQUEST: "+ makeOrderRequestInProgress);
 
 
   function closeIngredientDetailsModal() {
