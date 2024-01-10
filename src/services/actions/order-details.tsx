@@ -53,7 +53,7 @@ export type TOrderDetailsActions =
 
 
 
-export function createOrder(orderItemsId: string[]) {
+export const createOrder: AppThunk = (orderItemsId: string[]) => {
   return function (dispatch: AppDispatch) {
     dispatch({
       type: ORDER_REQUEST,
@@ -63,7 +63,7 @@ export function createOrder(orderItemsId: string[]) {
         if (res && res.success) {
           dispatch({
             type: ORDER_SUCCEED,
-            order: res.order,
+            order: res.order
           });
         } else {
           dispatch({

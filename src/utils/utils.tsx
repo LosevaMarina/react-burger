@@ -1,4 +1,6 @@
 
+import {IFormType} from "./data";
+
 const accessToken: string | undefined = localStorage.getItem("accessToken")
   ? localStorage.getItem("accessToken")?.slice(7)
   : "";
@@ -8,7 +10,7 @@ export const API_URL = "https://norma.nomoreparties.space/api";
 export const FEED_URL = "wss://norma.nomoreparties.space/orders/all";
 
 
-{/*
+{/*}
 export const checkResponse = (res: Response) => {
   if (res.ok) {
     return res.json();
@@ -75,16 +77,13 @@ export const createUser = (
   }).then((res) => checkResponse(res));
 };
 
-export const login = (email: string, password: string) => {
+export const login = (data: IFormType) => {
   return fetch(`${API_URL}/auth/login`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({
-      email: email,
-      password: password,
-    }),
+    body: JSON.stringify(data),
   }).then((res) => checkResponse(res));
 };
 

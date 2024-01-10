@@ -9,8 +9,8 @@ export const OrderDetails = () => {
 
     <div className={styles.container}>
       <h1 className={"text text_type_digits-large" + " " + styles.numberText}>
-      {order && order.number}
-      {/*{order}*/}
+     {/* {order && order.number}*/}
+      {order}
       </h1>
       <p
         className={

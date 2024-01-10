@@ -11,7 +11,7 @@ import { createUser } from "../../utils/utils";
 import { GET_USER_SUCCESS } from "../../services/actions/registration-user";
 import { refreshToken, accessToken, routeLogin } from "../../utils/data";
 import { useAppDispatch } from "../../hooks/hooks";
-import {checkResponse} from "../../utils/utils";
+import {routeHome} from "../../utils/data";
 
 const RegisterPage: FC = () => {
   const [nameValue, setNameValue] = useState("");
@@ -41,11 +41,11 @@ const RegisterPage: FC = () => {
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     createUser(emailValue, passwordValue, nameValue)
-      .then(res => checkResponse(res))
+      //.then(res => checkResponse(res))
       .then((res) => {
         localStorage.setItem(refreshToken, res.refreshToken);
         localStorage.setItem(accessToken, res.accessToken);
-        navigate("/");
+        navigate(routeHome);
 
         dispatch({
           type: GET_USER_SUCCESS,
@@ -54,7 +54,7 @@ const RegisterPage: FC = () => {
         //dispatch(checkUserAuth())
       }) 
       .catch((err) => {
-        console.log(`Произошла ошибка регистрации пользователя: ${err} nameValue: ${nameValue}  passwordValue: ${passwordValue}  nameValue: ${nameValue}`);
+        console.log(err);
 
       });
   };

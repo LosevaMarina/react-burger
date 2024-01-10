@@ -16,6 +16,27 @@ export interface IIngredientType {
   key: string
 }
 
+{/*export type TUserType = {
+  name: string;
+  email: string;
+  password: string;
+}*/}
+
+export interface IFormType {
+  [key: string]: string
+}
+
+export interface IUserInterface {
+  "success": boolean,
+  "accessToken"?: string,
+  "refreshToken"?: string,
+  "user": {
+   "email": string,
+   "name": string
+  },
+
+ }
+
 type TStatusOrder = "done" | "created" | "pending";
 
 export interface IOrderInterface {

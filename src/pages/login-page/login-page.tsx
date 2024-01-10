@@ -5,25 +5,27 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./login-page.module.css";
 import { useLocation, useNavigate, Link } from "react-router-dom";
-import { useState } from "react";
+import { FormEvent, useCallback, useState } from "react";
 import { useAppDispatch } from "../../hooks/hooks";
 import { login } from "../../utils/utils";
 import { GET_USER_SUCCESS } from "../../services/actions/registration-user";
 import { routeHome, routeRegister, routeForgotPassword } from '../../utils/data';
 import { refreshToken, accessToken } from "../../utils/data";
+import {useForm} from "../../hooks/hooks";
+import {userLogin} from "../../services/actions/registration-user";
+import {useAppSelector} from "../../hooks/hooks";
+//import {TUserType} from "../../utils/data";
 
 export const LoginPage = () => {
-  function useForm(inputValues:any) {
-    const [values, setValues] = useState(inputValues);
+   
 
-    const handleChange = (event:any) => {
-      const { value, name } = event.target;
-      setValues({ ...values, [name]: value });
-    };
-    return { values, handleChange, setValues };
-  }
+  //const { values, handleChange } = useForm<TUserType>({ name: "", email: "", password: "" });
 
   const { values, handleChange } = useForm({ email: "", password: "" });
+  const isAuthChecked = useAppSelector((state) => state.user.isAuthChecked);
+  console.log ("isAuthChecked: " + isAuthChecked)
+
+
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const location = useLocation();
@@ -31,9 +33,10 @@ export const LoginPage = () => {
 
   //const [password, setPassword] = useState('')
 
-  const handleSubmit = (e: React.SyntheticEvent) => {
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    login(values, values.password)
+
+    {/*login(values.email, values.password)
       .then((res) => {
         localStorage.setItem(refreshToken, res.refreshToken);
         localStorage.setItem(accessToken, res.accessToken);
@@ -54,7 +57,21 @@ export const LoginPage = () => {
       .catch((err) => {
         console.log(`Произошла ошибка: ${err}`);
       });
-  };
+    */}
+
+    
+dispatch(
+    userLogin (values, () => {
+      if (isAuthChecked) 
+        navigate(routeHome);
+      
+      })
+)
+    }
+  
+  
+
+
 
   return (
     <form className={styles.content} onSubmit={handleSubmit}>

@@ -102,20 +102,20 @@ export const BurgerConstructor = () => {
   }
 
   const handlePlaceOrder = () => {
-   // if (UserAuth) {
-      //const orderIngredientIds = [
-      //  bunIngredient,
-      //  ...ingredients.map((item) => item._id),
-      //  bunIngredient,
-      //];
-      let orderIngredientIds = ingredients.map((item) => item._id);
+    if (UserAuth) {
+      const orderIngredientIds = [
+        bunIngredient?._id,
+        ...ingredients.map((item) => item._id),
+        bunIngredient?._id,
+      ];
+      //let orderIngredientIds = ingredients.map((item) => item._id);
       console.log ("ингредиенты: " + orderIngredientIds);
 
       dispatch(createOrder(orderIngredientIds));
       setModalin(true);
-    //} else {
-    //  navigate("/login");
-    //}
+    } else {
+      navigate("/login");
+    }
   };
 
   const closeOrderDetailsModal = () => {

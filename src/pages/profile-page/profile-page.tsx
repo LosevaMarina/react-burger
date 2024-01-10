@@ -19,7 +19,7 @@ const ProfilePage = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
-  //const exit = (e: any) => {
+ 
   const exit = (e: SyntheticEvent) => {
     e.preventDefault();
     logout(localStorage.getItem("refreshToken"))

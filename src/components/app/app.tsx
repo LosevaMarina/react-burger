@@ -74,26 +74,20 @@ export const App = () => {
   const location = useLocation();
   const background = location.state && location.state.background;
   const navigate = useNavigate();
-  const REQUEST2 = useAppSelector(
-    (state) => state.orderDetails
-  );
   const REQUEST = useAppSelector(
     (state) => state.orderDetails.makeOrderRequestInProgress
   );
-  console.log ("REQUEST: "+REQUEST)
-  console.log ("REQUEST2: "+REQUEST2)
+  console.log ("REQUEST: "+REQUEST);
+
+
   function closeIngredientDetailsModal() {
     navigate(-1);
   }
 
-
-
-
-
   return (
     <section className={styles.block}>
       <AppHeader />
-      {REQUEST && <div className={styles.note}>загрузка...</div>}
+    {/*  {REQUEST && <div className={styles.note}>загрузка...</div>}*/}
 
       <Routes location={background || location}>
         <Route path={routeHome} element={<HomePage />} />
@@ -197,3 +191,8 @@ export const App = () => {
     </section>
   );
 };
+
+
+
+
+
