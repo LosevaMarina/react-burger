@@ -9,7 +9,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useState, useRef, FormEvent, FC } from "react";
 import { createUser } from "../../utils/utils";
 import { GET_USER_SUCCESS } from "../../services/actions/registration-user";
-import { refreshToken, accessToken, routeUser, routeLogin, TUserType } from "../../utils/data";
+import { refreshToken, accessToken, routeUser, routeLogin, TUserType, routeHome } from "../../utils/data";
 import { useAppDispatch, useForm, useAppSelector } from "../../hooks/hooks";
 import {checkResponse} from "../../utils/utils"
 
@@ -31,27 +31,23 @@ const RegisterPage: FC = () => {
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-  {/*}  dispatch(registerUser(values));
-    if (RegisterSuccess) {
-      navigate(-1);
-    }
- */}
+    createUser(values.name, values.email, values.password)
+      //.then(res => checkResponse(res))
+      .then((res) => {
+        localStorage.setItem(refreshToken, res.refreshToken);
+        localStorage.setItem(accessToken, res.accessToken);
+        navigate(routeHome);
 
+        dispatch({
+          type: GET_USER_SUCCESS,
+          user: res.user,
+        });
+        //dispatch(checkUserAuth())
+      }) 
+      .catch((err) => {
+        console.log(err);
 
- createUser (values)
-            .then(res => checkResponse(res))
-            .then(res => {
-                localStorage.setItem("accessToken", res.accessToken);
-                localStorage.setItem("refreshToken", res.refreshToken);
-                dispatch({
-                  type: GET_USER_SUCCESS,
-                  user: res.user,
-                });
-                navigate(routeUser)
-            })
-            .catch(err => console.log(err))
-   
-
+      });
   };
 
 

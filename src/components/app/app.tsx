@@ -37,7 +37,7 @@ import { OrderDescriptionInProfile } from "../order-description-in-profile/order
 import {
   checkUser, CHECK_TOKEN
 } from "../../services/actions/registration-user";
-import { useAppDispatch } from "../../hooks/hooks";
+import { useAppDispatch,useAppSelector } from "../../hooks/hooks";
 
 
 
@@ -58,10 +58,14 @@ export const App = () => {
   function closeIngredientDetailsModal() {
     navigate(-1);
   }
+  const REQUEST = useAppSelector(
+    (state) => state.orderDetails.makeOrderRequestInProgress
+  );
 
   return (
     <section className={styles.block}>
       <AppHeader />
+      {REQUEST && <div className={styles.note}>загрузка...</div>}
       <Routes location={background || location}>
         <Route path={routeHome} element={<HomePage />} />
         

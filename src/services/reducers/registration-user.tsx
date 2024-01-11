@@ -12,8 +12,6 @@ import {TUserActions} from "../actions/registration-user";
 
   interface IInitialUserState {
     user: { name: string ; email: string} | null;
-    //email: string,
-    //name: string,
     isAuthChecked: boolean;
     userFailed: boolean;
     password: string;
@@ -22,8 +20,6 @@ import {TUserActions} from "../actions/registration-user";
   
 const initialUserState: IInitialUserState = {
   user: null,
-  //email: "",
-  //name: "",
   isAuthChecked: false,
   userFailed: false,
   password: ""
@@ -42,8 +38,6 @@ export const userReducer = (state = initialUserState, action: TUserActions) => {
         ...state,
         //user: action.user,
         user: action.payload.user,
-        //name: action.payload.user.name,
-        //email: action.payload.user.email,
         isAuthChecked: true,
         userFailed: false,
       };
@@ -59,8 +53,6 @@ export const userReducer = (state = initialUserState, action: TUserActions) => {
       return {
         ...state,
         user: null,
-        //name: '',
-        //login: '',
         userFailed: false,
         isAuthChecked: true,
       };
@@ -79,8 +71,6 @@ export const userReducer = (state = initialUserState, action: TUserActions) => {
       return {
         ...state,
         user: action.payload.user,
-        //name: action.payload.user.name,
-        //login: action.payload.user.email,
         isAuthenticated: true
       }
     }

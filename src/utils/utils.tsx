@@ -4,13 +4,6 @@ import { TUserType, IFormType} from "./data";
 const accessToken: string | undefined = localStorage.getItem("accessToken")
   ? localStorage.getItem("accessToken")?.slice(7)
   : "";
-  const checkSuccess = (res: any) => {
-    if (res && res.success) {
-      return res;
-    }
-    // не забываем выкидывать ошибку, чтобы она попала в `catch`
-    return Promise.reject(`Ответ не success: ${res}`);
-  };
   
 export const ORDERS_URL = `wss://norma.nomoreparties.space/orders?token=${accessToken}`;
 export const API_URL = "https://norma.nomoreparties.space/api";
@@ -59,18 +52,22 @@ export const resetPassword = (newPassword: string, key: string) => {
 
 
 
-export const createUser = (data: IFormType
+export const createUser = (
+  email: string,
+  password: string,
+  name: string
 ) => {
-  const {email, password, name} = data
-  return fetch(`${API_URL}/auth/register`, {
-    method: 'POST',
+  return fetch("https://norma.nomoreparties.space/api/auth/register", {
+    method: "POST",
     headers: {
-        'Content-Type': 'application/json'
+      "Content-Type": "application/json",
     },
     body: JSON.stringify({
-        email, password, name
-    })
-})
+      email: email,
+      password: password,
+      name: name,
+    }),
+  }).then((res) => checkResponse(res));
 };
 
 
