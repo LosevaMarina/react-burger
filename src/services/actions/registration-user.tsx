@@ -100,14 +100,19 @@ export const forgotPasswordUser: AppThunk = (data) => {
 };
 
 
-
+{/*}
 export const registerUser: AppThunk = (name, email, password) => {
   return (dispatch: AppDispatch) => {
-    
+    dispatch(getUserRequest());
     createUser(name, email, password)
-              .then(res => dispatch(getUserSuccess(res)))
-              .catch(err => dispatch(getUserFailed()))
+    .then((res) => {
+        localStorage.setItem("accessToken", res.accessToken);
+        localStorage.setItem("refreshToken", res.refreshToken);
+        dispatch(getUserSuccess(res));
+    })
+    .catch(() => {
+      dispatch(getUserFailed());
+    });
   };
 };
-
-
+*/}

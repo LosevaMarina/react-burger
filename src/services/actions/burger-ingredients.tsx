@@ -60,8 +60,7 @@ export const getIngredients: AppThunk = () => {
   return function (dispatch: AppDispatch) {
 
     dispatch({ type: INGREDIENTS_REQUEST });
-
-    request(`${API_URL}/ingredients`)
+    request('/ingredients')
     .then((res) => {
       if (res && res.success) {
         dispatch({
