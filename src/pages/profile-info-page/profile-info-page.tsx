@@ -27,7 +27,6 @@ export const ProfileInfoPage = () => {
         email!,
         newPassword
       )
-      
       .catch((err) => {
         console.log(`Ошибка сохранения: ${err}`);
       });

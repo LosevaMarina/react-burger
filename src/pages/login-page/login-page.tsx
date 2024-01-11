@@ -35,11 +35,13 @@ export const LoginPage = () => {
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
+{/*
     login({ email: values.email, password: values.password })
       .then((res) => {
         localStorage.setItem(refreshToken, res.refreshToken);
         localStorage.setItem(accessToken, res.accessToken);
+
+
         navigate( '/');
         let pathroute;
         if (location.state === null || location.state.from === null) {
@@ -48,6 +50,9 @@ export const LoginPage = () => {
           pathroute = location.state.from.pathname;
         }
         navigate(pathroute);
+
+
+        
 
         dispatch({
           type: GET_USER_SUCCESS,
@@ -58,7 +63,7 @@ export const LoginPage = () => {
         console.log(`Произошла ошибка: ${err}`);
       });
     
-{/*
+
     
 dispatch(userLogin (values))   
 if (isAuthChecked)

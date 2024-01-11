@@ -30,9 +30,6 @@ export const IngredientCard: FC<IIngredientCard> = ({ item, index }) => {
   const { name, price, image, _id } = item;
 
   const dispatch = useAppDispatch();
-  //const ref = useRef(null);
-  
-  //const ref = useRef<HTMLDivElement>(null);
   const ref = useRef<HTMLLIElement>(null);
 
   const [{ isDragging }, dragRef] = useDrag({

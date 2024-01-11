@@ -1,12 +1,11 @@
 import { FC, ReactElement } from "react";
 import { Navigate, useLocation } from "react-router-dom";
-//import { getAuthChecked } from "../../utils/utils";
 import { useAppSelector } from "../../hooks/hooks";
 
 interface IProtected {
   onlyUnAuth?: boolean;
   component: ReactElement;
-}
+} 
 
 
 const Protected: FC<IProtected> = ({ onlyUnAuth = false, component }) => {

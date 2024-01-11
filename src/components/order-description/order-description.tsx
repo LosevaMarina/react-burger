@@ -14,14 +14,13 @@ import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
 export const OrderDescription = () => {
   const dispatch = useAppDispatch();
   const {id} = useParams<string>();
-  const order = useAppSelector(store => store.orderCard.order);
+  const order = useAppSelector(state => state.orderCard.order);
 
   useEffect(() => {
     dispatch(connectFeedTable(FEED_URL));
-    //dispatch(getOrderCard(id))
     id && dispatch(getOrderCard(id));
     return () => {
-      dispatch(disconnectFeedTable());
+      dispatch(disconnectFeedTable()); 
     };
   }, [dispatch]);
 

@@ -11,7 +11,7 @@ import {
 import {TUserActions} from "../actions/registration-user";
 
   interface IInitialUserState {
-    user: { email: string; name: string } | null;
+    user: { name: string ; email: string} | null;
     isAuthChecked: boolean;
     userFailed: boolean;
     password: string;

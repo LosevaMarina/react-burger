@@ -1,7 +1,8 @@
 import { AppDispatch, AppThunk } from "../types";
-import {IUserInterface} from "../../utils/data";
+import { TUserType } from "../../utils/data";
+import { getUser, createUser } from "../../utils/utils";
+import { login, checkResponse, forgotPassword } from "../../utils/utils";
 
-import { login, checkResponse } from "../../utils/utils";
 export const GET_USER_REQUEST: "GET_USER_REQUEST" = "GET_USER_REQUEST";
 export const GET_USER_SUCCESS: "GET_USER_SUCCESS" = "GET_USER_SUCCESS";
 export const GET_USER_FAILED: "GET_USER_FAILED" = "GET_USER_FAILED";
@@ -10,17 +11,13 @@ export const GET_USER: "GET_USER" = "GET_USER";
 
 export const CHECK_TOKEN: "CHECK_TOKEN" = "CHECK_TOKEN";
 
-
-
-
-
 export interface IGetUserRequest {
   type: typeof GET_USER_REQUEST;
 }
 
 interface IGetUserSuccess {
-  type: typeof GET_USER_SUCCESS;
-  payload: IUserInterface;
+  type: typeof GET_USER_SUCCESS; 
+  payload: TUserType;
 }
 
 interface IGetUserFailed {
@@ -34,12 +31,7 @@ interface IClearUser {
 
 interface IGetUser {
   type: typeof GET_USER;
-  payload: {
-    success: boolean;
-    accessToken: string;
-    refreshToken: string;
-    user: { email: string; name: string };
-  };
+  payload: TUserType
 }
 
 interface ICheckToken {
@@ -54,37 +46,68 @@ export type TUserActions =
   | IGetUser
   | ICheckToken;
 
-  export const getUserRequest = (): IGetUserRequest => {
-    return {
-      type: GET_USER_REQUEST
-    }
-  }
+export const getUserRequest = (): IGetUserRequest => {
+  return {
+    type: GET_USER_REQUEST,
+  };
+};
 
-  export const getUserSuccess = (user: IUserInterface ): IGetUserSuccess => {
-    return {
-      type: GET_USER_SUCCESS,
-      payload: user
+export const getUserSuccess = (user: TUserType): IGetUserSuccess => {
+  return {
+    type: GET_USER_SUCCESS,
+    payload: user,
+  };
+};
 
-    }
-  }
+export const getUserFailed = (): IGetUserFailed => {
+  return {
+    type: GET_USER_FAILED,
+  };
+};
 
-  export const getUserFailed = (): IGetUserFailed => {
-    return {
-      type: GET_USER_FAILED
-    }
-  }
+export const userLogin: AppThunk = (data) => (dispatch: AppDispatch) => {
+  dispatch(getUserRequest());
+  login(data)
+    .then(checkResponse)
+    .then((res) => { 
+      localStorage.setItem("accessToken", res.accessToken);
+      localStorage.setItem("refreshToken", res.refreshToken);
+      dispatch(getUserSuccess(res));
+    })
+    .catch((err) => dispatch(getUserFailed()));
+};
 
-  export const userLogin: AppThunk = data => (dispatch: AppDispatch) => {
-    dispatch(getUserRequest());
-    login(data)
-        .then(checkResponse)
-        .then(res => {
-            localStorage.setItem("accessToken", res.accessToken);
-            localStorage.setItem("refreshToken", res.refreshToken);
-            dispatch(getUserSuccess(res))
+
+
+
+export const checkUser: AppThunk = () => {
+  return (dispatch: AppDispatch) => {
+    if (localStorage.getItem("accessToken")) {
+      getUser()
+        .then((res) => {
+          dispatch({ type: GET_USER, payload: res });
         })
-        .catch(err => dispatch(getUserFailed()))
-        //.catch(err => console.log ("ошибка: " + err))
-}
+        .catch((err) => console.log(err + "ошибка загагрузки страницы"));
+    }
+  };
+};
+
+export const forgotPasswordUser: AppThunk = (data) => {
+  return (dispatch: AppDispatch) => {
+    forgotPassword(data)
+      
+  };
+};
+
+
+
+export const registerUser: AppThunk = (name, email, password) => {
+  return (dispatch: AppDispatch) => {
+    
+    createUser(name, email, password)
+              .then(res => dispatch(getUserSuccess(res)))
+              .catch(err => dispatch(getUserFailed()))
+  };
+};
 
 

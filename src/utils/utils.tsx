@@ -1,5 +1,5 @@
 
-import {IFormType} from "./data";
+import { TUserType} from "./data";
 
 const accessToken: string | undefined = localStorage.getItem("accessToken")
   ? localStorage.getItem("accessToken")?.slice(7)
@@ -8,16 +8,6 @@ export const ORDERS_URL = `wss://norma.nomoreparties.space/orders?token=${access
 export const API_URL = "https://norma.nomoreparties.space/api";
 
 export const FEED_URL = "wss://norma.nomoreparties.space/orders/all";
-
-
-{/*}
-export const checkResponse = (res: Response) => {
-  if (res.ok) {
-    return res.json();
-  }
-  return Promise.reject(`Ошибка ${res.status}`);
-};
-*/}
 
 export const checkResponse = (res: Response) => {
   return res.ok ? res.json() : res.json().then((err) => Promise.reject(err));
@@ -59,8 +49,9 @@ export const resetPassword = (newPassword: string, key: string) => {
   }).then((res) => checkResponse(res));
 };
 
-export const createUser = (
-  email: string,
+
+
+export const createUser = (email: string,
   password: string,
   name: string
 ) => {
@@ -77,7 +68,9 @@ export const createUser = (
   }).then((res) => checkResponse(res));
 };
 
-export const login = (data: IFormType) => {
+
+
+export const login = (data: TUserType) => {
   return fetch(`${API_URL}/auth/login`, {
     method: "POST",
     headers: {
@@ -125,7 +118,7 @@ function postOrder (data: string) {
 };
 
 {/*
-function postOrder(data: string) {
+function postOrder(data: string[]) {
   return fetch(`${API_URL}/orders`, {
       method: 'POST',
       headers: {
@@ -154,8 +147,10 @@ export const refreshToken = () => {
 export const fetchWithRefresh = async (
   method: string,
   URL: string,
-  endpoint?: object | null
+  endpoint?: object | null,
+  token?: string | null
 ) => {
+  
   const config = {
     method: method,
     headers: {
@@ -186,198 +181,3 @@ export const fetchWithRefresh = async (
 
 export { api, postOrder };
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-{/*import { THeaders } from "./data";
-import {IUserResponse} from "./data";
-export const API_URL = "https://norma.nomoreparties.space/api";
-
-export const FEED_URL = "wss://norma.nomoreparties.space/orders/all";
-
-const accessToken: string | undefined = localStorage.getItem("accessToken")
-  ? localStorage.getItem("accessToken")?.slice(7)
-  : "";
-
-export const ORDERS_URL = `wss://norma.nomoreparties.space/orders?token=${accessToken}`;
-//export const ORDERS_URL = "wss://norma.nomoreparties.space/orders";
-export const checkResponse = (res: Response) => {
-  return res.ok ? res.json() : res.json().then((err) => Promise.reject(err));
-};
-
-export function request(url: string, options?: RequestInit) {
-  return fetch(url,options).then((res) => checkResponse(res));
-}
-
-
-export const refreshToken = () => {
-  return request(`${API_URL}/auth/token`, { 
-    method: "POST",
-    body: JSON.stringify({
-      token: localStorage.getItem("refreshToken"),
-    }),
-    headers: {
-      "Content-Type": "application/json; charset=UTF-8",
-    },
-  });
-};
-
-
-interface IOptions {
-  method: "GET" | "POST" | "PATCH" | "DELETE";
-  headers: {
-   "Content-Type": string;
-    authorization?: string | any;
- };
-  body?: string;
-}
-
-export const fetchWithRefresh = async (endpoint: string, options: IOptions): Promise<IUserResponse> => {
- // export const fetchWithRefresh = async (
- //   options: any,
- //   endpoint?: object | null
- // ) => {
-  try {
-    const res = await request(`${API_URL}/${endpoint}`, options);
-    return await checkResponse(res); 
-  } catch (err:any) {
-    if (err.message === "jwt expired") {
-      //обновляем токен
-      const refreshData = await refreshToken();
-      if (!refreshData.success) {
-        return Promise.reject(refreshData);
-      } 
-      localStorage.setItem("refreshToken", refreshData.refreshToken);
-      localStorage.setItem("accessToken", refreshData.accessToken);
-      options.headers.authorization = refreshData.accessToken;
-      const res = await fetch(`${API_URL}/${endpoint}`, options);
-      return await checkResponse(res);
-    } else {
-      return Promise.reject(err);
-    }
-  }
-};
-
-
-
-
-
-
-
-//export const getUser = ():  Promise<IUserResponse> => {
-  export const getUser = () => {
-  return fetchWithRefresh("auth/user", {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json; charset=UTF-8",
-      authorization: localStorage.getItem("accessToken"),
-    } as (HeadersInit | undefined) & THeaders,
-  });
-};
-
- 
-export const createUser = ( email:string,
-  password:string,
-  username:string) => {
- // return request(`${API_URL}/auth/register`, {
-    return fetch(`${API_URL}/auth/register`, {
-
-    method: "POST",
-    body: JSON.stringify({
-      email: email, 
-      password: password,
-      name: username,
-    }),
-    headers: {
-      "Content-Type": "application/json",
-    },
-  });
-};
-
-
-
-export const updateUser = (name: string, email: string, password: string ) => {
-  return fetchWithRefresh("auth/user", {
-    method: "PATCH",
-    body: JSON.stringify({
-      email: email,
-      name: name,
-      password: password,
-    }),
-    headers: {
-      "Content-Type": "application/json; charset=UTF-8",
-      authorization: localStorage.getItem("accessToken"),
-    },
-  });
-};
-
-
-export const resetPassword = (password: string, token:string) => {
-  return request(`${API_URL}/password-reset/reset`, {
-    method: "POST",
-    body: JSON.stringify({
-      password: password,
-      token: token,
-    }),
-    headers: {
-      "Content-Type": "application/json; charset=UTF-8",
-    },
-  });
-};
-
-export const logout = () => {
-  return request(`${API_URL}/auth/logout`, {
-    method: "POST",
-    body: JSON.stringify({
-      token: localStorage.getItem("refreshToken"),
-    }),
-    headers: {
-      "Content-Type": "application/json; charset=UTF-8",
-    },
-  });
-};
-
-
-export const login = ( email: string, password: string ) => {
-  return request(`${API_URL}/auth/login`, {
-    method: "POST",
-    body: JSON.stringify({
-      email: email,
-      password: password,
-    }),
-    headers: {
-      "Content-Type": "application/json; charset=UTF-8",
-    },
-  });
-};
-
-
-export const forgotPassword = (value: string) => {
-  return request(`${API_URL}/password-reset`, {
-    method: "POST",
-    body: JSON.stringify({
-      email: value,
-    }),
-    headers: {
-      "Content-Type": "application/json; charset=UTF-8",
-    },
-  });
-};
-
-*/}

@@ -1,11 +1,10 @@
 import styles from "../order-details/order-details.module.css";
-//import { Navigate, useLocation } from "react-router-dom";
 import { useAppSelector } from "../../hooks/hooks";
 
 export const OrderDetails = () => {
-  const order = useAppSelector(state => state.orderDetails);
+  const order = useAppSelector(state => state.orderDetails.order);
+  console.log ("order: " + order);
   return (
-    //<Navigate to={`/profile/orders/${order}`} state={{ background: location }} >
 
     <div className={styles.container}>
       <h1 className={"text text_type_digits-large" + " " + styles.numberText}>
@@ -31,6 +30,5 @@ export const OrderDetails = () => {
         Дождитесь готовности на орбитальной станции
       </p>
     </div>
-    //</Navigate>
   );
 };

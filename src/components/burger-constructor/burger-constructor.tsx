@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import {
   ConstructorElement,
   Button,
@@ -21,37 +21,36 @@ import { useNavigate } from "react-router-dom";
 
 import { Modal } from "../modal/modal";
 import { OrderDetails } from "../order-details/order-details";
-//import { CLOSE_ORDER_DETAILS_MODAL } from "../../services/actions/order-details";
-import { refreshToken, accessToken } from "../../utils/data";
+import { CLOSE_ORDER_DETAILS_MODAL } from "../../services/actions/order-details";
 import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
-import { IIngredientType } from "../../utils/data";
+import { IIngredientType, routeLogin } from "../../utils/data";
 import React from "react";
 import { v4 as uuidv4 } from "uuid";
 import type {} from "redux-thunk/extend-redux";
 
 export const BurgerConstructor = () => {
-  const UserAuth = Boolean(
-    localStorage.getItem(refreshToken) && localStorage.getItem(accessToken)
-  );
-console.log ("UserAuth::::::::::: " + UserAuth)
+  //const UserAuth = Boolean(
+    //localStorage.getItem(refreshToken) && localStorage.getItem(accessToken)
+  //);
+  const isAuthChecked = useAppSelector((state) => state.user.isAuthChecked);
+  console.log("isAuthChecked: " + isAuthChecked);
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const [Modalin, setModalin] = React.useState(false);
 
-  //const orderDetailsModal = useTypeSelector(
-  //  (state) => state.orderDetails.openModal
-  //);
+  const openModal = useAppSelector(
+    (state) => state.orderDetails.openModal)
+  console.log ("openModal" + openModal)
+
+  const loading = useAppSelector(
+    (state) => state.orderDetails.loading)
+  console.log ("loading" + loading)
+
 
   const { ingredients, bunIngredient } = useAppSelector((state) => ({
     bunIngredient: state.burgerConstructor.bunIngredient,
     ingredients: state.burgerConstructor.ingredients,
   }));
-  //const { ingredientid } = useAppSelector(state => state.orderDetails)
-  //const {ingredients, bunIngredient} = useTypeSelector((state) => state.burgerConstructor);
-
   const Top = "top";
-
-  //const loading = useTypeSelector(state => state.orderDetails.loading);
 
   const orderAmount = useMemo(() => {
     return (
@@ -102,25 +101,20 @@ console.log ("UserAuth::::::::::: " + UserAuth)
   }
 
   const handlePlaceOrder = () => {
-    if (UserAuth) {
+    if (isAuthChecked) {
       const orderIngredientIds = [
         bunIngredient?._id,
         ...ingredients.map((item) => item._id),
         bunIngredient?._id,
       ];
-      //let orderIngredientIds = ingredients.map((item) => item._id);
-      console.log ("ингредиенты: " + orderIngredientIds);
-
       dispatch(createOrder(orderIngredientIds));
-      setModalin(true);
     } else {
-      navigate("/login");
+      navigate(routeLogin);
     }
   };
 
   const closeOrderDetailsModal = () => {
-    setModalin(false);
-    //dispatch({ type: CLOSE_ORDER_DETAILS_MODAL });
+    dispatch({ type: CLOSE_ORDER_DETAILS_MODAL });
   };
 
   return (
@@ -174,18 +168,24 @@ console.log ("UserAuth::::::::::: " + UserAuth)
 
       {/*открытие модалки с номером заказа*/}
 
-      {Modalin && (
+{openModal && loading && (
         <Modal closeModal={closeOrderDetailsModal}>
-          <p className="text text_type_main-medium m-20">
+         <p className="text text_type_main-medium m-20">
             Ваш заказ формируется, минутку...
           </p>
         </Modal>
+        
       )}
-      {Modalin && (
+      {openModal && !loading && (
         <Modal closeModal={closeOrderDetailsModal}>
           <OrderDetails />
         </Modal>
+        
       )}
+
+
+
+
     </section>
   );
 };

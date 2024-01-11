@@ -11,12 +11,13 @@ type TModal = {
     children?: ReactNode;
 }
 
-export const Modal: FC<TModal> = (props) => {
 
+export const Modal: FC<TModal> = (props) => {
+  const { closeModal } = props;
   useEffect(() => {
     const closeESC = (e: KeyboardEvent) => {
       if (e.key === "Escape") {
-        props.closeModal();
+        closeModal();
       }
     };
 
@@ -25,8 +26,7 @@ export const Modal: FC<TModal> = (props) => {
     return () => {
       document.removeEventListener("keydown", closeESC);
     };
-  }, [props.closeModal]);
-   // }, [closeModal]);
+  }, [closeModal]);
 
 
   return createPortal(

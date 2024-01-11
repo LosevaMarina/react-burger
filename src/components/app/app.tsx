@@ -35,11 +35,9 @@ import { UserOrdersPage } from "../../pages/user-orders-page/user-orders-page";
 import { OrderDescription } from "../order-description/order-description";
 import { OrderDescriptionInProfile } from "../order-description-in-profile/order-description-in-profile";
 import {
-  CHECK_TOKEN,
-  GET_USER,
+  checkUser, CHECK_TOKEN
 } from "../../services/actions/registration-user";
-import { getUser } from "../../utils/utils";
-import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
+import { useAppDispatch } from "../../hooks/hooks";
 
 
 
@@ -48,38 +46,15 @@ import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
 
 export const App = () => {
   const dispatch = useAppDispatch();
-
-
-
-    //временная запись
-    //localStorage.removeItem("accessToken");
-
-
   useEffect(() => {
     dispatch(getIngredients());
-
+    dispatch(checkUser());
     dispatch({ type: CHECK_TOKEN });
-    const accessToken = localStorage.getItem("accessToken")
-    console.log ("accessToken: " + accessToken)
-    if (localStorage.getItem("accessToken")) {
-      getUser()
-        .then((res) => {
-          dispatch({ type: GET_USER, payload: res });
-        })
-        .catch((err) => console.log(err + "ошибка загагрузки страницы"));
-    }
-  }, [dispatch]);
-
+}, [dispatch]);
 
   const location = useLocation();
   const background = location.state && location.state.background;
   const navigate = useNavigate();
-  const makeOrderRequestInProgress = useAppSelector(
-    (state) => state.orderDetails
-  );
-  console.log ("REQUEST: "+ makeOrderRequestInProgress);
-
-
   function closeIngredientDetailsModal() {
     navigate(-1);
   }
@@ -87,8 +62,6 @@ export const App = () => {
   return (
     <section className={styles.block}>
       <AppHeader />
-    {/*  {REQUEST && <div className={styles.note}>загрузка...</div>}*/}
-
       <Routes location={background || location}>
         <Route path={routeHome} element={<HomePage />} />
         

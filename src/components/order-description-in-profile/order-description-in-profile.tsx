@@ -13,7 +13,6 @@ import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
 export const OrderDescriptionInProfile = () => {
   const dispatch = useAppDispatch();
   const { id } = useParams();
-  //const { id } = useParams<string>();
   const order = useAppSelector(store => store.orderCard.order);
 
   useEffect(() => {

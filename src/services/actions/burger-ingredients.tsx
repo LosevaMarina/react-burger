@@ -66,7 +66,6 @@ export const getIngredients: AppThunk = () => {
       if (res && res.success) {
         dispatch({
           type: INGREDIENTS_SUCCESS,
-          //data: res.data,
           data: res.data.map((ingredient: IIngredientType) => ({
             ...ingredient,
             counter: 0,

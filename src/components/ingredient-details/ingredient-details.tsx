@@ -4,8 +4,6 @@ import { useMemo } from "react";
 import { useAppSelector } from "../../hooks/hooks";
 
 export const IngredientDetails = () => {
-  //const { ingredient } = useSelector((state) => state.ingredientDetails);
-  //const { ingredients } = useSelector((state) => state.burgerIngredients);
   
   const { ingredients } = useAppSelector((state) => state.burgerIngredients);
 

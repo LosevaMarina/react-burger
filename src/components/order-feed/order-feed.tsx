@@ -1,6 +1,5 @@
 import styles from "./order-feed.module.css";
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
-//import { useSelector } from "react-redux";
 import { Link, useLocation } from "react-router-dom";
 import { useMemo, FC } from "react";
 import { FormattedDate } from "@ya.praktikum/react-developer-burger-ui-components";
@@ -67,7 +66,6 @@ export const OrderFeed: FC<IOrderFeed> = ({ order, status }) => {
                   if (index > 0 && index <= 5) {
                     return (
                       <li
-                        //key={uuidv4()}
                         key={index}
                         style={{ zIndex: index }}
                         className={styles.imgEl}
@@ -84,7 +82,6 @@ export const OrderFeed: FC<IOrderFeed> = ({ order, status }) => {
                     if (index === 0) {
                       return ( 
                         <li
-                          //key={uuidv4()}
                           key={index}
                           style={{ zIndex: index }}
                           className={`${styles.imgEl} ${styles.last}`}

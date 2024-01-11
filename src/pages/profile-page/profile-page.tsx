@@ -1,11 +1,5 @@
 import styles from "./profile-page.module.css";
 import { NavLink, Outlet } from "react-router-dom";
-import {
-  Input,
-  EmailInput,
-  PasswordInput,
-  Button,
-} from "@ya.praktikum/react-developer-burger-ui-components";
 import { SyntheticEvent} from "react";
 import { useNavigate } from "react-router-dom";
 import { logout} from "../../utils/utils";

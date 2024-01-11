@@ -8,12 +8,12 @@ import {
 } from "../actions/order-details";
 
 export type TinitialState = {
-  //order: {number: string }| null | IOrderInterface
+  //order: {number: string }| null
   order:  number,
   makeOrderRequestInProgress: boolean;
   makeOrderRequestFailed: boolean;
   openModal: boolean;
-  //loading: boolean
+  loading: boolean
 };
 
 const initialState: TinitialState = {
@@ -21,16 +21,16 @@ const initialState: TinitialState = {
   makeOrderRequestInProgress: false,
   makeOrderRequestFailed: false, 
   openModal: false,
-  //loading: false,
+  loading: false,
 };
 
-export const orderDetailsReducer = (state:TinitialState = initialState, action:TOrderDetailsActions) => {
+export const orderDetailsReducer = (state = initialState, action:TOrderDetailsActions): TinitialState => {
   switch (action.type) {
     case ORDER_REQUEST: {
       return {
         ...state,
         makeOrderRequestInProgress: true,
-        //loading: true,
+        loading: true,
       };
     }
     case ORDER_SUCCEED: {
@@ -39,7 +39,7 @@ export const orderDetailsReducer = (state:TinitialState = initialState, action:T
         makeOrderRequestInProgress: false,
         makeOrderRequestFailed: false,
         order: action.order,
-        //loading: false,
+        loading: false,
       };
     }
     case ORDER_FAILED: {
@@ -47,7 +47,7 @@ export const orderDetailsReducer = (state:TinitialState = initialState, action:T
         ...state,
         makeOrderRequestInProgress: false,
         makeOrderRequestFailed: true,
-        
+        order: 0
       };
     }
     case OPEN_ORDER_DETAILS_MODAL: {

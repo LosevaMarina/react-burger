@@ -7,7 +7,13 @@ import {
 import { useMatch, NavLink } from "react-router-dom";
 import styles from "./app-header.module.css";
 import { useEffect, useState } from "react";
-import { routeHome, routeProfile, routeOrderFeed, routeUser, routeLogin } from '../../utils/data';
+import {
+  routeHome,
+  routeProfile,
+  routeOrderFeed,
+  routeUser,
+  routeLogin,
+} from "../../utils/data";
 import { useAppSelector } from "../../hooks/hooks";
 
 export const AppHeader = () => {
@@ -17,7 +23,7 @@ export const AppHeader = () => {
   const isProfile = !!useMatch("/profile");
 
   const isAuthChecked = useAppSelector((state) => state.user.isAuthChecked);
-  console.log ("isAuthChecked: " + isAuthChecked)
+  console.log("isAuthChecked: " + isAuthChecked);
   const { user } = useAppSelector((state) => state.user);
 
   const [userName, setUserName] = useState("");
@@ -30,16 +36,12 @@ export const AppHeader = () => {
     }
   }, [isAuthChecked, user]);
 
-
   const checkUser = () => {
     if (isAuthChecked) {
-        return `${routeUser}/${routeProfile}`
+      return `${routeUser}/${routeProfile}`;
     }
-    return routeLogin
-}
-
-
-
+    return routeLogin;
+  };
 
   return (
     <header className={styles.header}>

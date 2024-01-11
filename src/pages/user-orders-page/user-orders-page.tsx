@@ -6,12 +6,8 @@ import {
   disconnect as disconnectUserFeedTable, 
 } from "../../services/actions/ws-profile";
 import {IOrderInterface } from "../../utils/data";
-import { FEED_URL, ORDERS_URL } from "../../utils/utils";
+import { ORDERS_URL } from "../../utils/utils";
 import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
-import {
-  connect as connectFeedTable,
-  disconnect as disconnectFeedTable,
-} from "../../services/actions/ws-actions";
 
 
 export const UserOrdersPage = () => {
@@ -21,10 +17,8 @@ export const UserOrdersPage = () => {
 
   useEffect(() => {
     dispatch(connectUserFeedTable(ORDERS_URL));
-    //dispatch(connectFeedTable(FEED_URL));
     return () => {
       dispatch(disconnectUserFeedTable());
-     // dispatch(disconnectFeedTable());
     };
   }, [dispatch]);
 

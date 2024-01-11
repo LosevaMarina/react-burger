@@ -1,6 +1,5 @@
-import { request, API_URL } from "../../utils/utils";
+
 import { clearIngredientCounter } from "./burger-ingredients";
-import { accessToken } from "../../utils/data";
 import {IIngredientType} from "../../utils/data";
 import { AppDispatch, AppThunk } from "../types/index"
 import {postOrder} from "../../utils/utils";
@@ -26,6 +25,7 @@ export interface IOrderSuccessAction {
 
 export interface IOrderFailedAction {
   type: typeof ORDER_FAILED;
+   order: IIngredientType;
 }
 
 export interface IOrderOpenDetailsModalAction {
@@ -63,7 +63,8 @@ export const createOrder: AppThunk = (orderItemsId: string) => {
         if (res && res.success) {
           dispatch({
             type: ORDER_SUCCEED,
-            order: res.order
+            //order: res.order
+            order: res.order.number
           });
         } else {
           dispatch({
@@ -75,74 +76,11 @@ export const createOrder: AppThunk = (orderItemsId: string) => {
           type: OPEN_ORDER_DETAILS_MODAL,
 
         });
-        //dispatch({
-        //  type: CLEAR_CONSTRUCTOR,
-        //});
         dispatch(clearIngredientCounter());
       })
       .catch((err) => console.log(err));
   };
 }
-
-{/*}
-//export function createOrder (orderItemsId: string[]) {
-//  return function (dispatch: Dispatch<TOrderDetailsActions>) {
-
-  export const createOrder: AppThunk = (orderItemsId: string) => {
-    return function (dispatch: AppDispatch) {
-    dispatch({
-      type: ORDER_REQUEST,
-    });
-
-    request(`${API_URL}/orders`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        authorization: localStorage.getItem(accessToken),
-      } as HeadersInit,
-      body: JSON.stringify({
-        ingredients: orderItemsId,
-      }), 
-    })
-      .then((data) => {
-        if (data && data.success) {
-          dispatch({
-            type: ORDER_SUCCEED,
-            //order: data.order.number.toString(),
-            //order: data.order.number,
-            order: data.order
-          });
-        }        
-        dispatch({
-          type: OPEN_ORDER_DETAILS_MODAL,
-
-        });
-        //dispatch({
-        //  type: CLEAR_CONSTRUCTOR,
-        //});
-        dispatch(clearIngredientCounter());
-      
-    }
-)
-
-      .catch((err) => {
-        dispatch({
-          type: ORDER_FAILED,
-          //order: err
-        });
-        console.log(
-          `Произошла ошибка открытия модалки с номером заказа: ${err}`
-        );
-      });
-  };
-};
-
-
-
-*/}
-
-
-
 
 
 

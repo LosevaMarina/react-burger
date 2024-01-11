@@ -35,8 +35,6 @@ export type TAnyOrderAction =
 
 
 
-//export function getOrderCard (number: string) {
-//return function (dispatch: Dispatch<TAnyOrderAction>) {
   export const getOrderCard: AppThunk = (number: string) => {
     return function (dispatch: AppDispatch) {
     dispatch({ type: GET_ORDER_CARD_REQUEST });

@@ -4,30 +4,29 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "../login-page/login-page.module.css";
 import { useNavigate, Link } from "react-router-dom";
-import { useState } from "react";
-import { forgotPassword } from "../../utils/utils";
 import {routeLogin} from "../../utils/data";
+import { useForm } from "../../hooks/hooks";
+import {useAppDispatch} from "../../hooks/hooks";
+import {forgotPasswordUser} from "../../services/actions/registration-user"
+
+
 
 const ForgotPasswordPage = () => {
-  const [email, setEmail] = useState("");
-
-  //const { values, handleChange } = useForm({ email: "" });
+  //const [email, setEmail] = useState("");
+  const dispatch = useAppDispatch();
+  const { values, handleChange } = useForm({ email: "" });
   const navigate = useNavigate();
+
+
 
   const restorePassword = (e: React.SyntheticEvent) => {
     e.preventDefault();
-    forgotPassword(email)
-      .then((res) => {
-        if (res && res.success) {
-          navigate("/reset-password", { state: { checkForgetToReset: true } });
-        } else {
-          alert("Произошла ошибка при восстановлении пароля");
-        }
-      })
-      .catch((err) => {
-        console.log(`Произошла ошибка: ${err}`);
-      });
+    dispatch(forgotPasswordUser(values, () => {
+        navigate("/reset-password", { state: { checkForgetToReset: true } });
+    }));
   };
+
+
 
   return (
     <form className={styles.content} onSubmit={restorePassword}>
@@ -39,9 +38,9 @@ const ForgotPasswordPage = () => {
           placeholder="Укажите E-mail"
           name={"email"}
           isIcon={false}
-          //onChange={handleChange}
-          onChange={(e) => setEmail(e.target.value)}
-          value={email}
+          onChange={handleChange}
+          //onChange={(e) => setEmail(e.target.value)}
+          value={values.email}
           extraClass="mt-6"
         />
       </div>

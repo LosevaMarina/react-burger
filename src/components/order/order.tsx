@@ -1,6 +1,5 @@
 import styles from "./order.module.css";
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
-//import { v4 as uuidv4 } from "uuid";
 import { Link, useLocation } from "react-router-dom";
 import { useMemo,FC } from "react";
 import { FormattedDate } from "@ya.praktikum/react-developer-burger-ui-components";
@@ -101,7 +100,6 @@ export const Order:FC<IOrder> = ({ order, status }) => {
                     if (index === 0) {
                       return (
                         <li
-                          //key={uuidv4()}
                           key={index}
                           style={{ zIndex: index }}
                           className={`${styles.imgEl} ${styles.last}`}
@@ -133,5 +131,3 @@ export const Order:FC<IOrder> = ({ order, status }) => {
 };
 
 
-
-//ingredients.find((el) => el._id === ingredient).image_mobile

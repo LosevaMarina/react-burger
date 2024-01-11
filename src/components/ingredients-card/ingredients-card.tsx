@@ -20,7 +20,6 @@ export const IngredientsCard: FC<IIngredientsCard> = ({ ingredients }) => {
     <div className={styles.list}>
       {ingredients.map((item: any = {}, index: number) => {
         return (
-          //<IngredientCard item={item.ingredient} index={index} key={item.key} />
           <IngredientCard item={item} index={index} key={item.constructorId} />
         );
       })}

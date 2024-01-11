@@ -19,7 +19,7 @@ const initialState: TInitialState = {
   openModal: false,
 };
 
-export const ingredientDetailsReducer = (state = initialState, action: TIngredientDetailsActions) => {
+export const ingredientDetailsReducer = (state = initialState, action: TIngredientDetailsActions): TInitialState => {
   switch (action.type) {
     case INGREDIENT: {
       return {
