@@ -17,11 +17,13 @@ import {useAppSelector} from "../../hooks/hooks";
 //import {TUserType} from "../../utils/data";
 
 export const LoginPage = () => {
-   
-
-  //const { values, handleChange } = useForm<TUserType>({ name: "", email: "", password: "" });
 
   const { values, handleChange } = useForm({ email: "", password: "" });
+
+  //const [emailValue, setEmailValue] = useState("");
+  //const [passwordValue, setPasswordValue] = useState("");
+
+
   const isAuthChecked = useAppSelector((state) => state.user.isAuthChecked);
   console.log ("isAuthChecked: " + isAuthChecked)
 
@@ -29,20 +31,12 @@ export const LoginPage = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const location = useLocation();
-  //const [email, setEmail] = useState('')
-
-  //const [password, setPassword] = useState('')
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-{/*
-    login({ email: values.email, password: values.password })
-      .then((res) => {
-        localStorage.setItem(refreshToken, res.refreshToken);
-        localStorage.setItem(accessToken, res.accessToken);
-
-
-        navigate( '/');
+        dispatch(userLogin(values))
+        if (isAuthChecked) 
+        navigate(routeHome);
         let pathroute;
         if (location.state === null || location.state.from === null) {
           pathroute = routeHome;
@@ -50,24 +44,6 @@ export const LoginPage = () => {
           pathroute = location.state.from.pathname;
         }
         navigate(pathroute);
-
-
-        
-
-        dispatch({
-          type: GET_USER_SUCCESS,
-          user: res.user,
-        });
-      })
-      .catch((err) => {
-        console.log(`Произошла ошибка: ${err}`);
-      });
-    
-
-    
-dispatch(userLogin (values))   
-if (isAuthChecked)
-navigate(routeHome)    */}
       }
 
     
@@ -84,9 +60,9 @@ navigate(routeHome)    */}
           name={"email"}
           isIcon={false}
           onChange={handleChange}
-          //onChange={e => setEmail(e.target.value)}
+          //onChange={e => setEmailValue(e.target.value)}
+          //value={emailValue}
           value={values.email}
-          //value={email}
         />
       </div>
       <div className={styles.input}>
@@ -94,9 +70,9 @@ navigate(routeHome)    */}
           name={"password"}
           extraClass="mb-2"
           onChange={handleChange}
-          //onChange={e => setPassword(e.target.value)}
+          //onChange={e => setPasswordValue(e.target.value)}
+          //value={passwordValue}
           value={values.password}
-          //value={password}
         />
       </div>
 

@@ -1,6 +1,3 @@
-
-
-
  import {
   Button,
   EmailInput,
@@ -13,38 +10,28 @@ import { useState, useRef, FormEvent, FC } from "react";
 import { createUser } from "../../utils/utils";
 import { GET_USER_SUCCESS } from "../../services/actions/registration-user";
 import { refreshToken, accessToken, routeLogin } from "../../utils/data";
-import { useAppDispatch } from "../../hooks/hooks";
+import { useAppDispatch, useForm } from "../../hooks/hooks";
 import {routeHome} from "../../utils/data";
-
+ 
 const RegisterPage: FC = () => {
-  const [nameValue, setNameValue] = useState("");
-  //const inputRef = useRef(null);
+  //const [nameValue, setNameValue] = useState("");
   
   const inputRef = useRef<HTMLInputElement>(null);
-  //const { values, handleChange } = useForm({ name: "", email: "", password: "" });
+  const { values, handleChange } = useForm({ name: "", email: "", password: "" });
   const onIconClick = () => {
-    //setTimeout(() => inputRef.current.focus(), 0);
     setTimeout(() => inputRef.current && inputRef.current.focus(), 0);
     alert("Icon Click Callback");
   };
 
-  const [emailValue, setEmailValue] = useState("");
-  //const onChangeEmail = (e: MouseEvent<HTMLFormElement>) => {
-   // setEmailValue(e.target.value);
-  //};
+  //const [emailValue, setEmailValue] = useState("");
 
-  const [passwordValue, setPasswordValue] = useState("");
- // const onChangePassword = (e: React.FormEvent) => {
- //   setPasswordValue(e.target.value);
- // };
-
+  //const [passwordValue, setPasswordValue] = useState("");
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    createUser(emailValue, passwordValue, nameValue)
-      //.then(res => checkResponse(res))
+    createUser(values)
       .then((res) => {
         localStorage.setItem(refreshToken, res.refreshToken);
         localStorage.setItem(accessToken, res.accessToken);
@@ -54,7 +41,6 @@ const RegisterPage: FC = () => {
           type: GET_USER_SUCCESS,
           user: res.user,
         });
-        //dispatch(checkUserAuth())
       }) 
       .catch((err) => {
         console.log(err);
@@ -77,8 +63,9 @@ const RegisterPage: FC = () => {
           name={"name"}
           size={"default"}
           extraClass="ml-1"
-          value={nameValue}
-          onChange={(e) => setNameValue(e.target.value)}
+          value={values.name}
+          //onChange={(e) => setNameValue(e.target.value)}
+          onChange={handleChange}
           onIconClick={onIconClick}
         />
       </div>
@@ -86,16 +73,18 @@ const RegisterPage: FC = () => {
         <EmailInput
           name={"email"}
           isIcon={false}
-          onChange={(e) => setEmailValue(e.target.value)}
-          value={emailValue}
+          //onChange={(e) => setEmailValue(e.target.value)}
+          onChange={handleChange}
+          value={values.email}
         />
       </div>
       <div className={styles.input}>
         <PasswordInput
           name={"password"}
           extraClass="mb-2"
-          onChange={(e) => setPasswordValue(e.target.value)}
-          value={passwordValue}
+          //onChange={(e) => setPasswordValue(e.target.value)}
+          onChange={handleChange}
+          value={values.password}
         />
       </div>
 

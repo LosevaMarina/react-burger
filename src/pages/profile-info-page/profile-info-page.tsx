@@ -32,6 +32,9 @@ export const ProfileInfoPage = () => {
       });
     };
 
+
+
+    
     const cancelChanges = () => {
       setName(user?.name);
       setEmail(user?.email);

@@ -11,9 +11,12 @@ import { ChangeEvent, useState } from "react";
 
   export const useAppSelector: TypedUseSelectorHook<RootState> = selectorHook;
   
+  export interface IUseFormTypes {
+      [key: string]: string
+  }
   
-  export function useForm<T>(inputValues:T) {
-    const [values, setValues] = useState<T>(inputValues);
+  export function useForm(inputValues:IUseFormTypes) {
+    const [values, setValues] = useState<IUseFormTypes>(inputValues);
 
     const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
       const { value, name } = event.target;
@@ -21,3 +24,4 @@ import { ChangeEvent, useState } from "react";
     };
     return { values, handleChange, setValues };
   }  
+

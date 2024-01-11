@@ -81,7 +81,8 @@ export type TUserActions =
         .then(res => {
             localStorage.setItem("accessToken", res.accessToken);
             localStorage.setItem("refreshToken", res.refreshToken);
-            dispatch(getUserSuccess(res))
+            //dispatch(getUserSuccess(res))
+            dispatch({ type: GET_USER, payload: res });
         })
         .catch(err => dispatch(getUserFailed()))
 }
@@ -108,21 +109,3 @@ export const forgotPasswordUser: AppThunk = (data) => {
       
   };
 };
-
-
-{/*}
-export const registerUser: AppThunk = (name, email, password) => {
-  return (dispatch: AppDispatch) => {
-    dispatch(getUserRequest());
-    createUser(name, email, password)
-    .then((res) => {
-        localStorage.setItem("accessToken", res.accessToken);
-        localStorage.setItem("refreshToken", res.refreshToken);
-        dispatch(getUserSuccess(res));
-    })
-    .catch(() => {
-      dispatch(getUserFailed());
-    });
-  };
-};
-*/}

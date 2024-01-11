@@ -1,5 +1,5 @@
 
-import { TUserType, IFormType} from "./data";
+import {IUseFormTypes} from "../hooks/hooks";
 
 const accessToken: string | undefined = localStorage.getItem("accessToken")
   ? localStorage.getItem("accessToken")?.slice(7)
@@ -53,26 +53,25 @@ export const resetPassword = (newPassword: string, key: string) => {
 
 
 export const createUser = (
-  email: string,
-  password: string,
-  name: string
+  data: IUseFormTypes
 ) => {
+  const {email, password, name} = data
   return fetch("https://norma.nomoreparties.space/api/auth/register", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      email: email,
-      password: password,
-      name: name,
+      email,
+      password,
+      name,
     }),
   }).then((res) => checkResponse(res));
 };
 
 
 
-export const login = (data: TUserType) => {
+export const login = (data: IUseFormTypes) => {
   return fetch(`${API_URL}/auth/login`, {
     method: "POST",
     headers: {
