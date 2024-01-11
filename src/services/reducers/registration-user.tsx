@@ -1,3 +1,5 @@
+
+
 import {
   GET_USER_REQUEST,
   GET_USER_SUCCESS,
@@ -11,7 +13,7 @@ import {
 import {TUserActions} from "../actions/registration-user";
 
   interface IInitialUserState {
-    user: { name: string ; email: string} | null;
+    user: { email: string; name: string } | null;
     isAuthChecked: boolean;
     userFailed: boolean;
     password: string;

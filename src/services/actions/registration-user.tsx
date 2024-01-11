@@ -2,7 +2,6 @@ import { AppDispatch, AppThunk } from "../types";
 import { TUserType } from "../../utils/data";
 import { getUser, createUser } from "../../utils/utils";
 import { login, checkResponse, forgotPassword } from "../../utils/utils";
-
 export const GET_USER_REQUEST: "GET_USER_REQUEST" = "GET_USER_REQUEST";
 export const GET_USER_SUCCESS: "GET_USER_SUCCESS" = "GET_USER_SUCCESS";
 export const GET_USER_FAILED: "GET_USER_FAILED" = "GET_USER_FAILED";
@@ -11,12 +10,16 @@ export const GET_USER: "GET_USER" = "GET_USER";
 
 export const CHECK_TOKEN: "CHECK_TOKEN" = "CHECK_TOKEN";
 
+
+
+
+
 export interface IGetUserRequest {
   type: typeof GET_USER_REQUEST;
 }
 
 interface IGetUserSuccess {
-  type: typeof GET_USER_SUCCESS; 
+  type: typeof GET_USER_SUCCESS;
   payload: TUserType;
 }
 
@@ -31,7 +34,12 @@ interface IClearUser {
 
 interface IGetUser {
   type: typeof GET_USER;
-  payload: TUserType
+  payload: {
+    success: boolean;
+    accessToken: string;
+    refreshToken: string;
+    user: { email: string; name: string };
+  };
 }
 
 interface ICheckToken {
@@ -46,36 +54,38 @@ export type TUserActions =
   | IGetUser
   | ICheckToken;
 
-export const getUserRequest = (): IGetUserRequest => {
-  return {
-    type: GET_USER_REQUEST,
-  };
-};
+  export const getUserRequest = (): IGetUserRequest => {
+    return {
+      type: GET_USER_REQUEST
+    }
+  }
 
-export const getUserSuccess = (user: TUserType): IGetUserSuccess => {
-  return {
-    type: GET_USER_SUCCESS,
-    payload: user,
-  };
-};
+  export const getUserSuccess = (user: TUserType ): IGetUserSuccess => {
+    return {
+      type: GET_USER_SUCCESS,
+      payload: user
 
-export const getUserFailed = (): IGetUserFailed => {
-  return {
-    type: GET_USER_FAILED,
-  };
-};
+    }
+  }
 
-export const userLogin: AppThunk = (data) => (dispatch: AppDispatch) => {
-  dispatch(getUserRequest());
-  login(data)
-    .then(checkResponse)
-    .then((res) => { 
-      localStorage.setItem("accessToken", res.accessToken);
-      localStorage.setItem("refreshToken", res.refreshToken);
-      dispatch(getUserSuccess(res));
-    })
-    .catch((err) => dispatch(getUserFailed()));
-};
+  export const getUserFailed = (): IGetUserFailed => {
+    return {
+      type: GET_USER_FAILED
+    }
+  }
+
+  export const userLogin: AppThunk = data => (dispatch: AppDispatch) => {
+    dispatch(getUserRequest());
+    login(data)
+        .then(checkResponse)
+        .then(res => {
+            localStorage.setItem("accessToken", res.accessToken);
+            localStorage.setItem("refreshToken", res.refreshToken);
+            dispatch(getUserSuccess(res))
+        })
+        .catch(err => dispatch(getUserFailed()))
+}
+
 
 
 
