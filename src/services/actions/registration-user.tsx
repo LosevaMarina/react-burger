@@ -1,6 +1,6 @@
 import { AppDispatch, AppThunk } from "../types";
 import { TUserType } from "../../utils/data";
-import { getUser, createUser } from "../../utils/utils";
+import { getUser, createUser, logout } from "../../utils/utils";
 import { login, checkResponse, forgotPassword } from "../../utils/utils";
 export const GET_USER_REQUEST: "GET_USER_REQUEST" = "GET_USER_REQUEST";
 export const GET_USER_SUCCESS: "GET_USER_SUCCESS" = "GET_USER_SUCCESS";
@@ -29,7 +29,6 @@ interface IGetUserFailed {
 
 interface IClearUser {
   type: typeof CLEAR_USER;
-  user: null;
 }
 
 interface IGetUser {
@@ -60,6 +59,13 @@ export type TUserActions =
     }
   }
 
+
+  export const clearUser = (): IClearUser => {
+    return {
+      type: CLEAR_USER
+    }
+  }
+  
   export const getUserSuccess = (user: TUserType ): IGetUserSuccess => {
     return {
       type: GET_USER_SUCCESS,
@@ -109,3 +115,17 @@ export const forgotPasswordUser: AppThunk = (data) => {
       
   };
 };
+
+
+
+export const logOutUser: AppThunk = data => (dispatch: AppDispatch) => {
+  logout(data)
+      .then(checkResponse)
+      .then(res => {
+          localStorage.removeItem("accessToken");
+          localStorage.removeItem("refreshToken");
+          dispatch(clearUser())
+      })
+      .catch(err => console.log(err))
+}
+

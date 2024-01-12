@@ -3,7 +3,7 @@ import { NavLink, Outlet } from "react-router-dom";
 import { SyntheticEvent} from "react";
 import { useNavigate } from "react-router-dom";
 import { logout} from "../../utils/utils";
-import { CLEAR_USER } from "../../services/actions/registration-user";
+import { CLEAR_USER, logOutUser } from "../../services/actions/registration-user";
 import { routeProfile, routeLogin, routeUserOrders } from '../../utils/data';
 import { refreshToken, accessToken } from "../../utils/data";
 import { useAppDispatch } from "../../hooks/hooks";
@@ -13,23 +13,13 @@ const ProfilePage = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
- 
+
+
   const exit = (e: SyntheticEvent) => {
     e.preventDefault();
-    logout(localStorage.getItem("refreshToken"))
-      .then((res) => {
-        dispatch({
-          type: CLEAR_USER,
-        });
-        //обновление токенов
-        localStorage.removeItem(accessToken);
-        localStorage.removeItem(refreshToken);
-        navigate(routeLogin);
-      })
-      .catch((err) => {
-        console.log(`Ошибка при выходе с аккаунта: ${err}`);
-      });
-  };
+    dispatch(logOutUser(localStorage.getItem("refreshToken")))
+}
+
 
 
   return (

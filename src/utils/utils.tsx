@@ -82,19 +82,18 @@ export const login = (data: IUseFormTypes) => {
 };
 
 
-export const logout = (token: string | null) => {
+
+export const logout = (data: string) => {
   return fetch(`${API_URL}/auth/logout`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      token: token,
-    }),
-  }).then((res) => checkResponse(res));
-};
-
-
+      method: 'POST',
+      headers: {
+          'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+          token: data
+      })
+  })
+}
 export const getUser = () => {
   return fetchWithRefresh("GET", `${API_URL}/auth/user`);
 };
