@@ -1,6 +1,6 @@
 
 import { clearIngredientCounter } from "./burger-ingredients";
-import {IIngredientType} from "../../utils/data";
+//import {IOrderInterface} from "../../utils/data";
 import { AppDispatch, AppThunk } from "../types/index"
 import {postOrder} from "../../utils/utils";
 
@@ -20,12 +20,14 @@ export interface IOrderRequestAction {
 
 export interface IOrderSuccessAction {
  type: typeof ORDER_SUCCEED;
-  order: IIngredientType;
+ order: number;
+ //order: IOrderInterface;
 }
 
 export interface IOrderFailedAction {
   type: typeof ORDER_FAILED;
-   order: IIngredientType;
+  order: number;
+  //order: IOrderInterface;
 }
 
 export interface IOrderOpenDetailsModalAction {

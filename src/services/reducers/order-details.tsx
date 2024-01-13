@@ -39,6 +39,7 @@ export const orderDetailsReducer = (state = initialState, action:TOrderDetailsAc
         makeOrderRequestInProgress: false,
         makeOrderRequestFailed: false,
         order: action.order,
+        //order: action.order.number
         loading: false,
       };
     }
