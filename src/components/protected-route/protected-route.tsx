@@ -16,7 +16,7 @@ const Protected: FC<IProtected> = ({ onlyUnAuth = false, component }) => {
 
   const location = useLocation();
   const user = useAppSelector((state) => state.user.user);
-  console.log ("user: "+ user);
+  console.log ("user: "+ user?.name + "  user mail: " + user?.email);
   if (!isAuthChecked) {
     return null;
   }

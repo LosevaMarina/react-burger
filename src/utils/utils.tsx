@@ -1,5 +1,6 @@
 
 import {IUseFormTypes} from "../hooks/hooks";
+import {TUserType} from "./data";
 
 const accessToken: string | undefined = localStorage.getItem("accessToken")
   ? localStorage.getItem("accessToken")?.slice(7)

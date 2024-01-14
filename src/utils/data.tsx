@@ -23,16 +23,44 @@ export interface IFormType {
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
 export interface TUserType {
-  "success": boolean,
-  "accessToken"?: string,
-  "refreshToken"?: string,
-  "user": {
-   "email": string,
-   "name": string
+  success: boolean,
+  accessToken?: string,
+  refreshToken?: string,
+  user: {
+   email: string,
+   name: string
   },
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 export type TStatusOrder = "done" | "created" | "pending";
 
@@ -55,30 +83,25 @@ export interface IOrderFeedAnswer {
 
 
 
-export interface IUser {
-  email: string | undefined;
-  name: string | undefined;
-}
+//export interface IUser {
+///  email: string | undefined;
+///  name: string | undefined;
+//}
 
-export interface IUserWithPass extends IUser {
-  password: string | undefined;
-}
+//export interface IUserWithPass extends IUser {
+ // password: string | undefined;
+//}
 
 
-export interface IUserResponse {
-  status?: string;
-  success?: boolean;
-  user: IUserWithPass;
-  accessToken: string;
-  refreshToken: string;
-}
+//export interface IUserResponse {
+//  status?: string;
+//  success?: boolean;
+//  user: IUserWithPass;
+//  accessToken: string;
+//  refreshToken: string;
+//}
 
-export type TTokenResponse = Omit<IUserResponse, "user">;
-
-export type THeaders = {
-  "Content-Type": string;
-  authorization: string | undefined;
-};
+//export type TTokenResponse = Omit<IUserResponse, "user">;
 
 
 

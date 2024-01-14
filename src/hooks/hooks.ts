@@ -11,7 +11,13 @@ import { ChangeEvent, useState } from "react";
 
   export const useAppSelector: TypedUseSelectorHook<RootState> = selectorHook;
   
+
+
+  
   export interface IUseFormTypes {
+    //email:string,
+    //password:string
+    //name:string | undefined;
       [key: string]: string
   }
   
