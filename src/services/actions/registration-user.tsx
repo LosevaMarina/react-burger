@@ -1,7 +1,7 @@
 import { AppDispatch, AppThunk } from "../types";
-import { TUserType } from "../../utils/data";
-import { getUser, createUser, logout } from "../../utils/utils";
-import { login, checkResponse, forgotPassword } from "../../utils/utils";
+import { TUserType, accessToken, refreshToken } from "../../utils/data";
+import { getUser, logout } from "../../utils/utils";
+import { login, forgotPassword } from "../../utils/utils";
 export const GET_USER_REQUEST: "GET_USER_REQUEST" = "GET_USER_REQUEST";
 export const GET_USER_SUCCESS: "GET_USER_SUCCESS" = "GET_USER_SUCCESS";
 export const GET_USER_FAILED: "GET_USER_FAILED" = "GET_USER_FAILED";
@@ -80,15 +80,16 @@ export type TUserActions =
     }
   }
 
+
+
   export const userLogin: AppThunk = data => (dispatch: AppDispatch) => {
     dispatch(getUserRequest());
     login(data)
-        .then(checkResponse)
         .then(res => {
-            localStorage.setItem("accessToken", res.accessToken);
-            localStorage.setItem("refreshToken", res.refreshToken);
-            //dispatch(getUserSuccess(res))
-            dispatch({ type: GET_USER, payload: res });
+            localStorage.setItem(accessToken, res.accessToken);
+            localStorage.setItem(refreshToken, res.refreshToken);
+            dispatch(getUserSuccess(res))
+            //dispatch({ type: GET_USER, payload: res });
         })
         .catch(err => dispatch(getUserFailed()))
 }
@@ -99,7 +100,7 @@ export type TUserActions =
 
 export const checkUser: AppThunk = () => {
   return (dispatch: AppDispatch) => {
-    if (localStorage.getItem("accessToken")) {
+    if (localStorage.getItem(accessToken)) {
       getUser()
         .then((res) => {
           dispatch({ type: GET_USER, payload: res });
@@ -120,10 +121,10 @@ export const forgotPasswordUser: AppThunk = (data) => {
 
 export const logOutUser: AppThunk = data => (dispatch: AppDispatch) => {
   logout(data)
-      .then(checkResponse)
+      //.then(checkResponse)
       .then(res => {
-          localStorage.removeItem("accessToken");
-          localStorage.removeItem("refreshToken");
+          localStorage.removeItem(accessToken);
+          localStorage.removeItem(refreshToken);
           dispatch(clearUser())
       })
       .catch(err => console.log(err))

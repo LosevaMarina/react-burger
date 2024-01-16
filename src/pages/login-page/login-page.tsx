@@ -19,13 +19,9 @@ import {useAppSelector} from "../../hooks/hooks";
 export const LoginPage = () => {
 
   const { values, handleChange } = useForm({ email: "", password: "" });
-
   //const [emailValue, setEmailValue] = useState("");
   //const [passwordValue, setPasswordValue] = useState("");
-
-
   const isAuthChecked = useAppSelector((state) => state.user.isAuthChecked);
-  console.log ("isAuthChecked: " + isAuthChecked)
 
 
   const navigate = useNavigate();

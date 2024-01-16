@@ -9,10 +9,7 @@ import { useForm } from "../../hooks/hooks";
 import {useAppDispatch} from "../../hooks/hooks";
 import {forgotPasswordUser} from "../../services/actions/registration-user"
 
-
-
 const ForgotPasswordPage = () => {
-  //const [email, setEmail] = useState("");
   const dispatch = useAppDispatch();
   const { values, handleChange } = useForm({ email: "" });
   const navigate = useNavigate();
@@ -39,7 +36,6 @@ const ForgotPasswordPage = () => {
           name={"email"}
           isIcon={false}
           onChange={handleChange}
-          //onChange={(e) => setEmail(e.target.value)}
           value={values.email}
           extraClass="mt-6"
         />

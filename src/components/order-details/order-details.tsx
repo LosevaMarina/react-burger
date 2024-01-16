@@ -3,7 +3,6 @@ import { useAppSelector } from "../../hooks/hooks";
 
 export const OrderDetails = () => {
   const order = useAppSelector(state => state.orderDetails.order);
-  console.log ("order: " + order);
   return (
 
     <div className={styles.container}>

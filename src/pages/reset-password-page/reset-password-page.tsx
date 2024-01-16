@@ -51,7 +51,7 @@ const ResetPasswordPage = () => {
       </h1>
       <div className={styles.input}>
         <PasswordInput
-          placeholder={"Введите новый пароль"}
+          placeholder={"Введите новый пароль"} 
           name={"password"}
           extraClass="mb-2"
           //onChange={handleChange}

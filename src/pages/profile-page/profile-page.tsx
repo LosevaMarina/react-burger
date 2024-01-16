@@ -2,10 +2,9 @@ import styles from "./profile-page.module.css";
 import { NavLink, Outlet } from "react-router-dom";
 import { SyntheticEvent} from "react";
 import { useNavigate } from "react-router-dom";
-import { logout} from "../../utils/utils";
-import { CLEAR_USER, logOutUser } from "../../services/actions/registration-user";
+import { logOutUser } from "../../services/actions/registration-user";
 import { routeProfile, routeLogin, routeUserOrders } from '../../utils/data';
-import { refreshToken, accessToken } from "../../utils/data";
+import { refreshToken } from "../../utils/data";
 import { useAppDispatch } from "../../hooks/hooks";
 
 const ProfilePage = () => {
@@ -17,7 +16,7 @@ const ProfilePage = () => {
 
   const exit = (e: SyntheticEvent) => {
     e.preventDefault();
-    dispatch(logOutUser(localStorage.getItem("refreshToken")))
+    dispatch(logOutUser(localStorage.getItem(refreshToken)))
 }
 
 

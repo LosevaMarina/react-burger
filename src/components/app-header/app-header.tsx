@@ -23,7 +23,6 @@ export const AppHeader = () => {
   const isProfile = !!useMatch("/profile");
 
   const isAuthChecked = useAppSelector((state) => state.user.isAuthChecked);
-  console.log("isAuthChecked: " + isAuthChecked);
   const { user } = useAppSelector((state) => state.user);
 
   const [userName, setUserName] = useState("");

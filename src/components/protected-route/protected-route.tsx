@@ -12,11 +12,8 @@ const Protected: FC<IProtected> = ({ onlyUnAuth = false, component }) => {
   //проверка токена произведена
   const isAuthChecked = useAppSelector((store) => store.user.isAuthChecked);
 
-  console.log ("проверка токена произведена: isAuthChecked: "+ isAuthChecked);
-
   const location = useLocation();
   const user = useAppSelector((state) => state.user.user);
-  console.log ("user: "+ user?.name + "  user mail: " + user?.email);
   if (!isAuthChecked) {
     return null;
   }
@@ -24,7 +21,6 @@ const Protected: FC<IProtected> = ({ onlyUnAuth = false, component }) => {
   if (onlyUnAuth && user) {
     //авторизация выполнена
     const { from } = location.state || { from: { pathname: "/" } };
-    console.log ("авторизация выполнена!!!!!!!!!!!!!!!!!!!!! ");
     return <Navigate to={from} />;
   }
 

@@ -79,6 +79,9 @@ export const createOrder: AppThunk = (orderItemsId: string) => {
 
         });
         dispatch(clearIngredientCounter());
+        dispatch({
+          type: CLEAR_CONSTRUCTOR,
+        });
       })
       .catch((err) => console.log(err));
   };

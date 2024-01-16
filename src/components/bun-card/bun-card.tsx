@@ -1,11 +1,16 @@
 import styles from "./bun-card.module.css";
+import { FC } from "react";
 
-export const BunCard = ( style: string | any ) => {
+interface IBunCard {
+  style: string 
+}
+
+  export const BunCard: FC<IBunCard> = (props) => {
   return (
     
     <div
       className={`${styles.card} ${
-        style === "top" ? styles.card_top : styles.card_bottom
+        props.style === "top" ? styles.card_top : styles.card_bottom
       }`}
     >
       <p className="text text_type_main-medium">Выбери булку</p>

@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useMemo } from "react";
 import {
   ConstructorElement,
   Button,
@@ -23,27 +23,24 @@ import { Modal } from "../modal/modal";
 import { OrderDetails } from "../order-details/order-details";
 import { CLOSE_ORDER_DETAILS_MODAL } from "../../services/actions/order-details";
 import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
-import { IIngredientType, routeLogin } from "../../utils/data";
+import { IIngredientType, routeLogin, refreshToken, accessToken } from "../../utils/data";
 import React from "react";
 import { v4 as uuidv4 } from "uuid";
 import type {} from "redux-thunk/extend-redux";
 
 export const BurgerConstructor = () => {
-  //const UserAuth = Boolean(
-    //localStorage.getItem(refreshToken) && localStorage.getItem(accessToken)
-  //);
-  const isAuthChecked = useAppSelector((state) => state.user.isAuthChecked);
-  console.log("isAuthChecked: " + isAuthChecked);
+  const UserAuth = Boolean(
+    localStorage.getItem(refreshToken) && localStorage.getItem(accessToken)
+  );
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
+
   const openModal = useAppSelector(
     (state) => state.orderDetails.openModal)
-  console.log ("openModal" + openModal)
 
   const loading = useAppSelector(
     (state) => state.orderDetails.loading)
-  console.log ("loading" + loading)
 
 
   const { ingredients, bunIngredient } = useAppSelector((state) => ({
@@ -51,6 +48,7 @@ export const BurgerConstructor = () => {
     ingredients: state.burgerConstructor.ingredients,
   }));
   const Top = "top";
+  const Bottom = "bottom";
 
   const orderAmount = useMemo(() => {
     return (
@@ -101,7 +99,7 @@ export const BurgerConstructor = () => {
   }
 
   const handlePlaceOrder = () => {
-    if (isAuthChecked) {
+    if (UserAuth) {
       const orderIngredientIds = [
         bunIngredient?._id,
         ...ingredients.map((item) => item._id),
@@ -110,6 +108,8 @@ export const BurgerConstructor = () => {
       dispatch(createOrder(orderIngredientIds));
     } else {
       navigate(routeLogin);
+      localStorage.removeItem(accessToken);
+      localStorage.removeItem(refreshToken);
     }
   };
 
@@ -135,7 +135,7 @@ export const BurgerConstructor = () => {
 
         <IngredientsCard ingredients={ingredients} />
 
-        <li className={styles.element}>
+        <li className={styles.element}> 
           {bunIngredient && (
             <ConstructorElement
               type="bottom"
@@ -145,7 +145,7 @@ export const BurgerConstructor = () => {
               thumbnail={bunIngredient.image}
             />
           )}
-          {!bunIngredient && <BunCard style={!Top} />}
+          {!bunIngredient && <BunCard style = {Bottom} />}
         </li>
       </ul>
 

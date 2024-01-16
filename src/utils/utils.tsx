@@ -15,7 +15,7 @@ export const checkResponse = (res: Response) => {
   return res.ok ? res.json() : res.json().then((err) => Promise.reject(err));
 };
 
-const api = (url: string) => {
+export const api = (url: string) => {
   return fetch(url).then((res) => checkResponse(res));
 };
 
@@ -24,7 +24,7 @@ export function request(url: string, options?: RequestInit) {
 }
 
 
-export const forgotPassword = (data: string) => {
+export const forgotPassword = (data: IUseFormTypes) => {
   return fetch(`${API_URL}/password-reset`, {
     method: "POST",
     headers: {
@@ -35,6 +35,7 @@ export const forgotPassword = (data: string) => {
     }),
   }).then((res) => checkResponse(res));
 };
+
 
 
 
@@ -57,7 +58,7 @@ export const createUser = (
   data: IUseFormTypes
 ) => {
   const {email, password, name} = data
-  return fetch("https://norma.nomoreparties.space/api/auth/register", {
+  return fetch(`${API_URL}/auth/register`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -72,7 +73,7 @@ export const createUser = (
 
 
 
-export const login = (data: IUseFormTypes) => {
+export const login = (data: TUserType) => {
   return fetch(`${API_URL}/auth/login`, {
     method: "POST",
     headers: {
@@ -93,8 +94,10 @@ export const logout = (data: string) => {
       body: JSON.stringify({
           token: data
       })
-  })
+  }).then((res) => checkResponse(res));
 }
+
+
 export const getUser = () => {
   return fetchWithRefresh("GET", `${API_URL}/auth/user`);
 };
@@ -114,24 +117,10 @@ export const updateUser = (
 
 
 
-function postOrder (data: string) {
+export const postOrder = (data: string) => {
   return fetchWithRefresh("POST", `${API_URL}/orders`, { ingredients: data });
 };
 
-{/*
-function postOrder(data: string[]) {
-  return fetch(`${API_URL}/orders`, {
-      method: 'POST',
-      headers: {
-          'Content-Type': 'application/json',
-         // authorization: token
-      },
-      body: JSON.stringify({
-          ingredients: data
-      })
-  })
-}
-*/}
 
 export const refreshToken = () => {
   return fetch(`${API_URL}/auth/token`, {
@@ -179,6 +168,3 @@ export const fetchWithRefresh = async (
     }
   }
 };
-
-export { api, postOrder };
-

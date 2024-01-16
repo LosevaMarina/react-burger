@@ -22,19 +22,6 @@ export interface IFormType {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 export interface TUserType {
   success: boolean,
   accessToken?: string,
@@ -82,31 +69,6 @@ export interface IOrderFeedAnswer {
 }
 
 
-
-//export interface IUser {
-///  email: string | undefined;
-///  name: string | undefined;
-//}
-
-//export interface IUserWithPass extends IUser {
- // password: string | undefined;
-//}
-
-
-//export interface IUserResponse {
-//  status?: string;
-//  success?: boolean;
-//  user: IUserWithPass;
-//  accessToken: string;
-//  refreshToken: string;
-//}
-
-//export type TTokenResponse = Omit<IUserResponse, "user">;
-
-
-
-
-
 export const routeHome = "/";
 
 export const routeUser = "user";
@@ -126,7 +88,7 @@ export const route404 = "*";
 export const refreshToken = "refreshToken";
 export const accessToken = "accessToken";
 
-
+ 
 
 
 

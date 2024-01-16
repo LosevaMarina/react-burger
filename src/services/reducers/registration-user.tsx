@@ -1,5 +1,3 @@
-
-
 import {
   GET_USER_REQUEST,
   GET_USER_SUCCESS,

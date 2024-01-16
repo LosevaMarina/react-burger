@@ -9,8 +9,6 @@ export const ProfileInfoPage = () => {
 
     const user = useAppSelector((state) => state.user.user);
     const password = useAppSelector((state) => state.user.password);
-    console.log("user: " +user + ", password: "+ password)
-
     const [isChangeInput, setChangeInput] = useState(false);
     const [isLoginInputDisabled, setLoginInputDisabled] = useState(true);
     const [name, setName] = useState(user?.name);
