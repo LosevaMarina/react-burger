@@ -15,9 +15,6 @@ import { ChangeEvent, useState } from "react";
 
   
   export interface IUseFormTypes {
-    //email:string,
-    //password:string
-    //name:string | undefined;
       [key: string]: string
   }
   

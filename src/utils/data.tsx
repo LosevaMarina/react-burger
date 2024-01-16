@@ -15,7 +15,7 @@ export interface IIngredientType {
   constructorId?: string;
   key: string
 }
-
+ 
 export interface IFormType {
   [key: string]: string
 }

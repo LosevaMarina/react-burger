@@ -22,10 +22,7 @@ const RegisterPage: FC = () => {
     setTimeout(() => inputRef.current && inputRef.current.focus(), 0);
     alert("Icon Click Callback");
   };
-
-  //const [emailValue, setEmailValue] = useState("");
-
-  //const [passwordValue, setPasswordValue] = useState("");
+  
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
