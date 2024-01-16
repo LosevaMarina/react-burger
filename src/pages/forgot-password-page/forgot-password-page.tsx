@@ -5,12 +5,10 @@ import {
 import styles from "../login-page/login-page.module.css";
 import { useNavigate, Link } from "react-router-dom";
 import {routeLogin} from "../../utils/data";
+import {forgotPassword} from "../../utils/utils";
 import { useForm } from "../../hooks/hooks";
-import {useAppDispatch} from "../../hooks/hooks";
-import {forgotPasswordUser} from "../../services/actions/registration-user"
 
 const ForgotPasswordPage = () => {
-  const dispatch = useAppDispatch();
   const { values, handleChange } = useForm({ email: "" });
   const navigate = useNavigate();
 
@@ -18,9 +16,17 @@ const ForgotPasswordPage = () => {
 
   const restorePassword = (e: React.SyntheticEvent) => {
     e.preventDefault();
-    dispatch(forgotPasswordUser(values, () => {
-        navigate("/reset-password", { state: { checkForgetToReset: true } });
-    }));
+    forgotPassword(values.email)
+      .then((res) => {
+        if (res && res.success) {
+          navigate("/reset-password", { state: { checkForgetToReset: true } });
+        } else {
+          alert("Произошла ошибка при восстановлении пароля");
+        }
+      })
+      .catch((err) => {
+        console.log(`Произошла ошибка: ${err}`);
+      });
   };
 
 

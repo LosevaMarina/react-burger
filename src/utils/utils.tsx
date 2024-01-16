@@ -24,7 +24,7 @@ export function request(url: string, options?: RequestInit) {
 }
 
 
-export const forgotPassword = (data: IUseFormTypes) => {
+export const forgotPassword = (data: string) => {
   return fetch(`${API_URL}/password-reset`, {
     method: "POST",
     headers: {
@@ -35,8 +35,6 @@ export const forgotPassword = (data: IUseFormTypes) => {
     }),
   }).then((res) => checkResponse(res));
 };
-
-
 
 
 export const resetPassword = (newPassword: string, key: string) => {

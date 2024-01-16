@@ -110,13 +110,6 @@ export const checkUser: AppThunk = () => {
   };
 };
 
-export const forgotPasswordUser: AppThunk = (data) => {
-  return (dispatch: AppDispatch) => {
-    forgotPassword(data)
-      
-  };
-};
-
 
 
 export const logOutUser: AppThunk = data => (dispatch: AppDispatch) => {
