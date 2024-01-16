@@ -73,7 +73,7 @@ export const createUser = (
 
 
 
-export const login = (data: TUserType) => {
+export const login = (data: IUseFormTypes) => {
   return fetch(`${API_URL}/auth/login`, {
     method: "POST",
     headers: {
